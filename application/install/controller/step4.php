@@ -5,12 +5,13 @@ namespace app\install\controller;
 use gophp\db;
 use gophp\helper\file;
 use gophp\request;
+use gophp\response;
 
 class step4 extends auth {
 
     public function index(){
 
-        if(session('step') != 4){
+        if(session('step') != 3){
 
             response::redirect('install/step3');
 

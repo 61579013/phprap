@@ -12,7 +12,7 @@ class step1 extends auth {
 
         if(request::isAjax()){
 
-            if(session('step') != 1){
+            if(!session('step')){
 
                 response::ajax(['code' => 300, 'msg' => '非法请求']);
 

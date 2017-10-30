@@ -10,7 +10,7 @@ class step2 extends auth {
 
     public function index(){
 
-        if(session('step') != 2){
+        if(session('step') != 1){
 
             response::redirect('install/step1');
 
