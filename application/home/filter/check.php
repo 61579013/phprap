@@ -2,11 +2,20 @@
 
 namespace app\home\filter;
 
-class close
+use gophp\helper\file;
+use gophp\response;
+
+class check
 {
 
     public function run()
     {
+
+        if(!file::exists(APP_PATH.'/install/install.lock')){
+
+            response::redirect('install');exit;
+
+        }
 
         $is_close = get_config('is_close');
 

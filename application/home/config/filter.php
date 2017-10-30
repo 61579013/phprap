@@ -2,6 +2,6 @@
 //默认配置
 return [
 
-    'rule' => 'close'
+    'rule' => 'check'
 
 ];
