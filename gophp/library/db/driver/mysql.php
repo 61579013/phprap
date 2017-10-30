@@ -64,10 +64,7 @@ class mysql extends contract
 
         } catch(\PDOException $e) {
 
-            return false;
-
-//            throw new exception("mysql connect Error:" . $e->getMessage());
-
+            throw new exception("mysql connect Error:" . $e->getMessage());
 
         }
 
@@ -172,8 +169,6 @@ class mysql extends contract
                 return $this->stmt->rowCount();
 
             }
-
-            return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
         }catch(\PDOException $e) {

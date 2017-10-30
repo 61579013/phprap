@@ -1,18 +1,4 @@
-/*
- Navicat Premium Data Transfer
 
- Source Server         : develop环境
- Source Server Type    : MySQL
- Source Server Version : 50634
- Source Host           : 101.200.36.159
- Source Database       : apidoc
-
- Target Server Type    : MySQL
- Target Server Version : 50634
- File Encoding         : utf-8
-
- Date: 10/25/2017 23:29:22 PM
-*/
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -34,7 +20,7 @@ CREATE TABLE `doc_api` (
   PRIMARY KEY (`id`),
   KEY `module_id_index` (`module_id`),
   KEY `user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目接口表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目接口表';
 
 -- ----------------------------
 --  Table structure for `doc_apply`
@@ -51,7 +37,7 @@ CREATE TABLE `doc_apply` (
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`),
   KEY `creater_id` (`creater_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='申请加入项目表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='申请加入项目表';
 
 -- ----------------------------
 --  Table structure for `doc_config`
@@ -68,7 +54,26 @@ CREATE TABLE `doc_config` (
 --  Records of `doc_config`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_config` VALUES ('1', '{\"name\":\"\\u6854\\u5b50\\u5206\\u671f\",\"keywords\":\"\\u63a5\\u53e3\\u7ba1\\u7406\\uff0capi\\u6587\\u6863\\u7ba1\\u7406\",\"copyright\":\"Copyright \\u00a9 2017 APIDOC\\u7248\\u6743\\u6240\\u6709\",\"email\":\"245629560@qq.com\",\"default_password\":\"4567890\",\"is_close\":\"0\",\"close_msg\":\"\\u7cfb\\u7edf\\u5347\\u7ea7\\uff0c\\u6682\\u65f6\\u65e0\\u6cd5\\u8bbf\\u95ee\\uff0c\\u8bf7\\u7a0d\\u5019\\u518d\\u8bd5\\uff01\"}', '2017-10-23 22:19:25');
+INSERT INTO `doc_config` VALUES ('1', '{\"name\":\"PHPRAP\\u63a5\\u53e3\\u6587\\u6863\\u7ba1\\u7406\\u7cfb\\u7edf\",\"keywords\":\"phprap,apidoc,api\\u6587\\u6863\\u7ba1\\u7406\",\"description\":\"PHPRAP\\uff0c\\u662f\\u4e00\\u4e2aPHP\\u8f7b\\u91cf\\u7ea7\\u5f00\\u6e90API\\u63a5\\u53e3\\u6587\\u6863\\u7ba1\\u7406\\u7cfb\\u7edf\\uff0c\\u81f4\\u529b\\u4e8e\\u51cf\\u5c11\\u524d\\u540e\\u7aef\\u6c9f\\u901a\\u6210\\u672c\\uff0c\\u63d0\\u9ad8\\u56e2\\u961f\\u534f\\u4f5c\\u5f00\\u53d1\\u6548\\u7387\\uff0c\\u6253\\u9020PHP\\u7248\\u7684RAP\\u3002\",\"copyright\":\"Copyright \\u00a9 2017 APIDOC\\u7248\\u6743\\u6240\\u6709\",\"email\":\"245629560@qq.com\",\"default_password\":\"123456\",\"is_close\":\"0\",\"close_msg\":\"\\u7cfb\\u7edf\\u5347\\u7ea7\\uff0c\\u6682\\u65f6\\u65e0\\u6cd5\\u8bbf\\u95ee\\uff0c\\u8bf7\\u7a0d\\u5019\\u518d\\u8bd5\\uff01\"}', '2017-10-30 22:32:12');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `doc_dbbak`
+-- ----------------------------
+DROP TABLE IF EXISTS `doc_dbbak`;
+CREATE TABLE `doc_dbbak` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `file` varchar(250) NOT NULL,
+  `size` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '大小，单位KB',
+  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `doc_dbbak`
+-- ----------------------------
+BEGIN;
+INSERT INTO `doc_dbbak` VALUES ('15', '20171030222916_all.sql', '10.00', '2017-10-30 22:29:16');
 COMMIT;
 
 -- ----------------------------
@@ -92,7 +97,7 @@ CREATE TABLE `doc_field` (
   KEY `api_id_index` (`api_id`),
   KEY `user_id_index` (`user_id`),
   KEY `parent_id_index` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目字段表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目字段表';
 
 -- ----------------------------
 --  Table structure for `doc_login_log`
@@ -108,7 +113,7 @@ CREATE TABLE `doc_login_log` (
   `device` varchar(50) NOT NULL DEFAULT '' COMMENT '登录设备',
   `add_time` datetime NOT NULL COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='登录日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志表';
 
 -- ----------------------------
 --  Table structure for `doc_member`
@@ -126,7 +131,7 @@ CREATE TABLE `doc_member` (
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`) USING BTREE,
   KEY `project_id_index` (`project_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目成员表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目成员表';
 
 -- ----------------------------
 --  Table structure for `doc_module`
@@ -170,7 +175,7 @@ CREATE TABLE `doc_notify` (
   KEY `project_id` (`project_id`),
   KEY `to_user_id` (`to_user_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='消息通知表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='消息通知表';
 
 -- ----------------------------
 --  Table structure for `doc_project`
@@ -188,14 +193,7 @@ CREATE TABLE `doc_project` (
   `sort` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='项目表';
-
--- ----------------------------
---  Records of `doc_project`
--- ----------------------------
-BEGIN;
-INSERT INTO `doc_project` VALUES ('1', '7', '演示项目', '演示专用项目', '[{\"name\":\"product\",\"title\":\"\\u751f\\u4ea7\\u73af\\u5883\",\"domain\":\"http:\\/\\/gocmf.com\"},{\"name\":\"develop\",\"title\":\"\\u5f00\\u53d1\\u73af\\u5883\",\"domain\":\"http:\\/\\/gocmf.com\"}]', '1', '2017-10-20 21:44:06', '2017-10-25 23:28:13', '0'), ('2', '2', '测试项目', '测试专用', '[{\"name\":\"product\",\"title\":\"\\u751f\\u4ea7\\u73af\\u5883\",\"domain\":\"http:\\/\\/www.gocmf.com\"},{\"name\":\"develop\",\"title\":\"\\u5f00\\u53d1\\u73af\\u5883\",\"domain\":\"http:\\/\\/dev.gocmf.com\"}]', '1', '2017-10-21 17:39:03', '2017-10-25 23:28:16', '0');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目表';
 
 -- ----------------------------
 --  Table structure for `doc_project_log`
@@ -216,7 +214,7 @@ CREATE TABLE `doc_project_log` (
   `field_name` varchar(200) DEFAULT NULL,
   `member_name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`,`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `doc_user`
@@ -235,10 +233,13 @@ CREATE TABLE `doc_user` (
   `add_time` datetime NOT NULL COMMENT '注册时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='会员表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='会员表';
 
 -- ----------------------------
 --  Records of `doc_user`
 -- ----------------------------
+BEGIN;
+INSERT INTO `doc_user` VALUES ('1', '245629560@qq.com', ' 勾国印', '65a81041f28d51287b23dc2aa1cd4c3b', '2', '1', '111.199.93.20', '中国  北京市 北京市', 'pc', '2017-10-30 22:21:03'), ('2', 'sinmoon@qq.com', 'sinmoon', '45d91bcb97323a134866b0c348f30700', '1', '1', '113.64.107.12', '中国  广东省 广州市', 'pc', '2017-10-30 22:33:59');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

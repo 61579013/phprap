@@ -3,7 +3,6 @@
 namespace app\install\controller;
 
 use gophp\db;
-use gophp\helper\dir;
 use gophp\helper\file;
 use gophp\request;
 
@@ -32,9 +31,10 @@ class step4 extends auth {
 
             }
 
-            $db->query($v);
+            db()->show(false)->query($v);
 
         }
+
 
         // 管理员账号入库
         $admin = session('admin');

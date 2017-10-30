@@ -22,7 +22,10 @@ class test {
      */
     public function index(){
 
-        dump(phpinfo());
+        $db = db::instance();
+        $b = db()->show(false)->query('SET NAMES utf8mb4');
+
+        dump($b);
 
     }
 
