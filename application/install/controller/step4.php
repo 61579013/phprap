@@ -5,6 +5,7 @@ namespace app\install\controller;
 use gophp\db;
 use gophp\helper\file;
 use gophp\request;
+use gophp\response;
 
 class step4 extends auth {
 
