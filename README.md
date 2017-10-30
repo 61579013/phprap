@@ -36,7 +36,7 @@
     
   [**源码**]
   
-  下载[源码](https://github.com/gouguoyin/phprap/archive/master.zip)，上传到服务器上后解压
+  下载[源码](https://github.com/gouguoyin/phprap/archive/v1.0.0.zip)，上传到服务器上后解压
     
 - 绑定域名
 

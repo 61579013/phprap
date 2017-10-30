@@ -82,7 +82,7 @@ class apply extends auth {
 
         }else{
 
-            $applys = db('apply')->where('creater_id', '=', $user_id)->findAll();
+            $applys = db('apply')->where('creater_id', '=', $user_id)->orderBy('id desc')->findAll();
 
             $this->assign('applys', $applys);
 
