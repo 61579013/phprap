@@ -10,7 +10,6 @@ class schema
 
     private $db     = null;
     private $stmt   = null;
-    private $suffix;
     private $config = [];
 
     use call;

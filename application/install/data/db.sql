@@ -235,11 +235,4 @@ CREATE TABLE `doc_user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='会员表';
 
--- ----------------------------
---  Records of `doc_user`
--- ----------------------------
-BEGIN;
-INSERT INTO `doc_user` VALUES ('1', '245629560@qq.com', ' 勾国印', '65a81041f28d51287b23dc2aa1cd4c3b', '2', '1', '111.199.93.20', '中国  北京市 北京市', 'pc', '2017-10-30 22:21:03'), ('2', 'sinmoon@qq.com', 'sinmoon', '45d91bcb97323a134866b0c348f30700', '1', '1', '113.64.107.12', '中国  广东省 广州市', 'pc', '2017-10-30 22:33:59');
-COMMIT;
-
 SET FOREIGN_KEY_CHECKS = 1;
