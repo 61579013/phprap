@@ -45,7 +45,7 @@ class api extends auth {
             // 检测是否填写接口地址
             if($uri = $api['uri']){
 
-                $data['uri'] = $uri;
+                $data['uri'] = trim($uri, '/');
 
             }else{
 
