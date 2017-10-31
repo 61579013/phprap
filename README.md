@@ -26,17 +26,17 @@
 
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git
+    git clone https://github.com/gouguoyin/phprap.git -b 'stable'
     ```
     
   [**GITEE**]
     ```php
-    git clone https://gitee.com/gouguoyin/phprap.git
+    git clone https://gitee.com/gouguoyin/phprap.git -b 'stable'
     ```
     
   [**源码**]
   
-  下载[源码](https://github.com/gouguoyin/phprap/archive/master.zip)，上传到服务器上后解压
+  下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)，上传到服务器上后解压
     
 - 绑定域名
 
