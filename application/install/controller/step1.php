@@ -35,7 +35,7 @@ class step1 extends auth {
 
         }else{
 
-            dump('jjjj');
+            dump(PHP_SAPI);
 
             session('step', 1);
 
