@@ -25,7 +25,7 @@ class test {
     public function index(){
 
         $mock = new app\mock();
-        $a = $mock->image('200x300');
+        $a = $mock->image();
 
         dump($a);
 
