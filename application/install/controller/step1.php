@@ -35,6 +35,8 @@ class step1 extends auth {
 
         }else{
 
+            dump('jjjj');
+
             session('step', 1);
 
             if(PHP_SAPI == 'apache2handler'){
