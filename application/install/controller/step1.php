@@ -4,7 +4,6 @@ namespace app\install\controller;
 
 use gophp\request;
 use gophp\response;
-use gophp\schema;
 
 class step1 extends auth {
 
@@ -38,10 +37,20 @@ class step1 extends auth {
 
             session('step', 1);
 
+            if(PHP_SAPI == 'apache2handler'){
+
+                $server_env = 'apache';
+
+            }elseif (PHP_SAPI == 'cgi-fcgi'){
+
+                $server_env = 'nginx';
+
+            }
+
             $system = [
                 'php_os' => PHP_OS,
-                'php_version'   => PHP_VERSION,
-                'mysql_version' => schema::instance()->version(),
+                'php_version' => PHP_VERSION,
+                'server_env'  => $server_env
             ];
 
             $chmod['runtime'] = get_dir_chmod(ROOT_PATH.'/runtime/');

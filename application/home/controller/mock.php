@@ -55,14 +55,20 @@ class mock extends controller {
         }
 
         switch ($_SERVER['REQUEST_METHOD']) {
+
             case 'GET':
+
                 $request_data = $_GET;
                 unset($request_data['r']);
                 break;
+
             case 'POST':
+
                 $request_data = $_POST;
                 break;
+
             case 'PUT':
+
                 parse_str(file_get_contents('php://input'), $request_data);
                 break;
         }
@@ -132,11 +138,9 @@ class mock extends controller {
 
         }
 
-        // 获取响应参数列表
-        $response_fields = \app\field::get_field_list($api_id, 2);
+        $mock_data = field::get_mock_data($api_id);
 
-
-        dump($request_fields);
+        response::ajax($mock_data);
 
     }
 
