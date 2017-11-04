@@ -40,19 +40,7 @@
                                                     <td>Linux/Win</td>
                                                     <td><i class="fa fa-check"></i></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>服务器环境</td>
-                                                    <td>{{$system.server_env}}</td>
-                                                    <td>apache/nginx</td>
-                                                    <td>
-                                                        {{if in_array($system.server_env, ['apache', 'nginx'])}}
-                                                        <i class="fa fa-check"></i>
-                                                        {{else}}
-                                                        <i class="fa fa-times"></i>
-                                                        <input type="hidden" name="step1['mysql_version']" value="服务器环境必须为apache或nginx" >
-                                                        {{/if}}
-                                                    </td>
-                                                </tr>
+
                                                 <tr>
                                                     <td>PHP版本</td>
                                                     <td>{{$system.php_version}}</td>
