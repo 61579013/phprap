@@ -1,6 +1,4 @@
 {{include_file name='public/header' title='接口详情'}}
-<link href="{{STATIC_URL}}/plugins/jsonFormat/css.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
@@ -25,6 +23,8 @@
                         {{if \app\member::has_rule({{$project.id}}, 'api', 'delete')}}
                         <a href="javascript:void(0);" class="btn btn-sm btn-danger js_deleteApiBtn" data-id="{{$api.id}}"><i class="fa fa-fw fa-times"></i>删除</a>
                         {{/if}}
+
+<!--                        <a target="_blank" href="{{url("debug/{{id_encode($api.id)}}")}}" class="btn btn-sm btn-warning js_debugApiBtn"><i class="fa fa-fw fa-wrench"></i>调试</a>-->
 
                     </div>
                 </div>
@@ -67,12 +67,21 @@
                                 {{$env_url = {{$env.domain}}|cat:'/'|cat:{{$api.uri}}}}
                                 <tr>
                                     <td style="width: 20%;">{{$env.title}}({{$env.name}})</td>
-                                    <td style="width: 70%;"><code>{{$env_url}}</code></td>
-                                    <td style="width: 10%;">
-                                        <button type="button" data-clipboard-text="{{$env_url}}" class="btn btn-xs btn-success js_copyUrl">复制链接</button>
+                                    <td style="width: 50%;"><code>{{$env_url}}</code></td>
+                                    <td style="width: 15%;">
+                                        <button type="button" data-clipboard-text="{{$env_url}}" class="btn btn-xs btn-success js_copyUrl"><i class="fa fa-fw fa-copy"></i>复制链接</button>
                                     </td>
                                 </tr>
                                 {{/foreach}}
+
+                                <tr>
+                                    <td style="width: 20%;">模拟环境(mock)</td>
+                                    <td style="width: 50%;"><code>{{url("mock/{{id_encode($api.id)}}", '', true)}}</code></td>
+                                    <td style="width: 15%;">
+                                        <button type="button" data-clipboard-text="{{url("mock/{{id_encode($api.id)}}", '', true)}}" class="btn btn-xs btn-success js_copyUrl"><i class="fa fa-fw fa-copy"></i>复制链接</button>
+                                    </td>
+
+                                </tr>
 
                                 </tbody>
                             </table>
@@ -135,7 +144,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        返回参数
+                        响应参数
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -146,6 +155,7 @@
                                     <th>字段别名</th>
                                     <th>字段含义</th>
                                     <th>字段类型</th>
+                                    <th>MOCK规则</th>
                                     <th>备注说明</th>
                                 </tr>
                                 </thead>
@@ -155,6 +165,7 @@
                                     <td style="text-align: left;padding-left: 50px;">{{$response_field.delimiter}}{{if $response_field.parent_id}}└{{/if}}{{$response_field.name}}</td>
                                     <td>{{$response_field.title}}</td>
                                     <td>{{\app\field::get_type_list({{$response_field.type}})}}</td>
+                                    <td>{{$response_field.mock}}</td>
                                     <td>{{$response_field.intro}}</td>
                                 </tr>
 
@@ -171,21 +182,8 @@
             <!-- /.col-lg-6 -->
         </div>
         <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        返回示例
-                    </div>
-                    <div class="panel-body">
-                        <div class="hidden" id="RawJson">{{$api.demo}}</div>
-                        <div id="Canvas" class="Canvas"></div>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-12 -->
+        <div class="panel-json">
+            {{include_file name='field/response/json'}}
         </div>
 
     </div>
@@ -222,7 +220,6 @@
     </div>
 </div>
 <!-- /#wrapper -->
-<script src="{{STATIC_URL}}/plugins/jsonFormat/js.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}/plugins/clipboard/clipboard.min.js"></script>
 <script>
     $(function () {
@@ -263,9 +260,6 @@
         clipboard.on('error', function() {
             alert('地址复制失败，请手动复制', 3000);
         });
-
-        // 格式化json
-        Process();
 
     })
 </script>

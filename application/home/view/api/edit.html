@@ -58,10 +58,9 @@
 
                                     </label>
 
-                                    <input class="form-control" name="api[uri]" value="{{$api.uri}}" placeholder="必填，不包含域名部分" datatype="/^(?!http://).*$/" nullmsg="请输入网站名称！" errormsg="至少2个字符">
+                                    <input class="form-control" name="api[uri]" value="{{$api.uri}}" placeholder="必填，不包含域名部分，rest参数请用{}，如/user/{id}" datatype="/^(?!http://).*$/" nullmsg="请输入网站名称！" errormsg="至少2个字符">
 
                                 </div>
-
 
                                 <div class="form-group">
                                     <label>接口描述</label>
@@ -117,7 +116,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    返回参数
+                    响应参数
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -139,27 +138,13 @@
         <!-- /.col-lg-6 -->
     </div>
 
-
     <!-- /.row -->
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    返回示例
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <textarea class="form-control" name="api[demo]" rows="3" placeholder="非必填，返回示例必须是合法json格式(键值对都是双引号)">{{$api.demo}}</textarea>
-                    <!-- /.table-responsive -->
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <!-- /.col-lg-6 -->
+    <div class="panel-json">
+        {{include_file name='field/response/json'}}
     </div>
+
 </form>
+
 
 <!-- 添加/编辑请求字段模态框 -->
 <div class="modal fade" id="js_addRequestFieldModal" role="dialog">
@@ -196,7 +181,7 @@
             </div>
             <div class="modal-body">
 
-                <iframe id="js_addResponseFieldIframe" style="min-height: 320px;" src="{{url('field/response')}}"></iframe>
+                <iframe id="js_addResponseFieldIframe" style="min-height: 390px;" src="{{url('field/response')}}"></iframe>
 
             </div>
             <div class="modal-footer">

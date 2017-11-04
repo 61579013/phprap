@@ -29,6 +29,14 @@ class db extends contract
 
     }
 
+    public function ping()
+    {
+
+        $this->handler = $this->handler();
+
+        return $this->handler->ping();
+    }
+
     public function connect()
     {
 

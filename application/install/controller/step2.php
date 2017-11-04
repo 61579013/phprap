@@ -5,12 +5,13 @@ namespace app\install\controller;
 use gophp\db;
 use gophp\request;
 use gophp\response;
+use gophp\schema;
 
 class step2 extends auth {
 
     public function index(){
 
-        if(session('step') != 2){
+        if(session('step') < 2){
 
             response::redirect('install/step1');
 
@@ -34,9 +35,17 @@ class step2 extends auth {
 
             }
 
-            if(db::instance()->connect() === false){
+            if(db::instance()->ping() === false){
 
                 response::ajax(['code' => 302, 'msg' => '数据库连接失败，请检查数据库配置项']);
+
+            }
+
+            $require_mysql_version = '5.4.0';
+
+            if(!version_compare( schema::instance()->version(), $require_mysql_version, '>=' )){
+
+                response::ajax(['code' => 303, 'msg' => 'MySQL版本不能低于' . $require_mysql_version]);
 
             }
 

@@ -4,7 +4,6 @@ namespace app\install\controller;
 
 use gophp\request;
 use gophp\response;
-use gophp\schema;
 
 class step1 extends auth {
 
@@ -12,7 +11,7 @@ class step1 extends auth {
 
         if(request::isAjax()){
 
-            if(session('step') != 1){
+            if(!session('step')){
 
                 response::ajax(['code' => 300, 'msg' => '非法请求']);
 
@@ -40,8 +39,7 @@ class step1 extends auth {
 
             $system = [
                 'php_os' => PHP_OS,
-                'php_version'   => PHP_VERSION,
-                'mysql_version' => mysql_get_server_info(),
+                'php_version' => PHP_VERSION,
             ];
 
             $chmod['runtime'] = get_dir_chmod(ROOT_PATH.'/runtime/');

@@ -67,7 +67,7 @@ class field {
                 $default_value = $value.rand(1,100);
                 break;
 
-            case 'int':
+            case 'number':
                 $default_value = rand(200,999);
                 break;
 
@@ -87,6 +87,34 @@ class field {
         }
 
         return $default_value;
+
+    }
+
+    /**
+     * 根据mock规则返回模拟数据
+     * @param $rule
+     * @return int|null|string
+     */
+    public static function get_mock_value($rule)
+    {
+
+        $data = explode('|', $rule);
+
+        $type = $data[0];
+
+        if(!$type){
+
+            return ;
+
+        }
+
+        $rule = $data[1] ? $data[1] : '';
+
+        $value = $data[2] ? $data[2] : '';
+
+        $mock = new mock();
+
+        return $mock->$type($rule, $value);
 
     }
 
@@ -241,6 +269,13 @@ class field {
 
         }
 
+        // 检测是否填写mock规则
+        if($mock = $post['mock']){
+
+            $data['mock'] = $mock;
+
+        }
+
         // 检测是否填写字段简介
         if($intro = $post['intro']){
 
@@ -258,12 +293,13 @@ class field {
 
             $type_title = '响应字段';
 
-            $data['default_value'] = \app\field::get_random_value($type, $title);
+            $mcok_value = \app\field::get_mock_value($mock);
+
+            $data['default_value'] = $mcok_value ? $mcok_value : '';
 
         }
 
-
-        $data['method']    = $post['method'];
+        $data['method']      = $post['method'];
         $data['is_required'] = $post['is_required'];
         $data['parent_id'] = $post['parent_id'];
         $data['user_id']   = user::get_user_id();
@@ -292,10 +328,22 @@ class field {
                 log::project($log);
             }
 
+            if($field['mock'] != $data['mock']){
+
+                $log = [
+                    'project_id' => $project['id'],
+                    'type'       => '更新',
+                    'object'     => '字段',
+                    'content'    => '将接口<code>' . $api['title'] . '</code>的' . $type_title .'<code>'.$field['name'] .'</code>的MOCK规则由'.'<code>' . $field['mock'] . '</code>'.'修改为<code>' . $data['mock'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
             if($field['title'] != $data['title']){
 
                 $log = [
-                    'project_id' => $project_id,
+                    'project_id' => $project['id'],
                     'type'       => '更新',
                     'object'     => '字段',
                     'content'    => '将接口<code>' . $api['title'] . '</code>的' . $type_title .'<code>'.$field['title'] .'</code>标题修改为<code>' . $data['title'] . '</code>',
@@ -380,6 +428,64 @@ class field {
         log::project($log);
 
         response::ajax(['code' => 200, 'msg' => $type_title . '删除成功!']);
+
+    }
+
+    /**
+     * 获取响应字段默认值数组
+     * @param int $parend_id
+     * @return mixed
+     */
+    public static function get_default_data($api_id, $parend_id=0)
+    {
+
+        $fields = \db('field')->where('method', '=', 2)->where('api_id', '=', $api_id)->where('parent_id', '=', $parend_id)->findAll();
+
+        foreach ($fields as $k => $v){
+
+            $name = $v['name'];
+
+            if(in_array($v['type'], ['array', 'object'])){
+
+                $data[$name] = self::get_default_data($api_id, $v['id']);
+
+            }else{
+
+                $data[$name] = $v['default_value'];
+
+            }
+        }
+        
+        return $data;
+
+    }
+
+    /**
+     * 获取响应字段mock数组
+     * @param int $parend_id
+     * @return mixed
+     */
+    public static function get_mock_data($api_id, $parend_id=0)
+    {
+
+        $fields = \db('field')->where('method', '=', 2)->where('api_id', '=', $api_id)->where('parent_id', '=', $parend_id)->findAll();
+
+        foreach ($fields as $k => $v){
+
+            $name = $v['name'];
+
+            if(in_array($v['type'], ['array', 'object'])){
+
+                $data[$name] = self::get_mock_data($api_id, $v['id']);
+
+            }else{
+
+                $data[$name] = field::get_mock_value($v['mock']);
+
+            }
+        }
+
+        return $data;
 
     }
 

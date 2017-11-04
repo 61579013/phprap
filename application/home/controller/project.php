@@ -55,7 +55,7 @@ class project extends auth {
 
             foreach ($env as $k=>$v){
                 foreach ($v as $k1=>$v1){
-                    $data[$k1][$k] = $v1;
+                    $data[$k1][$k] = trim($v1, '/');
                 }
             }
 

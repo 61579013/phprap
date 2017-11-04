@@ -45,7 +45,7 @@ class api extends auth {
             // 检测是否填写接口地址
             if($uri = $api['uri']){
 
-                $data['uri'] = $uri;
+                $data['uri'] = trim($uri, '/');
 
             }else{
 
@@ -66,21 +66,6 @@ class api extends auth {
             if($intro = $api['intro']){
 
                 $data['intro'] = $intro;
-
-            }
-
-            // 检测是否填写返回示例
-            if($demo = $api['demo']){
-
-                $demo = str_replace(array("\r\n", "\r", "\n", ' '), "", $demo);
-
-                if(!validate::isJson($demo)){
-
-                    response::ajax(['code' => 305, 'msg' => '返回示例不是合法json格式']);
-
-                }
-
-                $data['demo'] = $demo;
 
             }
 
@@ -186,10 +171,14 @@ class api extends auth {
         // 获取响应参数列表
         $response_fields = \app\field::get_field_list($api_id, 2);
 
+        // 获取返回json示例
+        $respose_json = json_encode(\app\field::get_default_data($api_id));
+
         $this->assign('api', $api);
         $this->assign('modules', $modules);
         $this->assign('request_fields', $request_fields);
         $this->assign('response_fields', $response_fields);
+        $this->assign('respose_json', $respose_json);
 
         $this->display('api/edit');
 
@@ -278,12 +267,16 @@ class api extends auth {
         // 获取响应参数列表
         $response_fields = \app\field::get_field_list($api_id, 2);
 
+        // 获取返回json示例
+        $respose_json = json_encode(\app\field::get_default_data($api_id));
+
         $this->assign('api', $api);
         $this->assign('project', $project);
         $this->assign('envs', $envs);
         $this->assign('modules', $modules);
         $this->assign('request_fields', $request_fields);
         $this->assign('response_fields', $response_fields);
+        $this->assign('respose_json', $respose_json);
 
         $this->display('api/detail');
 

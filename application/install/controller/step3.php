@@ -9,7 +9,7 @@ class step3 extends auth {
 
     public function index(){
 
-        if(session('step') != 3){
+        if(session('step') < 3){
 
             response::redirect('install/step2');
 

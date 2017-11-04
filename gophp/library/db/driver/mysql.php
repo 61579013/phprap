@@ -34,7 +34,30 @@ class mysql extends contract
 
         $this->config = $config;
 
-        $this->db     = $this->connect();
+        $this->ping() and $this->db = $this->connect();
+
+    }
+
+    /**
+     * 判断连接状态
+     * @return bool
+     */
+    public function ping()
+    {
+
+        try{
+
+            $this->db = new PDO($this->dsn(), $this->config['user'], $this->config['password']);
+
+            return true;
+
+        }catch (\PDOException $e){
+
+            return false;
+        }
+
+
+
 
     }
 

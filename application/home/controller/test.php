@@ -3,6 +3,7 @@
 namespace app\home\controller;
 
 use app\category;
+use app\china;
 use app\id;
 use app\notify;
 use app\statistics;
@@ -13,6 +14,7 @@ use gophp\db;
 use gophp\helper\file;
 use gophp\helper\url;
 use gophp\schema;
+use app;
 
 
 class test {
@@ -22,11 +24,13 @@ class test {
      */
     public function index(){
 
-        $db = db::instance();
-        $b = db()->show(false)->query('SET NAMES utf8mb4');
+        $mock = new app\mock();
+        $a = $mock->image('200x300');
 
-        dump($b);
+        dump($a);
+
 
     }
+
 
 }
