@@ -727,8 +727,56 @@ class mock {
     /**
      * 随机图片
      */
-    public function image()
+    public function image($size,$backgroup_color,$text, $text_color)
     {
+
+        $width  = $this->number('100-500');
+        $lenght = $this->number('200-400');
+
+        $size = $size ? $size : $width . 'x' . $lenght;
+
+        $backgroup_color = substr($backgroup_color,1);
+
+        $url = "https://dummyimage.com/{$size}/";
+
+        if($backgroup_color){
+
+            $url .= "{$backgroup_color}";
+
+        }
+
+        if($text_color){
+
+            $url .= "/{$text_color}";
+
+        }
+
+        if($text){
+
+            $url .= "&text={$text}";
+
+        }
+
+        return $url;
+    }
+
+    /**
+     * 随机消息
+     * @param string $type
+     * @return string
+     */
+    public function message($type = 'success')
+    {
+        if($type == 'success'){
+
+            $message = '成功消息';
+
+        }else{
+
+            $message = '错误消息';
+        }
+
+        return $message.$this->number('100-999');
     }
 
     /**
