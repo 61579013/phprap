@@ -37,9 +37,10 @@
                                                 <tr>
                                                     <td>操作系统</td>
                                                     <td>{{$system.php_os}}</td>
-                                                    <td>Linux</td>
+                                                    <td>Linux/Win</td>
                                                     <td><i class="fa fa-check"></i></td>
                                                 </tr>
+
                                                 <tr>
                                                     <td>PHP版本</td>
                                                     <td>{{$system.php_version}}</td>
@@ -50,19 +51,6 @@
                                                         {{else}}
                                                         <i class="fa fa-times"></i>
                                                         <input type="hidden" name="step1['php_version']" value="当前PHP版本不符合要求" >
-                                                        {{/if}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>MySQL版本</td>
-                                                    <td>{{$system.mysql_version}}</td>
-                                                    <td>>=5.1.0</td>
-                                                    <td>
-                                                        {{if version_compare( $system.mysql_version, '5.1.0', '>=' )}}
-                                                        <i class="fa fa-check"></i>
-                                                        {{else}}
-                                                        <i class="fa fa-times"></i>
-                                                        <input type="hidden" name="step1['mysql_version']" value="当前MySQL版本不符合要求" >
                                                         {{/if}}
                                                     </td>
                                                 </tr>
@@ -107,6 +95,21 @@
                                                         {{/if}}
                                                     </td>
                                                 </tr>
+
+                                                <tr>
+                                                    <td>PDO_MYSQL扩展</td>
+                                                    <td>{{if extension_loaded('pdo_mysql')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('pdo_mysql')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" name="step1['pdo']" value="必须安装pdo_mysql扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
                                                 <tr>
                                                     <td>GD扩展</td>
                                                     <td>

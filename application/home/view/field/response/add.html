@@ -40,6 +40,15 @@
             </div>
 
             <div class="form-group">
+                <label>MOCK规则
+                    <a target="_blank" href="https://github.com/gouguoyin/phprap/wiki/Mock" data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="点击查看MOCK语法">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </label>
+                <input class="form-control" name="field[mock]" value="{{$field.mock}}" placeholder="非必填，如果要使用mock服务，必须填写" datatype="*" ignore="ignore">
+            </div>
+
+            <div class="form-group">
                 <label>备注说明</label>
                 <textarea class="form-control" name="field[intro]" rows="2" placeholder="非必填">{{$field.intro}}</textarea>
             </div>
@@ -57,6 +66,8 @@
 
     $(function(){
 
+        $('[data-toggle="tooltip"]').tooltip();
+
         //验证表单
         var responseFieldModal = $(window.parent.document).find('#js_addResponseFieldModal');
 
@@ -69,10 +80,14 @@
             },
             success:function () {
 
-                // 重新载入请求参数列表
+                // 重新载入响应参数列表
                 var apiId = "{{$field.api_id}}";
                 $('#js_addApiForm', parent.document).find(".panel-response").load("{{url('field/load')}}", {'method':2,'api_id':apiId});
-
+                // 重新载入响应示例json
+                $('#js_addApiForm', parent.document).find(".panel-json").load("{{url('field/json')}}", {'api_id':apiId}, function () {
+                    // 格式化json
+                    window.parent.jsonFormat();
+                });
                 // 关闭父级模态框
                 responseFieldModal.find(".js_close").trigger('click');
                 responseFieldModal.find(".js_submit").text('提交').removeAttr("disabled");

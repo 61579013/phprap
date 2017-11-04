@@ -1,0 +1,61 @@
+<link href="{{STATIC_URL}}/plugins/jsonFormat/css.css" rel="stylesheet" type="text/css">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                返回示例  <a href="javascript:void(0);" class="fa fa-refresh js_refreshField" data-id="{{$api.id}}" data-toggle="tooltip" title="刷新数据" ></a>
+            </div>
+            <div class="panel-body">
+                <div class="hidden json-data">{{$respose_json}}</div>
+                <div class="json-box"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<script src="{{STATIC_URL}}/plugins/jsonFormat/js.js"></script>
+
+<script>
+    $(function () {
+        // 格式化json
+        jsonFormat();
+
+        //刷新数据
+        $(document).delegate('.js_refreshField', 'click',function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+
+            var thisObj = $(this);
+
+            var id = thisObj.data('id');
+
+            var url = "{{url('field/refresh')}}";
+
+            thisObj.attr("disabled", "disabled");
+
+            setTimeout(function () {
+                $.post(url, { api_id:id }, function(json){
+
+                    if(json.code == 200){
+
+                        thisObj.attr("disabled", "disabled");
+
+                        $(".panel-json").load("{{url('field/json')}}", {'api_id':id});
+
+                    }else{
+
+                        alert(json.msg, 2000);
+
+                    }
+
+                }, 'json');
+            }, 500);
+
+        });
+
+    });
+</script>

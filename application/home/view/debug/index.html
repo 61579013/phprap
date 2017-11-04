@@ -1,0 +1,156 @@
+{{include_file name='public/header' title='在线调试'}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='public/nav' sidebar='debug_sidebar'}}
+    <div id="page-wrapper">
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>接口调试 </h1>
+
+                </div>
+            </div>
+
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="input-group">
+
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MOCK <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">develop</a></li>
+                                <li><a href="#">product</a></li>
+                            </ul>
+                        </div>
+
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="请输入请求地址">
+
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GET <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">POST</a></li>
+                                <li><a href="#">PUT</a></li>
+                            </ul>
+                            <button class="btn btn-success" type="button"><i class="fa fa-search"></i> 请求</button>
+                        </div>
+
+                    </div>
+
+                        <div class="form-group">
+                            <label></label>
+                            <input class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="col-lg-4">
+                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+            </div>
+
+
+            </div>
+
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /#page-wrapper -->
+    <hr>
+    <p class="text-center">{{get_config('copyright')}}</p>
+    <!-- 删除接口模态框 -->
+    <div class="modal fade" id="js_deleteApiModal" tabindex="2" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="js_deleteApiForm" role="form" action="{{url('api/delete','','','json')}}" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">确定删除此接口吗？</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-dismissable alert-warning">
+                            <i class="fa fa-fw fa-info-circle"></i>
+                            接口删除后，该项目下所有字段将被立刻删除，不可恢复，请谨慎操作！
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" name="id" class="form-control">
+                            <input type="text" name='password' class="form-control" placeholder="重要操作，请输入登录密码" datatype="*" nullmsg="请输入登录密码!" errormsg="请输入正确的登录密码!">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-danger js_submit">删除</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- /#wrapper -->
+<script src="{{STATIC_URL}}/plugins/jsonFormat/js.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}/plugins/clipboard/clipboard.min.js"></script>
+<script>
+    $(function () {
+
+        //删除接口表单合法性验证
+        $("#js_deleteApiForm").validateForm({
+            success:function () {
+                window.location.href = "{{url("project/{{$project.id}}")}}";
+                //parent.location.reload();
+            },
+        });
+
+        // 删除接口
+        $(document).delegate('.js_deleteApiBtn', 'click',function(){
+            var id = $(this).data('id');
+
+            if(id <= 0){
+                alert('请选择要删除的模块', 1000);
+            }
+
+            $('#js_deleteApiModal input[name=id]').val(id);
+
+            $('#js_deleteApiModal').modal('show');
+        });
+
+        // 修改接口
+        $(document).delegate('.js_editApiBtn', 'click',function(){
+            var id = $(this).data('id');
+            $('#page-wrapper').load("{{url('api/edit')}}", {'id':id});
+        });
+
+        // 复制链接
+        var clipboard = new Clipboard('.js_copyUrl');
+        clipboard.on('success', function(e) {
+            alert('地址复制成功', 1000);
+            e.clearSelection();
+        });
+        clipboard.on('error', function() {
+            alert('地址复制失败，请手动复制', 3000);
+        });
+
+        // 格式化json
+        Process();
+
+    })
+</script>
+{{include_file name='public/footer'}}
