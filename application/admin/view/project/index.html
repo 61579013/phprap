@@ -58,7 +58,7 @@
                                 {{$project_id = $project.id}}
                                 {{$user_id = $project.user_id}}
                                 <tr>
-                                    <td ><a href="{{url("project/$project_id")}}" title="{{$project.title}}">{{$project.title|truncate:12}}</a></td>
+                                    <td ><a target="_blank" href="{{url("project/{{id_encode($project_id)}}")}}" title="{{$project.title}}">{{$project.title|truncate:12}}</a></td>
                                     <td >{{_uri('user', $user_id, 'name')}}<br/>{{_uri('user', $user_id, 'email')}}</td>
                                     <td ><a href="{{url("admin/user")}}?project_id={{$project_id}}">{{\app\project::get_member_num($project_id)}}</a></td>
                                     <td >{{\app\project::get_module_num($project_id)}}</td>
