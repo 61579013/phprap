@@ -3,6 +3,13 @@
     .huge {
         font-size: 35px;
     }
+    .osc_git_footer {
+        display: none;
+    }
+    .last-item {
+        margin: 0;
+    }
+
 </style>
 </head>
 
@@ -145,13 +152,15 @@
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <p>程序版本：V{{$system.gophp_version}} [<a href="https://github.com/gouguoyin/phprap" target="_blank">查看最新版本</a>]</p>
+                        <p>程序版本：V{{$system.gophp_version}}</p>
                         <p>系统环境：{{PHP_OS}}+PHP{{$system.php_version}}+MySQL{{$system.mysql_version}}</p>
-                        <p>使用技术：PHP+MySQL+Bootstrap+JQuery+Mock.js</p>
+                        <p>使用技术：PHP+MySQL+Bootstrap+JQuery</p>
+                        <p>最大执行时间：{{get_cfg_var("max_execution_time")}}秒</p>
+                        <p>最大上传文件：{{ini_get('upload_max_filesize')}}</p>
                         <p>系统开发：<a target="_blank" href="http://www.gouguoyin.cn/about.html">勾国印</a></p>
-                        <p>演示网站：<a target="_blank" href="http://phprap.gouguoyin.cn">apidoc.gouguoyin.cn</a></p>
                         <p>官方网站：<a target="_blank" href="http://phprap.gouguoyin.cn/">phprap.gouguoyin.cn</a></p>
-                        <p>官方QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=cf9440f673d6a29150bb8f033ed5fdf0e4e685f92350b7006778660bf8580f57"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="GoPHP官方交流群" title="GoPHP官方交流群"></a></p>
+                        <p>演示网站：<a target="_blank" href="http://phprap.gouguoyin.cn">apidoc.gouguoyin.cn</a></p>
+                        <p class="last-item">官方QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=cf9440f673d6a29150bb8f033ed5fdf0e4e685f92350b7006778660bf8580f57"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="GoPHP官方交流群" title="GoPHP官方交流群"></a></p>
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -162,17 +171,20 @@
                 <!-- /.panel -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-comments fa-fw"></i> 常见问题
+                        <i class="fa fa-comments fa-fw"></i> 开发动态
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <p>程序版本：V2.0  [20150905] [<a href="">查看最新版本</a>]</p>
-                        <p>服务器环境：Apache</p>
-                        <p>文件上传大小：10M</p>
-                        <p>系统开发：勾国磊</p>
-                        <p>官方网站：<a href="">www.gouguoyin.cn</a></p>
-                        <p>官方论坛：<a href="">bbs.gouguoyin.cn</a></p>
-                        <p>帮助中心：<a href="">help.gouguoyin.cn</a></p>
+                        <script src='//gitee.com/gouguoyin/phprap/widget_preview'></script>
+
+                        <style>
+                            .pro_name a{color: #4183c4;}
+                            .osc_git_title{background-color: #fff;}
+                            .osc_git_box{background-color: #fff;}
+                            .osc_git_box{border-color: #E3E9ED;}
+                            .osc_git_info{color: #666;}
+                            .osc_git_main a{color: #9B9B9B;}
+                        </style>
                     </div>
                     <!-- /.panel-body -->
                 </div>
