@@ -1,6 +1,6 @@
 [PHPRAP，是一个PHP轻量级开源API接口文档管理系统，致力于减少前后端沟通成本，提高团队协作开发效率，打造PHP版的RAP。](http://phprap.gouguoyin.cn)
 
-## V1.0.1更新记录
+## V1.0.1更新内容
 
  - 修复在nginx服务器下访问报错的BUG
  - 修复PHP7版无法获取mysql版本号造成无法安装的BUG
@@ -9,6 +9,16 @@
  - 支持添加、修改字段后时时显示返回格式化的json示例
  - 根据接口文档自动生成MOCK模拟数据，支持复杂的生成逻辑;
  - MOCK服务新增请求协议、请求方式和请求参数格式校验;
+ 
+ >版本说明
+ master：在线演示版本，和paidoc.gouguoyin.cn看到的效果一致 
+ demo:最新版本，功能最新，但不稳定，不建议下载安装 
+ stable：稳定版本，建议下载安装
+ 
+## V1.0.1演示
+ - 官方网站：[phprap.gouguoyin.cn](http://phprap.gouguoyin.cn)
+ - 演示网站：[apidoc.gouguoyin.cn](http://apidoc.gouguoyin.cn)
+ - 作者博客：[www.gouguoyin.cn](http://www.gouguoyin.cn/about.html)
  
 ## 特性
 
