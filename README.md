@@ -1,5 +1,25 @@
 [PHPRAP，是一个PHP轻量级开源API接口文档管理系统，致力于减少前后端沟通成本，提高团队协作开发效率，打造PHP版的RAP。](http://phprap.gouguoyin.cn)
 
+## V1.0.1更新内容
+
+ - 修复在nginx服务器下访问报错的BUG
+ - 修复PHP7版无法获取mysql版本号造成无法安装的BUG
+ - 核心类增加mock服务类，模拟各种场景，增加单元测试的真实性;
+ - 接口返回示例由手动填写优化为通过MOCK规则自动生成
+ - 支持添加、修改字段后时时显示返回格式化的json示例
+ - 根据接口文档自动生成MOCK模拟数据，支持复杂的生成逻辑;
+ - MOCK服务新增请求协议、请求方式和请求参数格式校验;
+ 
+ >版本说明
+ master：在线演示版本，和apidoc.gouguoyin.cn看到的效果一致 
+ demo:最新版本，功能最新，但不稳定，不建议下载安装 
+ stable：稳定版本，建议下载安装
+ 
+## V1.0.1演示
+ - 官方网站：[phprap.gouguoyin.cn](http://phprap.gouguoyin.cn)
+ - 演示网站：[apidoc.gouguoyin.cn](http://apidoc.gouguoyin.cn)
+ - 作者博客：[www.gouguoyin.cn](http://www.gouguoyin.cn/about.html)
+ 
 ## 特性
 
  - 部署简单，提供在线安装程序，只需填写少量信息即可完成安装部署，开箱即用；
@@ -9,6 +29,8 @@
  - 项目申请时时推送，方便项目创建者及时处理申请，申请加入者及时获取审核结果；
  - 完整的项目操作日志，整个项目的操作流程一目了然；
  - 完善的权限控制系统，可以分别控制项目、模块、接口和成员的操作权限；
+ - 提供MOCK服务，根据接口文档自动生成模拟数据，支持复杂的生成逻辑，支持请求协议、请求方式和请求参数格式校验;
+ - MOCK数据类型丰富，支持生成随机的文本、数字、布尔值、日期、邮箱、链接、图片、颜色、中文名、手机号、价格、邮箱、网址等;
  - 支持项目接口一键导出，方便离线查看；
  - 产品开源免费，并将持续提供免费的社区技术支持；
 
@@ -26,17 +48,17 @@
 
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git
+    git clone https://github.com/gouguoyin/phprap.git -b 'stable'
     ```
     
   [**GITEE**]
     ```php
-    git clone https://gitee.com/gouguoyin/phprap.git
+    git clone https://gitee.com/gouguoyin/phprap.git -b 'stable'
     ```
     
   [**源码**]
   
-  下载[源码](https://github.com/gouguoyin/phprap/archive/master.zip)，上传到服务器上后解压
+  下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)，上传到服务器上后解压
     
 - 绑定域名
 

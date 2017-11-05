@@ -19,12 +19,12 @@ function jsonFormat() {
             jsonBox.html("<PRE class='CodeContainer'>" + html + "</PRE>");
         }else{
 
-            console.log(jsonData);
+            jsonBox.html('');
 
         }
 
     } catch(e) {
-        alert("JSON数据格式不正确:\n" + e.message);
+        console.log("JSON数据格式不正确:\n" + e.message);
         jsonBox.html('');
     }
 }

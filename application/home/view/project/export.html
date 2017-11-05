@@ -90,6 +90,11 @@
                             </tr>
                             {{/foreach}}
 
+                            <tr>
+                                <td style="width: 20%;">模拟环境(mock)</td>
+                                <td style="width: 50%;"><code>{{url("mock/{{id_encode($api.id)}}", '', true)}}</code></td>
+                            </tr>
+
                             </tbody>
                         </table>
                     </li>
@@ -156,9 +161,6 @@
                         </div>
                     </li>
 
-                    <li><p class="text-muted"><label>返回示例：</label></p></li>
-
-
                 </ul>
                 {{/foreach}}
                 <!-- /.panel -->
@@ -176,7 +178,7 @@
 <!-- /#wrapper -->
 
 <hr>
-<p class="text-center">{{get_config('copyright')}}</p>
+<p class="text-center">{{get_config('copyright')}} Create By <a target="_blank" href="http://phprap.gouguoyin.cn/">PHPRAP</a></p>
 
 </body>
 
