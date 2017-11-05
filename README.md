@@ -11,7 +11,7 @@
  - MOCK服务新增请求协议、请求方式和请求参数格式校验;
  
  >版本说明
- master：在线演示版本，和paidoc.gouguoyin.cn看到的效果一致 
+ master：在线演示版本，和apidoc.gouguoyin.cn看到的效果一致 
  demo:最新版本，功能最新，但不稳定，不建议下载安装 
  stable：稳定版本，建议下载安装
  
