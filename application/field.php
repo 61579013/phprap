@@ -281,6 +281,22 @@ class field {
         // 检测是否填写mock规则
         if($mock = $post['mock']){
 
+            $rule = explode('|', $mock);
+
+            $type = $rule[0];
+
+            if(!$type){
+
+                response::ajax(['code' => 306, 'msg' => '无效的MOCK规则']);
+
+            }
+
+            if(!reflect::hasMethod(mock::class, $type)){
+
+                response::ajax(['code' => 307, 'msg' => '无效的MOCK规则']);
+
+            }
+
             $data['mock'] = $mock;
 
         }
