@@ -445,7 +445,11 @@ class field {
 
             $name = $v['name'];
 
-            if(in_array($v['type'], ['array', 'object'])){
+            if($v['type'] == 'array'){
+
+                $data[$name][] = self::get_default_data($api_id, $v['id']);
+
+            }else if($v['type'] == 'object'){
 
                 $data[$name] = self::get_default_data($api_id, $v['id']);
 
