@@ -246,4 +246,4 @@
 - 如果觉得还不错，请作者喝杯咖啡吧，开源不易，你的支持是我前进的动力！
 
 ![微信](http://gouguoyin.qiniudn.com/wepay.jpg)
-![支付宝](http://gouguoyin.qiniudn.com/alipay.jpg)
+![支付宝](http://gouguoyin.qiniudn.com/alipay1.jpg)
