@@ -153,7 +153,7 @@ CREATE TABLE `doc_project` (
   `envs` text NOT NULL COMMENT '环境域名,json字符串',
   `allow_search` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否允许被搜索到',
   `add_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `sort` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
