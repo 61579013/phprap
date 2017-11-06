@@ -53,6 +53,7 @@ class db extends auth {
         $name = date('YmdHis') . '_all.sql';
 
         $file = $path . $name;
+
         $sql = '';
 
         foreach ($tables as $table) {
