@@ -61,11 +61,11 @@
     `runtime`目录及子目录给予可读可写权限
     
     
-- 开启UrlRewrite隐藏入口文件index.php
+- 开启`UrlRewrite`隐藏入口文件index.php
 
   [**Apache**]
   
-    httpd.conf配置文件中加载mod_rewrite.so模块
+    `httpd.conf`配置文件中加载`mod_rewrite.so`模块
     
     将`AllowOverride None` 改为 `AllowOverride All`
     
@@ -82,7 +82,7 @@
 
   [**Nginx**]
   
-    如果是部署在根目录下，在Nginx.conf中配置转发规则  
+    如果是部署在根目录下，在`Nginx.conf`中配置转发规则  
   
     ```php
     location / { 
@@ -93,7 +93,7 @@
     }
     ```
     
-    如果是部署在二级目录下，在Nginx.conf中配置转发规则
+    如果是部署在二级目录下，在`Nginx.conf`中配置转发规则
   
     ```php
     location /SUB_DIR/ {
