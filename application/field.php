@@ -478,7 +478,11 @@ class field {
 
             $name = $v['name'];
 
-            if(in_array($v['type'], ['array', 'object'])){
+            if($v['type'] == 'array'){
+
+                $data[$name][] = self::get_mock_data($api_id, $v['id']);
+
+            }if($v['type'] == 'object'){
 
                 $data[$name] = self::get_mock_data($api_id, $v['id']);
 
