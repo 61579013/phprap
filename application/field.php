@@ -52,46 +52,6 @@ class field {
     }
 
     /**
-     * 根据字段类型获取默认值
-     * @param $type
-     * @param $value
-     * @return int|null|string
-     */
-    public static function get_random_value($type,$value)
-    {
-
-        $default_value = null;
-
-        switch ($type) {
-
-            case 'string':
-                $default_value = $value.rand(1,100);
-                break;
-
-            case 'number':
-                $default_value = rand(200,999);
-                break;
-
-            case 'float':
-                $default_value = sprintf('%.2f', rand(100,10000)/100);
-                break;
-
-            case 'boolean':
-
-                $default_value = rand(0,1) ? 'true' : 'false';
-
-                break;
-
-            case 'null':
-                $default_value = null;
-                break;
-        }
-
-        return $default_value;
-
-    }
-
-    /**
      * 根据mock规则返回模拟数据
      * @param $rule
      * @return int|null|string
