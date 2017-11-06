@@ -3,7 +3,7 @@
  >版本说明
  - master：在线演示版本，和apidoc.gouguoyin.cn看到的效果一致，请不要下载安装 
  - demo：最新版本，功能最新，但不稳定，不建议下载安装 
- - stable：稳定版本，建议下载安装
+ - stable：稳定版本，建议下载安装，下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)
  
 ## 相关
  - 官方网站：[phprap.gouguoyin.cn](http://phprap.gouguoyin.cn)
