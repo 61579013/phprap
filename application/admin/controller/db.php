@@ -50,13 +50,16 @@ class db extends auth {
 
         $path = RUNTIME_PATH . '/data/';
 
-        $file = $path . date('YmdHis') . '_all.sql';
+        $name = date('YmdHis') . '_all.sql';
+
+        $file = $path . $name;
         $sql = '';
+
         foreach ($tables as $table) {
             // 如果存在则删除表
-            $sql .= "DROP TABLE IF EXISTS `" . $table . '`;\r\n';
+            $sql .= "DROP TABLE IF EXISTS `" . $table . "`;";
             // 创建表结构
-            $sql .= $schema->getCreateTableSql($table) . ';\r\n';
+            $sql .= $schema->getCreateTableSql($table) . ';';
 
             $sql .="INSERT INTO `$table` VALUES(";
 
@@ -81,7 +84,7 @@ class db extends auth {
 
         $size = file::getInfo($file,'size')/1024;
 
-        $result = db('dbbak')->add(['file' => date('YmdHis') . '_all.sql','size' => $size]);
+        $result = db('dbbak')->add(['file' => $name,'size' => $size]);
 
         if($result){
 

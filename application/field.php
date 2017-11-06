@@ -2,6 +2,7 @@
 
 namespace app;
 
+use gophp\reflect;
 use gophp\response;
 
 class field {
@@ -112,9 +113,17 @@ class field {
 
         $value = $data[2] ? $data[2] : '';
 
-        $mock = new mock();
+        if(reflect::hasMethod(mock::class, $type)){
 
-        return $mock->$type($rule, $value);
+            $mock = new mock();
+
+            return $mock->$type($rule, $value);
+
+        }else{
+
+            return false;
+
+        }
 
     }
 
