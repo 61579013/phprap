@@ -180,6 +180,8 @@ if(!function_exists('db'))
     function db($table, $driver)
     {
 
+        $driver = $driver ? $driver : 'mysql';
+
         $db = \gophp\db::instance();
 
         return $db->driver($driver)->table($table);
