@@ -58,11 +58,11 @@ class db extends auth {
 
         foreach ($tables as $table) {
             // 如果存在则删除表
-            $sql .= "\r\n" . $schema->getDeleteTableSql($table) . "\r\n";
+            $sql .= "\r\n" . $schema->getDeleteTableSql($table) . ";\r\n";
             // 创建表结构
             $sql .= $schema->getCreateTableSql($table) . ";\r\n";
 
-            $sql .= $schema->getInsertTableSql($table) . "\r\n";
+            $sql .= $schema->getInsertTableSql($table) . ";\r\n";
 
         }
 
