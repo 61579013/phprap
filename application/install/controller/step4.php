@@ -53,11 +53,23 @@ class step4 extends auth {
         $admin_id = db('user')->add($data);
 
         if($admin_id){
-            session('user_id', $admin_id, 24*3600);
+
             // 创建安装锁文件
-            file::create(APP_PATH.'/install/install.lock');
+            if(!file::create(RUNTIME_PATH.'/install.lock')){
+
+                $this->error('安装失败，请确认 ' . RUNTIME_PATH . ' 目录有读写权限');
+                exit;
+
+            }
+
+        }else{
+
+            $this->error('安装失败，请稍候再试');
+            exit;
+
         }
 
+        session('user_id', $admin_id, 24*3600);
         session('step', 4);
 
         $this->assign('tables', $tables);

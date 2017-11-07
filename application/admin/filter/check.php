@@ -13,7 +13,7 @@ class check
     public function run()
     {
 
-        if(!file::exists(APP_PATH.'/install/install.lock')){
+        if(!file::exists(RUNTIME_PATH.'/install.lock')){
 
             response::redirect('install');exit;
 
