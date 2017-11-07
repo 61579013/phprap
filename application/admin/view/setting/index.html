@@ -40,11 +40,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>统计代码</label>
-                                        <textarea class="form-control" name="config[tongji_js]" rows="4" datatype="*" ignore="ignore" placeholder="不包含<script></script>">{{$config['tongji_js']}}</textarea>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label>系统邮箱</label>
                                         <input class="form-control" name="config[email]" value="{{$config['email']}}" placeholder="必填" datatype="e" nullmsg="请输入系统邮箱！" errormsg="请输入合法邮箱">
                                     </div>
@@ -56,13 +51,15 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="recipient-name" class="control-label">是否推送消息:</label>
+                                        <label for="recipient-name" class="control-label">是否推送消息: <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="如果设为是，那么会在指定时间间隔内推送项目加入申请和申请结果，否则只有在刷新页面时才会推送消息">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a></label>
                                         <div class="form-group">
                                             <label class="radio-inline">
-                                                <input type="radio" name="config[is_push]" {{if $config['is_close'] == 0}}checked{{/if}} value=0> 否
+                                                <input type="radio" name="config[is_push]" {{if $config['is_push'] == 0}}checked{{/if}} value=0> 否
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="config[is_push]" {{if $config['is_close'] == 1}}checked{{/if}} value=1 > 是
+                                                <input type="radio" name="config[is_push]" {{if $config['is_push'] == 1}}checked{{/if}} value=1 > 是
                                             </label>
                                         </div>
                                     </div>
