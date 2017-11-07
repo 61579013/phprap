@@ -115,7 +115,7 @@
                 $.post(url, { project_id:projectId }, function(json){
                     if(json.code == 200 || json.code == 304){
 
-                        thisObi.attr("disabled", "disabled").text('审核中');
+                        thisObi.removeClass('btn-success').addClass('btn-default').attr("disabled", "disabled").text('审核中');
 
                     }else{
 
