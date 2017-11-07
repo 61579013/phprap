@@ -2,6 +2,6 @@
 //默认配置
 return [
 
-    'rule' => 'auth'
+    'rule' => 'check'
 
 ];

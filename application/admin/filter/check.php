@@ -3,14 +3,21 @@
 namespace app\admin\filter;
 
 use gophp\config;
+use gophp\helper\file;
 use gophp\response;
 use app\user;
 
-class auth
+class check
 {
 
     public function run()
     {
+
+        if(!file::exists(APP_PATH.'/install/install.lock')){
+
+            response::redirect('install');exit;
+
+        }
 
         $user_info = user::get_user_info();
 
