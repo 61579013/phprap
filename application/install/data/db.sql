@@ -11,7 +11,7 @@
  Target Server Version : 50634
  File Encoding         : utf-8
 
- Date: 11/07/2017 18:30:09 PM
+ Date: 11/07/2017 20:42:19 PM
 */
 
 SET NAMES utf8mb4;
@@ -29,8 +29,8 @@ CREATE TABLE `doc_api` (
   `uri` varchar(250) NOT NULL DEFAULT '' COMMENT '接口地址',
   `intro` varchar(250) NOT NULL DEFAULT '' COMMENT '接口简介',
   `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `demo` text COMMENT '演示数据',
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`),
   KEY `module_id_index` (`module_id`),
   KEY `user_id_index` (`user_id`)
@@ -40,7 +40,7 @@ CREATE TABLE `doc_api` (
 --  Records of `doc_api`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', '1', 'goods/{id}', '', '1', '2017-11-04 21:47:01', null);
+INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', '1', 'goods/{id}', '', '1', null, '2017-11-04 21:47:01');
 COMMIT;
 
 -- ----------------------------
@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS `doc_config`;
 CREATE TABLE `doc_config` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `config` text NOT NULL,
-  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
@@ -86,7 +86,7 @@ CREATE TABLE `doc_dbbak` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `file` varchar(250) NOT NULL,
   `size` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '大小，单位KB',
-  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -135,7 +135,7 @@ CREATE TABLE `doc_login_log` (
   `device` varchar(50) NOT NULL DEFAULT '' COMMENT '登录设备',
   `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='登录日志表';
 
 -- ----------------------------
 --  Table structure for `doc_member`
@@ -210,9 +210,9 @@ CREATE TABLE `doc_project` (
   `intro` varchar(255) NOT NULL COMMENT '项目描述',
   `envs` text NOT NULL COMMENT '环境域名,json字符串',
   `allow_search` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否允许被搜索到',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `sort` int(10) NOT NULL,
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='项目表';
@@ -221,7 +221,7 @@ CREATE TABLE `doc_project` (
 --  Records of `doc_project`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_project` VALUES ('1', '1', '测试项目', '测试专用项目', '[{\"name\":\"product\",\"title\":\"\\u751f\\u4ea7\\u73af\\u5883\",\"domain\":\"http:\\/\\/phprap.gouguoyin.cn\"},{\"name\":\"develop\",\"title\":\"\\u5f00\\u53d1\\u73af\\u5883\",\"domain\":\"http:\\/\\/demo.gouguoyin.cn\"}]', '1', '2017-11-04 21:45:53', '2017-11-04 21:50:32', '0');
+INSERT INTO `doc_project` VALUES ('1', '1', '测试项目', '测试专用项目', '[{\"name\":\"product\",\"title\":\"\\u751f\\u4ea7\\u73af\\u5883\",\"domain\":\"http:\\/\\/phprap.gouguoyin.cn\"},{\"name\":\"develop\",\"title\":\"\\u5f00\\u53d1\\u73af\\u5883\",\"domain\":\"http:\\/\\/demo.gouguoyin.cn\"}]', '1', '0', '2017-11-04 21:45:53', '2017-11-04 21:50:32');
 COMMIT;
 
 -- ----------------------------
@@ -236,14 +236,14 @@ CREATE TABLE `doc_project_log` (
   `type` varchar(10) NOT NULL COMMENT '操作类型',
   `object` varchar(20) NOT NULL,
   `content` text NOT NULL COMMENT '对象',
-  `add_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `project_title` varchar(200) DEFAULT NULL,
   `module_title` varchar(50) DEFAULT NULL,
   `api_name` varchar(200) DEFAULT NULL,
   `field_name` varchar(200) DEFAULT NULL,
   `member_name` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`,`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `doc_user`
@@ -263,6 +263,5 @@ CREATE TABLE `doc_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='会员表';
-
 
 SET FOREIGN_KEY_CHECKS = 1;
