@@ -61,7 +61,7 @@ class db extends auth {
             $sql .= "\r\n" . $schema->getDeleteTableSql($table) . ";\r\n";
             // 创建表结构
             $sql .= $schema->getCreateTableSql($table) . ";\r\n";
-
+            // 插入数据
             $sql .= $schema->getInsertTableSql($table) . ";\r\n";
 
         }
