@@ -130,37 +130,6 @@
     </div>
     {{/if}}
 
-    {{if $session}}
-    <div class="info">
-        <p><strong>PHP Trace</strong></p>
-        <table cellpadding="5" cellspacing="1" width="100%" class="table">
-            <tbody>
-            <tr class="bg2">
-                <td>No</td>
-                <td>File</td>
-                <td>Line</td>
-                <td>Function</td>
-            </tr>
-
-            {{foreach $session as $key => $item}}
-
-
-            <tr class="bg1">
-                <td>{{$key+1}}</td>
-                <td>{{$item.file}}</td>
-                <td>{{$item.line}}</td>
-                <td>{{$item.function}}</td>
-            </tr>
-
-
-            {{/foreach}}
-
-            </tbody>
-        </table>
-    </div>
-    {{/if}}
-
-
 </div>
 </body>
 </html>
