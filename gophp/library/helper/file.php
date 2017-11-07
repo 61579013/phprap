@@ -19,37 +19,37 @@ class file
 
         }
 
-        $handle            = new \SplFileInfo($file);
+        $fileInfo          = new \SplFileInfo($file);
 
-        $info['size']      = $handle->getSize();
+        $info['size']      = $fileInfo->getSize();
 
-        $info['type']      = $handle->getType();
+        $info['type']      = $fileInfo->getType();
 
-        $info['extension'] = strtolower($handle->getExtension());
+        $info['extension'] = strtolower($fileInfo->getExtension());
 
-        $info['base_path'] = $handle->getPath();
+        $info['base_path'] = $fileInfo->getPath();
 
-        $info['file_path'] = $handle->getRealPath();
+        $info['file_path'] = $fileInfo->getRealPath();
 
-        $info['base_name'] = $handle->getBasename('.'.$handle->getExtension());
+        $info['base_name'] = $fileInfo->getBasename('.'.$fileInfo->getExtension());
 
-        $info['file_name'] = $handle->getFilename();
+        $info['file_name'] = $fileInfo->getFilename();
 
-        $info['group']     = $handle->getGroup();
+        $info['group']     = $fileInfo->getGroup();
 
-        $info['owner']     = $handle->getOwner();
+        $info['owner']     = $fileInfo->getOwner();
 
-        $info['auth']      = $handle->getPerms();
+        $info['auth']      = $fileInfo->getPerms();
 
-        $info['last_access_time'] = date('Y-m-d H:i:s', $handle->getATime());
+        $info['last_access_time'] = date('Y-m-d H:i:s', $fileInfo->getATime());
 
-        $info['last_modify_time'] = date('Y-m-d H:i:s', $handle->getMTime());
+        $info['last_modify_time'] = date('Y-m-d H:i:s', $fileInfo->getMTime());
 
-        $info['isExecutable'] = $handle->isExecutable();
+        $info['isExecutable'] = $fileInfo->isExecutable();
 
-        $info['isReadable']   = $handle->isReadable();
+        $info['isReadable']   = $fileInfo->isReadable();
 
-        $info['isWritable']   = $handle->isWritable();
+        $info['isWritable']   = $fileInfo->isWritable();
 
         return $field ? $info[$field] : $info;
 
