@@ -32,7 +32,12 @@ class step4 extends auth {
 
             }
 
-            yield $db->query($v);
+            $k%30 == 0 and sleep(1);
+
+            $db->query($v);
+
+            ob_flush();
+            flush();
 
         }
 
