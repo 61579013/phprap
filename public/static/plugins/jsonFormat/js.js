@@ -15,7 +15,6 @@ function jsonFormat() {
         if(jsonData){
             var obj = eval("[" + jsonData + "]");
             html = ProcessObject(obj[0], 0, false, false, false);
-            console.log(html);
             jsonBox.html("<PRE class='CodeContainer'>" + html + "</PRE>");
         }else{
 

@@ -87,6 +87,8 @@
                 $('#js_addApiForm', parent.document).find(".panel-json").load("{{url('field/json')}}", {'api_id':apiId}, function () {
                     // 格式化json
                     window.parent.jsonFormat();
+                    // 吐司提示
+                    $(window.parent.document).contents().find('[data-toggle="tooltip"]').tooltip();
                 });
                 // 关闭父级模态框
                 responseFieldModal.find(".js_close").trigger('click');

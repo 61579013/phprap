@@ -24,6 +24,9 @@
         // 格式化json
         jsonFormat();
 
+        // 吐司提示
+        $('[data-toggle="tooltip"]').tooltip();
+
         //刷新数据
         $(document).delegate('.js_refreshField', 'click',function(event){
             // 阻止事件冒泡
