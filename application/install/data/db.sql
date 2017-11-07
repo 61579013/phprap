@@ -135,14 +135,7 @@ CREATE TABLE `doc_login_log` (
   `device` varchar(50) NOT NULL DEFAULT '' COMMENT '登录设备',
   `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='登录日志表';
-
--- ----------------------------
---  Records of `doc_login_log`
--- ----------------------------
-BEGIN;
-INSERT INTO `doc_login_log` VALUES ('1', '1', '够过瘾', '245629560@qq.com', '61.135.18.162', '中国  北京市 北京市', 'pc', '2017-11-07 20:38:43');
-COMMIT;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='登录日志表';
 
 -- ----------------------------
 --  Table structure for `doc_member`
