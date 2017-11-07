@@ -58,23 +58,12 @@ class db extends auth {
 
         foreach ($tables as $table) {
             // 如果存在则删除表
-            $sql .= "DROP TABLE IF EXISTS `" . $table . "`;";
+            $sql .= "\r\n" . $schema->getDeleteTableSql($table) . "\r\n";
             // 创建表结构
-            $sql .= $schema->getCreateTableSql($table) . ';';
+            $sql .= $schema->getCreateTableSql($table) . ";\r\n";
 
-            $sql .="INSERT INTO `$table` VALUES(";
+            $sql .= $schema->getInsertTableSql($table) . "\r\n";
 
-            $data = $schema->query("select * from $table")->fetchAll(\PDO::FETCH_ASSOC);
-
-            foreach ($data as $v){
-                foreach ($v as $v1){
-                    $sql .= '"'.$v1.'",';
-                }
-            }
-
-            $sql = trim($sql, ',');
-
-            $sql .= ");\r\n";
         }
 
         if(!file::create($file, $sql)){

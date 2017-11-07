@@ -24,8 +24,11 @@ class test {
      */
     public function index(){
 
-        $mock = new app\mock();
-        $a = $mock->image('200x300');
+        $schema = schema::instance();
+
+        $a = $schema->getInsertTableSql('doc_member');
+
+
 
         dump($a);
 

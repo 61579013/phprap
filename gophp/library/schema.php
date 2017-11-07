@@ -2,6 +2,7 @@
 
 namespace gophp;
 
+use gophp\helper\str;
 use gophp\traits\call;
 use PDO;
 
@@ -222,6 +223,39 @@ EOT;
 
     }
 
+    // 获取删除表sql语句
+    public function getDeleteTableSql($table)
+    {
+
+        $sql = "DROP TABLE IF EXISTS `" . $table ."`";
+
+        return $sql;
+
+    }
+
+    // 获取批量插入数据sql语句
+    public function getInsertTableSql($table)
+    {
+
+        $sql = '';
+
+        $data = $this->query("select * from $table")->fetchAll(\PDO::FETCH_ASSOC);
+
+        if($data){
+
+            $sql .= "INSERT INTO `$table` VALUES ";
+
+            foreach ($data as $k=>$v) {
+
+                $sql .= '('.implode(',', array_map(array($this, 'addQuote'), $v)).'),';
+
+            }
+        }
+
+        return trim($sql, ',');
+
+    }
+
     // 执行原生sql
     public function query($sql)
     {
@@ -248,6 +282,20 @@ EOT;
         $versions =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $versions[0]['VERSION()'];
+
+    }
+
+    // 给字符串添加单引号
+    private function addQuote($str)
+    {
+
+        if(is_numeric($str)){
+
+            return $str;
+
+        }
+
+        return str::quote($str, str::single);
 
     }
 
