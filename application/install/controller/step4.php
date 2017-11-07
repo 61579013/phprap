@@ -32,13 +32,7 @@ class step4 extends auth {
 
             }
 
-            // 延迟1秒执行
-            //sleep(1);
-
-            $db->query($v);
-
-            ob_flush();
-            flush();
+            yield $db->query($v);
 
         }
 
