@@ -45,6 +45,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label>统计代码</label>
+                                        <textarea class="form-control" name="config[tongji_js]" rows="4" datatype="*" ignore="ignore" placeholder="不包含<script></script>">{{$config['tongji_js']}}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>系统邮箱</label>
                                         <input class="form-control" name="config[email]" value="{{$config['email']}}" placeholder="必填" datatype="e" nullmsg="请输入系统邮箱！" errormsg="请输入合法邮箱">
                                     </div>
