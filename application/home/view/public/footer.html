@@ -150,11 +150,17 @@
         $("#js_settingProfileForm").validateForm();
 
         // ajax消息通知
-        setInterval(function(){
-            var url = "{{url('notify/load')}}";
-            $('.js_notifyDropdown').load(url);
+        {{if get_config('is_push')}}
 
-        }, 3000);
+        var loadUrl = "{{url('notify/load')}}";
+        var pushTime = "{{get_config('push_time')}}";
+
+        setInterval(function(){
+
+            $('.js_notifyDropdown').load(loadUrl);
+
+        }, pushTime*1000);
+        {{/if}}
 
     });
 </script>
