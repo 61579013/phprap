@@ -243,7 +243,7 @@ CREATE TABLE `doc_project_log` (
   `field_name` varchar(200) DEFAULT NULL,
   `member_name` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`,`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `doc_user`
@@ -262,7 +262,7 @@ CREATE TABLE `doc_user` (
   `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='会员表';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='会员表';
 
 
 SET FOREIGN_KEY_CHECKS = 1;
