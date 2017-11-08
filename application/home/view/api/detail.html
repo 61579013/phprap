@@ -1,4 +1,6 @@
 {{include_file name='public/header' title='接口详情'}}
+<link href="{{STATIC_URL}}/plugins/jsonFormat/css.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -221,6 +223,7 @@
 </div>
 <!-- /#wrapper -->
 <script type="text/javascript" src="{{STATIC_URL}}/plugins/clipboard/clipboard.min.js"></script>
+
 <script>
     $(function () {
 
@@ -259,6 +262,39 @@
         });
         clipboard.on('error', function() {
             alert('地址复制失败，请手动复制', 3000);
+        });
+
+        //刷新数据
+        $(document).delegate('.js_refreshField', 'click',function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+
+            var thisObj = $(this);
+
+            var id = thisObj.data('id');
+
+            var url = "{{url('field/refresh')}}";
+
+            thisObj.attr("disabled", "disabled");
+
+            setTimeout(function () {
+                $.post(url, { api_id:id }, function(json){
+
+                    if(json.code == 200){
+
+                        thisObj.attr("disabled", "disabled");
+
+                        $(".panel-json").load("{{url('field/json')}}", {'api_id':id});
+
+                    }else{
+
+                        alert(json.msg, 2000);
+
+                    }
+
+                }, 'json');
+            }, 2000);
+
         });
 
     })

@@ -84,6 +84,7 @@
                 var apiId = "{{$field.api_id}}";
                 $('#js_addApiForm', parent.document).find(".panel-response").load("{{url('field/load')}}", {'method':2,'api_id':apiId});
                 // 重新载入响应示例json
+                alert('lll', 500);
                 $('#js_addApiForm', parent.document).find(".panel-json").load("{{url('field/json')}}", {'api_id':apiId}, function () {
                     // 格式化json
                     window.parent.jsonFormat();
