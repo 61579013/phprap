@@ -75,7 +75,7 @@ CREATE TABLE `doc_config` (
 --  Records of `doc_config`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_config` VALUES ('1', '{\"name\":\"PHPRAP\\u63a5\\u53e3\\u6587\\u6863\\u7ba1\\u7406\\u7cfb\\u7edf\",\"keywords\":\"phprap,apidoc,api\\u6587\\u6863\\u7ba1\\u7406\",\"description\":\"PHPRAP\\uff0c\\u662f\\u4e00\\u4e2aPHP\\u8f7b\\u91cf\\u7ea7\\u5f00\\u6e90API\\u63a5\\u53e3\\u6587\\u6863\\u7ba1\\u7406\\u7cfb\\u7edf\\uff0c\\u81f4\\u529b\\u4e8e\\u51cf\\u5c11\\u524d\\u540e\\u7aef\\u6c9f\\u901a\\u6210\\u672c\\uff0c\\u63d0\\u9ad8\\u56e2\\u961f\\u534f\\u4f5c\\u5f00\\u53d1\\u6548\\u7387\\uff0c\\u6253\\u9020PHP\\u7248\\u7684RAP\\u3002\",\"email\":\"245629560@qq.com\",\"default_password\":\"123456\",\"is_push\":\"1\",\"push_time\":\"3\",\"is_close\":\"0\",\"close_msg\":\"\\u7cfb\\u7edf\\u5347\\u7ea7\\uff0c\\u6682\\u65f6\\u65e0\\u6cd5\\u8bbf\\u95ee\\uff0c\\u8bf7\\u7a0d\\u5019\\u518d\\u8bd5\\uff01\"}', '2017-11-07 17:28:50');
+INSERT INTO `doc_config` VALUES (1,'{"name":"PHPRAP接口文档管理系统","keywords":"phprap,apidoc,api文档管理","description":"PHPRAP，是一个PHP轻量级开源API接口文档管理系统，致力于减少前后端沟通成本，提高团队协作开发效率，打造PHP版的RAP。","copyright":"Copyright ©2016-2017 PHPRAP版权所有","email":"245629560@qq.com","default_password":"123456","is_push":"1","push_time":"3","is_close":"0","close_msg":"u7cfbu7edfu5347u7ea7uff0cu6682u65f6u65e0u6cd5u8bbfu95eeuff0cu8bf7u7a0du5019u518du8bd5uff01"}','2017-11-08 22:20:23');
 COMMIT;
 
 -- ----------------------------
