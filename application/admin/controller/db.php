@@ -12,6 +12,7 @@ class db extends auth {
 
     public function index()
     {
+
         $db = \gophp\db::instance();
 
         $table_suffix = $db->suffix;
@@ -62,8 +63,12 @@ class db extends auth {
             $sql .= $schema->getDeleteTableSql($table) . ";\r\n";
             // 创建表结构
             $sql .= $schema->getCreateTableSql($table) . ";\r\n";
-            // 插入数据
-            $sql .= $schema->getInsertTableSql($table) . ";\r\n";
+
+            // 备份数据库数据不需要备份
+            if(false == strpos($table, 'dbbak')){
+                // 插入数据
+                $sql .= $schema->getInsertTableSql($table) . ";\r\n";
+            }
 
         }
 
@@ -84,6 +89,46 @@ class db extends auth {
         }
 
         response::ajax(['code' => 302, 'msg' => '备份失败!']);
+
+    }
+
+    /**
+     * 还原数据
+     */
+    public function restore()
+    {
+
+        $id = request::get('id', 0);
+
+        $db = \gophp\db::instance();
+
+        $dbbak = db('dbbak')->find($id);
+
+        if(!$dbbak){
+            return false;
+        }
+
+        $_sql = file_get_contents(RUNTIME_PATH . '/data/' .$dbbak['file']);
+        $_arr = array_filter(explode(';', $_sql));
+
+        foreach ($_arr as $k => $v) {
+
+            if($table = explode('EXISTS', $v)[1]){
+
+                $tables[] = $table;
+
+            }
+
+            $db->query($v);
+
+            ob_flush();
+            flush();
+
+        }
+
+        $this->assign('tables', $tables);
+
+        $this->display('db/restore');
 
     }
 

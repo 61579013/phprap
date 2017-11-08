@@ -25,7 +25,7 @@ class setting extends auth {
 
             if(db('config')->find()){
 
-                $result = db('config')->update(['config' => json_encode($config)]);
+                $result = db('config')->update(['config' => json_encode($config, JSON_UNESCAPED_UNICODE)]);
 
             }else{
 

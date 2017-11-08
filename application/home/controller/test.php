@@ -26,7 +26,7 @@ class test {
 
         $schema = schema::instance();
 
-        $a = $schema->getInsertTableSql('doc_member');
+        $a = strpos('doc_dbbak', 'dbbak1');
 
 
 

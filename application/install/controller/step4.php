@@ -41,7 +41,6 @@ class step4 extends auth {
 
         }
 
-
         // 管理员账号入库
         $admin = session('admin');
 

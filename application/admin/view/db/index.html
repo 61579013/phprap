@@ -76,7 +76,26 @@
             </div>
         </div>
 
+        <!-- 还原模态框 -->
+        <div class="modal fade" id="js_restoreDbModal" tabindex="-9" role="dialog">
+            <div class="modal-dialog" role="document">
 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">还原数据</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <iframe id="js_restoreDbIframe" style="min-height: 450px;" src="{{url('admin/db/restore')}}"></iframe>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
         <!-- /#page-wrapper -->
 
     </div>
@@ -128,29 +147,20 @@
 
             // 还原数据
             $(".js_restoreBtn").click(function () {
-                var thisObj = $(this);
-                var url = "{{url('admin/db/delete')}}";
-                var id  = thisObj.data('id');
 
-                alert('暂不支持，敬请期待', 1000);return;
+                var thisObj       = $(this);
+                var restoreModal  = $("#js_restoreDbModal");
+
+                var iframeSrc     = "{{url('admin/db/restore')}}" + "?id=" + thisObj.data('id');
 
                 confirm('确认要将数据还原?', function(){
 
-                    $.post(url, { id:id }, function(json){
+                    restoreModal.find('iframe').attr('src', iframeSrc);
 
-                        if(json.code == 200){
+                    setTimeout(function () {
+                        restoreModal.modal('show');
+                    }, 200);
 
-                            alert(json.msg, 500, function () {
-                                thisObj.closest('tr').remove();
-                            });
-
-                        }else{
-
-                            alert(json.msg, 2000);
-
-                        }
-
-                    }, 'json');
                 });
 
             });
