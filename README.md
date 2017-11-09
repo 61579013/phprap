@@ -115,10 +115,7 @@
   
     ```php
     location / { 
-       if (!-e $request_filename) {
-           rewrite  ^(.*)$  /index.php?r=$1  last;
-           break;
-       }
+       try_files $uri $uri/ /index.php?r=$uri&$args
     }
     ```
     
@@ -126,9 +123,7 @@
   
     ```php
     location /SUB_DIR/ {
-        if (!-e $request_filename){
-            rewrite  ^/SUB_DIR/(.*)$  /SUB_DIR/index.php?r=$1  last;
-        }
+        try_files $uri/SUB_DIR $uri/SUB_DIR /SUB_DIR/index.php?r=$uri&$args
     }
     ```  
     >SUB_DIR换成自己的目录
