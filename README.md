@@ -115,23 +115,9 @@
   
     ```php
     location / { 
-       if (!-e $request_filename) {
-           rewrite  ^(.*)$  /index.php?r=$1  last;
-           break;
-       }
+       try_files $uri $uri/ /index.php?r=$uri&$args
     }
     ```
-    
-    如果是部署在二级目录下，在`Nginx.conf`中配置转发规则
-  
-    ```php
-    location /SUB_DIR/ {
-        if (!-e $request_filename){
-            rewrite  ^/SUB_DIR/(.*)$  /SUB_DIR/index.php?r=$1  last;
-        }
-    }
-    ```  
-    >SUB_DIR换成自己的目录
     
 - 打开浏览器,访问安装向导`http://你的域名/install`
 
