@@ -119,15 +119,6 @@
     }
     ```
     
-    如果是部署在二级目录下，在`Nginx.conf`中配置转发规则
-  
-    ```php
-    location /SUB_DIR/ {
-        try_files $uri/SUB_DIR $uri/SUB_DIR/ /SUB_DIR/index.php?r=$uri&$args
-    }
-    ```  
-    >SUB_DIR换成自己的目录
-    
 - 打开浏览器,访问安装向导`http://你的域名/install`
 
     - 安装步骤一：环境检测
