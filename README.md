@@ -123,7 +123,7 @@
   
     ```php
     location /SUB_DIR/ {
-        try_files $uri/SUB_DIR $uri/SUB_DIR /SUB_DIR/index.php?r=$uri&$args
+        try_files $uri/SUB_DIR $uri/SUB_DIR/ /SUB_DIR/index.php?r=$uri&$args
     }
     ```  
     >SUB_DIR换成自己的目录
