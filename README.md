@@ -64,6 +64,34 @@
     
 - 开启`UrlRewrite`隐藏入口文件index.php
 
+  [**IIS**]
+  
+    如果你的服务器环境支持ISAPI_Rewrite的话，可以配置httpd.ini文件，添加下面的内容：
+    
+    
+    ```php
+    RewriteRule (.*)$ /index\.php\?r=$1 [I]
+    ```
+   
+    在IIS的高版本下面可以配置web.Config，在中间添加rewrite节点：
+    
+    
+    ```php
+    <rewrite>
+     <rules>
+     <rule name="OrgPage" stopProcessing="true">
+     <match url="^(.*)$" />
+     <conditions logicalGrouping="MatchAll">
+     <add input="{HTTP_HOST}" pattern="^(.*)$" />
+     <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+     <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+     </conditions>
+     <action type="Rewrite" url="index.php/{R:1}" />
+     </rule>
+     </rules>
+     </rewrite>
+    ```
+   
   [**Apache**]
   
     `httpd.conf`配置文件中加载`mod_rewrite.so`模块
@@ -99,7 +127,7 @@
     ```php
     location /SUB_DIR/ {
         if (!-e $request_filename){
-            rewrite  ^/SUB_DIR/(.*)$  /sub_dir/index.php?r=$1  last;
+            rewrite  ^/SUB_DIR/(.*)$  /SUB_DIR/index.php?r=$1  last;
         }
     }
     ```  
