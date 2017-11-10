@@ -59,7 +59,7 @@ class project extends auth {
                 }
             }
 
-            $project['envs'] = json_encode($data);
+            $project['envs'] = json_encode($data, JSON_UNESCAPED_UNICODE);
 
             $result = \app\project::add($project);
 
