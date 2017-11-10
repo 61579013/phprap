@@ -122,6 +122,8 @@ class project {
 
             };
 
+            $data['update_time'] = date('Y-m-d H:i:s');
+
             //更新操作
             $result =  db('project')->show(false)->where('id', '=', $project['id'])->update($data);
 
