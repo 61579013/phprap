@@ -62,7 +62,7 @@
     `runtime`目录及子目录给予可读可写权限
     
     
-- 开启`UrlRewrite`隐藏入口文件index.php
+- 隐藏入口文件index.php
 
   [**IIS**]
   
