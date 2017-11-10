@@ -11,6 +11,8 @@ class step4 extends auth {
 
     public function index(){
 
+        set_time_limit(0);
+
         if(session('step') < 4){
 
             response::redirect('install/step3');
