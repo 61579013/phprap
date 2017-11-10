@@ -62,7 +62,7 @@
     `runtime`目录及子目录给予可读可写权限
     
     
-- 开启`UrlRewrite`隐藏入口文件index.php
+- 隐藏入口文件index.php
 
   [**IIS**]
   
@@ -260,4 +260,4 @@
 - 如果觉得还不错，请作者喝杯咖啡吧，开源不易，你的支持是我前进的动力！
 
 ![微信](http://gouguoyin.qiniudn.com/wepay.jpg)
-![支付宝](http://gouguoyin.qiniudn.com/alipay.jpg)
+![支付宝](http://gouguoyin.qiniudn.com/alipay1.jpg)
