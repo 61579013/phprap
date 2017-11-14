@@ -26,7 +26,7 @@ class test {
 
         $schema = schema::instance();
 
-        $a = strpos('doc_dbbak', 'dbbak1');
+        $a = app\api::get_project_info(1);
 
 
 

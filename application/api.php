@@ -39,4 +39,18 @@ class api {
 
     }
 
+
+    public static function get_project_info($api_id)
+    {
+
+        $api = db('api')->find($api_id);
+
+        $module = module::get_module_info($api['module_id']);
+
+        $project = project::get_project_info($module['project_id']);
+
+        return $project;
+
+    }
+
 }
