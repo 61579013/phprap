@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         {{foreach \app\api::get_method_list() as $k => $method}}
                                         <label class="radio-inline">
-                                            <input type="radio" name="api[method]" value="{{$k}}" {{if $k == $api.method}}checked{{/if}}> {{$method}}
+                                            <input type="radio" name="api[method]" value="{{$method}}" {{if strtoupper($method) == $api.method}}checked{{/if}}> {{$method}}
                                         </label>
                                         {{/foreach}}
 

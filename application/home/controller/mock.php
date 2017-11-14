@@ -36,25 +36,13 @@ class mock extends controller {
 
         $request_data   = [];
 
-        if(request::isGet() && !in_array($api['method'], [1])){
+        if($api['method'] != request::getMethod()){
 
-            response::ajax(['code'=> 300, 'msg' => '非法请求方式[GET]']);
-
-        }
-
-        if(request::isPost() && !in_array($api['method'], [2])){
-
-            response::ajax(['code'=> 300, 'msg' => '非法请求方式[POST]']);
+            response::ajax(['code'=> 300, 'msg' => '非法请求方式[' . $api['method'] . ']']);
 
         }
 
-        if(request::isPut() && !in_array($api['method'], [3])){
-
-            response::ajax(['code'=> 300, 'msg' => '非法请求方式[PUT]']);
-
-        }
-
-        switch ($_SERVER['REQUEST_METHOD']) {
+        switch (request::getMethod()) {
 
             case 'GET':
 

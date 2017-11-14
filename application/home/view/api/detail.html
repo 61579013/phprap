@@ -44,7 +44,7 @@
                     <div class="panel-body">
                         <p class="text-muted"><label>接口名称：</label>{{$api.title}}</p>
                         <p class="text-muted"><label>所属模块：</label>{{$api.module.title}}</p>
-                        <p class="text-muted"><label>请求类型：</label>{{\app\api::get_method_list($api.method)}}</p>
+                        <p class="text-muted"><label>请求类型：</label>{{$api.method}}</p>
                         <p class="text-muted"><label>接口描述：</label>{{$api.intro}}</p>
                     </div>
                     <!-- /.panel-body -->

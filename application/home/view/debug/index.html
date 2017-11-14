@@ -1,7 +1,7 @@
-<html>
-<head></head>
-<body>
+
 {{include_file name='public/header' title='在线调试'}}
+<link href="{{STATIC_URL}}/plugins/jsonFormat/css.css" rel="stylesheet" type="text/css">
+
 <style>
     body {
         background-color: #ffffff;
@@ -53,6 +53,14 @@
         background-color: #eee;
     }
 
+    .tab-pane p{
+        font-size: 12px;
+    }
+
+    .tab-pane p:last-child{
+        margin: 0px;
+    }
+
 </style>
 <div id="wrapper">
     <!-- Navigation --> {{include_file name='public/nav' sidebar='debug_sidebar'}}
@@ -66,6 +74,9 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+        <form id="js_requestForm" method="post" action="{{url('debug')}}">
+            <input name="api[id]" type="hidden" value="{{$api.id}}">
+            <input class="js_ApiMethod" name="api[method]" type="hidden" value="post">
         <div class="row">
             <div class="col-lg-7">
                 <div class="row">
@@ -81,7 +92,7 @@
 
                                     </ul>
                                 </div>
-                                <input type="text" class="form-control js_envUrl" aria-label="Text input with dropdown button" placeholder="请输入请求地址" value="{{$envs.0.url}}" />
+                                <input type="text" class="form-control js_envUrl" name="api[url]" placeholder="请输入请求地址" value="{{$envs.0.url}}" />
                                 <div class="input-group-btn">
                                     <button style="width: 80px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="js_methodName">{{$api.method}}</span> <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
@@ -89,7 +100,7 @@
                                         <li class="js_methodItem"><a href="javascript:void(0);">{{$method}}</a></li>
                                         {{/foreach}}
                                     </ul>
-                                    <button class="btn btn-success" type="button"><i class="fa fa-search"></i> 请求</button>
+                                    <button class="btn btn-success js_submit" type="button"><i class="fa fa-search"></i> 请求</button>
                                 </div>
                             </div>
                         </div>
@@ -99,17 +110,17 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Header参数 <a href="javascript:void(0);" class="fa fa-plus js_addBtn" data-toggle="tooltip" data-placement="right" title="添加参数"></a>
+                                Header参数 <a href="javascript:void(0);" class="fa fa-plus js_addHeaderBtn" data-toggle="tooltip" data-placement="right" title="添加参数"></a>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table header-table">
                                             <tbody>
                                             <tr>
-                                                <td style="width:20%"> <input name="env[title][]" class="form-control js_selectMemberBtn" placeholder="key" datatype="*" value="" /> </td>
-                                                <td style="width:75%"> <input name="env[title][]" class="form-control" placeholder="value" datatype="*" value="" /> </td>
+                                                <td style="width:25%"> <input name="header[key][]" class="form-control js_selectHeaderBtn" placeholder="key" value="" /> </td>
+                                                <td style="width:70%"> <input name="header[value][]" class="form-control" placeholder="value" value="" /> </td>
                                                 <td style="width:5%">
                                                     <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-title="删除header参数" data-project_id="3"></a> </td>
                                             </tr>
@@ -130,18 +141,18 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 请求参数
-                                <a href="javascript:void(0);" class="fa fa-plus js_addBtn" data-toggle="tooltip" data-placement="right" title="添加参数"></a>
+                                <a href="javascript:void(0);" class="fa fa-plus js_addRequestBtn" data-toggle="tooltip" data-placement="right" title="添加参数"></a>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table request-table">
                                             <tbody>
                                             {{foreach $request_fields as $request_field}}
                                             <tr>
-                                                <td style="width:20%"><input name="env[name][]" class="form-control" placeholder="key" datatype="*" value="{{$request_field.name}}"/></td>
-                                                <td style="width:75%"><input name="env[title][]" class="form-control" placeholder="value" datatype="*" value="{{$request_field.default_value}}"/></td>
+                                                <td style="width:25%"><input name="request[key][]" class="form-control" placeholder="key" value="{{$request_field.name}}"/></td>
+                                                <td style="width:70%"><input name="request[value][]" class="form-control" placeholder="value" value="{{$request_field.default_value}}"/></td>
                                                 <td style="width:5%">
                                                     <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
                                                 </td>
@@ -160,94 +171,37 @@
                     <!-- /.col-lg-6 -->
                 </div>
             </div>
-            <div class="col-lg-5" >
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                响应结果 <a href="javascript:void(0);">status:200</a>    <a href="javascript:void(0);">time:2335 ms</a>
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-pills">
-                                    <li class="active"><a href="#header-pills" data-toggle="tab" aria-expanded="true">Headers</a>
-                                    </li>
-                                    <li class=""><a href="#body-pills" data-toggle="tab" aria-expanded="false">Body</a>
-                                    </li>
-                                    <li class=""><a href="#cookie-pills" data-toggle="tab" aria-expanded="false">Cookies</a>
-                                    </li>
-
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane fade active in" id="header-pills">
-                                        <p>
-                                            cache-control →no-store, no-cache, must-revalidate
-                                        </p>
-                                        <p>
-                                            connection →keep-alive
-                                        </p>
-                                        <p>
-                                            content-encoding →gzip
-                                        </p>
-                                        <p>
-                                            content-type →text/html; charset=UTF-8
-                                        </p>
-                                        <p>
-                                            date →Fri, 10 Nov 2017 07:10:38 GMT
-                                        </p>
-                                        <p>
-                                            expires →Thu, 19 Nov 1981 08:52:00 GMT
-                                        </p>
-                                        <p>
-                                            pragma →no-cache
-                                        </p>
-                                        <p>
-                                            server →nginx
-                                        </p>
-                                        <p>
-                                            transfer-encoding →chunked
-                                        </p>
-                                        <p>
-                                            vary →Accept-Encoding
-                                        </p>
-                                        <p>
-                                            x-powered-by →PHP/7.0.13
-                                        </p>
-
-                                    </div>
-                                    <div class="tab-pane fade" id="body-pills">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    </div>
-                                    <div class="tab-pane fade" id="cookie-pills">
-                                        <p>
-                                            暂无数据
-                                        </p>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                        <!-- /.panel -->
-                    </div>
-                </div>
+            <div class="col-lg-5 js_responseBox" >
+                {{include_file name='debug/load'}}
             </div>
         </div>
+        </form>
     </div>
     <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
-<div class="hidden js_cloneBox">
+<div class="hidden js_headerCloneBox">
+    <table>
     <tr>
-        <td style="width:20%"><input name="env[name][]" class="form-control" placeholder="key" datatype="*" value="{{$request_field.name}}"/></td>
-        <td style="width:75%"><input name="env[title][]" class="form-control" placeholder="value" datatype="*" value="{{$request_field.default_value}}"/></td>
+        <td style="width:25%"><input onclick="selectHeader()" name="header[name][]" class="form-control js_selectHeaderBtn" placeholder="key" datatype="*" value=""/></td>
+        <td style="width:70%"><input name="header[title][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
         <td style="width:5%">
             <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
         </td>
     </tr>
+    </table>
+</div>
+
+<div class="hidden js_requestCloneBox">
+    <table>
+        <tr>
+            <td style="width:25%"><input name="request[name][]" class="form-control" placeholder="key" datatype="*" value=""/></td>
+            <td style="width:70%"><input name="request[title][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+            <td style="width:5%">
+                <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <hr />
@@ -255,6 +209,18 @@
 <!-- /#wrapper -->
 <script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap3-typeahead.min.js"></script>
 <script>
+    var selectHeader = function () {
+        var selectMemberBtn = $('.js_selectHeaderBtn');
+        var localArrayData = ['Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Ranges', 'Authorization', 'Cache-Control', 'Connection','Cookie','Content-Length','Content-Type','Referer','User-Agent'];
+
+        selectMemberBtn.typeahead({
+            source: localArrayData,
+            items: 8, //显示8条
+            delay: 100, //延迟时间
+
+        });
+    }
+
     $(function () {
 
         // 选择环境
@@ -272,39 +238,52 @@
             var name = $(this).text();
 
             $(".js_methodName").text(name);
+            $(".js_ApiMethod").val(name);
 
         });
 
-        // 新增参数
-        $("body").on('click', '.js_addBtn',function () {
-            var trObj = $(".js_cloneBox").find('tr');
-            console.log(trObj);
-            $(this).closest('tbody').append(trObj.clone(true));
+        // 新增header参数
+        $(".js_addHeaderBtn").click(function (event) {
+            event.stopPropagation();
+            var trObj = $(".js_headerCloneBox").find('tr');
+            $(this).closest('.panel').find('tbody').append(trObj.clone(true));
+        });
+
+        // 新增请求参数
+        $(".js_addRequestBtn").click(function (event) {
+            event.stopPropagation();
+            var trObj = $(".js_requestCloneBox").find('tr');
+            $(this).closest('.panel').find('tbody').append(trObj.clone(true));
         });
 
         // 删除参数
         $("body").on('click', '.js_deleteBtn',function () {
             // 阻止事件冒泡
             event.stopPropagation();
-
-            if($('.js_deleteBtn').length < 1){
-                alert('至少要保留一个参数', 1000);
-                return false;
-            }
-
             $(this).closest('tr').remove();
         });
 
-        //选择header
-        var selectMemberBtn = $('.js_selectMemberBtn');
-        var localArrayData = ['Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Ranges', 'Authorization', 'Cache-Control', 'Connection','Cookie','Content-Length','Content-Type','Referer','User-Agent'];
+        //验证表单
+        $("#js_requestForm").validateForm({
+            submitBtn: '.js_submit',
+            before:function () {
+                $(".js_submit").attr("disabled", "disabled");
+            },
+            callback:function (data) {
+                var url  = "{{url('debug/load')}}";
+                var info = data.info;
+                var body = data.body;
+                var header = data.header;
+                $(".js_responseBox").load(url, {info:info,header:header,body:body});
 
-        selectMemberBtn.typeahead({
-            source: localArrayData,
-            items: 8, //显示8条
-            delay: 100, //延迟时间
+                $(".js_submit").removeAttr("disabled");
+
+            },
 
         });
+
+        //选择header
+        selectHeader();
     });
 </script>
 

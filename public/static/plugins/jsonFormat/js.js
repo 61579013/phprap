@@ -24,7 +24,7 @@ function jsonFormat() {
 
     } catch(e) {
         console.log("JSON数据格式不正确:\n" + e.message);
-        jsonBox.html('');
+        //jsonBox.html('');
     }
 }
 

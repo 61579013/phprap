@@ -3,26 +3,77 @@
 namespace app\home\controller;
 
 use app\api;
-use app\field;
 use gophp\controller;
+use gophp\curl;
 use gophp\request;
 use gophp\response;
 
 class debug extends controller {
 
-    public $id;
-
     // 获取接口id
-    public function __construct()
+    public function index()
+    {
+        $api  = request::post('api', []);
+
+        if(!$url = $api['url']){
+
+            response::ajax(['code'=> 300, 'msg' => '请求地址不存在']);
+
+        }
+
+        if(!$method = $api['method']){
+
+            response::ajax(['code'=> 300, 'msg' => '请求方式不存在']);
+
+        }
+
+        $curl = new curl($url, $method);
+
+        if($info = $curl->getInfo()){
+
+            $info = serialize($info);
+
+
+        }
+
+        if($body = $curl->getBody()){
+            $body = serialize($body);
+        }
+
+        if($header = $curl->getHeader()){
+            $header = serialize($header);
+        }
+
+        response::ajax(['info' => $info,'header' => $header,'body' => $body]);
+
+    }
+
+    public function load()
     {
 
-        $this->id = id_decode($this->action);
+        $info = request::post('info', '');
+        $header = request::post('header', '');
+        $body = request::post('body', '');
 
-        $api = api::get_api_info($this->id);
+        if($info){
 
-        if(!$api){
-            response::ajax(['code'=> 500, 'msg' => '该接口不存在']);
+            $this->assign('info', unserialize($info));
+
         }
+
+        if($header){
+
+            $this->assign('headers', unserialize($header));
+
+        }
+
+        if($body){
+
+            $this->assign('body', unserialize($body));
+
+        }
+
+        $this->display('debug/load');
 
     }
 
@@ -30,11 +81,17 @@ class debug extends controller {
     public function __call($name, $arguments)
     {
 
-        $api    = api::get_api_info($this->id);
+        $id  = id_decode($this->action);
 
-        $api['method'] = api::get_method_list($api['method']);
+        $api = api::get_api_info($id);
 
-        $project = api::get_project_info($this->id);
+        if(!$api){
+
+            $this->error('该接口不存在');
+
+        }
+
+        $project = api::get_project_info($id);
 
         // 获取项目环境域名
         $envs    = json_decode($project['envs'], true);
@@ -56,7 +113,7 @@ class debug extends controller {
         array_unshift($envs, $mock);
 
         // 获取请求参数列表
-        $request_fields = \app\field::get_field_list($this->id, 1);
+        $request_fields = \app\field::get_field_list($id, 1);
 
         $methods = \app\api::get_method_list();
 
@@ -65,7 +122,6 @@ class debug extends controller {
         $this->assign('methods', $methods);
 
         $this->assign('request_fields', $request_fields);
-
 
         $this->display('debug/index');
 

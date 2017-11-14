@@ -95,6 +95,7 @@ function confirm(msg, ok) {
     var defaults = {
         submitBtn: '.js_submit',
         before: '', //上传成功时的回调函数
+        callback: '',
         success: '', //上传成功时的回调函数
         error: '' //上传失败时的回调函数
 
@@ -103,6 +104,7 @@ function confirm(msg, ok) {
     var thisObj = $(this);
     var config  = $.extend(defaults, options);
     var before  = config.before;
+    var callback = config.callback;
     var success = config.success;
     var error   = config.error;
     var submitBtn = config.submitBtn;
@@ -131,14 +133,25 @@ function confirm(msg, ok) {
 
         beforeSubmit: function () {
 
-            if(before && before() === false){
+            if(before){
 
-                return false;
+                before();
+
+            }else{
+
+                $(submitBtn).attr("disabled", "disabled").text('提交中..');
+
             }
 
-            $(submitBtn).attr("disabled", "disabled").text('提交中..');
         },
         callback:function(json){
+
+            if(callback){
+
+                callback(json);
+                return false;
+
+            }
 
             if(json.code == 200){
 
@@ -148,7 +161,7 @@ function confirm(msg, ok) {
 
                     if(success){
 
-                        success();
+                        success(json);
 
                     }else{
 
@@ -159,11 +172,16 @@ function confirm(msg, ok) {
 
             }else{
 
-                error && error();
+                if(error){
 
-                alert(json.msg, 3000);
+                    error(json);
 
-                $(submitBtn).text('重新提交').removeAttr("disabled");
+                }else{
+
+                    alert(json.msg, 3000);
+
+                    $(submitBtn).text('重新提交').removeAttr("disabled");
+                }
 
             }
 
