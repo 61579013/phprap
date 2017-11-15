@@ -42,7 +42,6 @@ class debug extends controller {
 
             $info = serialize($info);
 
-
         }
 
         if($body = $curl->getBody()){

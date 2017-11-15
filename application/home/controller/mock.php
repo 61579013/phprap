@@ -30,11 +30,9 @@ class mock extends controller {
     public function __call($name, $arguments)
     {
 
-        $api_id =  $this->id;
-
         $api    = api::get_api_info($this->id);
 
-        $request_data   = [];
+        $request_data  = [];
 
         if($api['method'] != request::getMethod()){
 
@@ -62,7 +60,7 @@ class mock extends controller {
         }
 
         // 获取请求参数列表
-        $request_fields = \app\field::get_field_list($api_id, 1);
+        $request_fields = \app\field::get_field_list($this->id, 1);
 
         foreach ($request_fields as $k => $request_field) {
 
@@ -70,9 +68,15 @@ class mock extends controller {
             $type  = $request_field['type'];
             $value = $request_data[$name];
 
-            if($request_field['is_required'] && !isset($value)){
+            if($request_field['is_required'] && !$name){
 
                 response::ajax(['code'=> 301+$k, 'msg' => '缺失必要参数' . $name]);
+
+            }
+
+            if($request_field['is_required'] && $value == ''){
+
+                response::ajax(['code'=> 301+$k, 'msg' => '必要参数' . $name .'的值不能为空']);
 
             }
 
@@ -126,7 +130,7 @@ class mock extends controller {
 
         }
 
-        $mock_data = field::get_mock_data($api_id);
+        $mock_data = field::get_mock_data($this->id);
 
         response::ajax($mock_data);
 

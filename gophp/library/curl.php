@@ -32,9 +32,6 @@ class curl
 
         $this->curl = curl_init(); //初始化CURL句柄
 
-        // 设置请求的URL
-        curl_setopt($this->curl, CURLOPT_URL, $this->url);
-
         // 设置请求方式
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST,$this->method);
 
@@ -64,6 +61,9 @@ class curl
         // TRUE 时追踪句柄的请求字符串，从 PHP 5.1.3 开始可用。这个很关键，就是允许你查看请求header
         curl_setopt($this->curl, CURLINFO_HEADER_OUT, true);
 
+        // 设置请求的URL
+        curl_setopt($this->curl, CURLOPT_URL, $this->url);
+
         return $this->curl;
 
     }
@@ -71,9 +71,7 @@ class curl
     public function getBody()
     {
 
-        $this->body = curl_exec($this->curl);
-
-        return $this->body;
+        return curl_exec($this->curl);
 
     }
 
