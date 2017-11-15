@@ -102,7 +102,7 @@ class reflect
 
     }
 
-    // 获取某个类中所有方法名
+    // 获取某个类中所有公共方法名
     public static function getMethods($class)
     {
 
@@ -114,7 +114,11 @@ class reflect
 
         foreach ($methods as $method) {
 
-            $name[] =  $method->getName();
+            if($method->isPublic()){
+
+                $name[] =  $method->getName();
+
+            }
 
         }
 

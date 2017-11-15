@@ -467,6 +467,14 @@ class mock {
 
             return $data[$key];
 
+        }elseif ($format == 'no'){
+
+            $data = ['6225365271562822', '6227003325370110828', '6222023803013297860', '9558820200001323775'];
+
+            $key = array_rand($data, 1);
+
+            return $data[$key];
+
         }
 
     }
