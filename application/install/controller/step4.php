@@ -34,7 +34,7 @@ class step4 extends auth {
 
             }
 
-            $k%30 == 0 and sleep(1);
+//            $k%30 == 0 and sleep(1);
 
             $db->query($v);
 
