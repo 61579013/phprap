@@ -80,7 +80,7 @@ class field extends auth {
         $field['id']        = $field_id;
 
         $this->assign('field', $field);
-        $this->assign('$method', json_encode($methods, JSON_UNESCAPED_UNICODE));
+        $this->assign('methods', json_encode($methods, JSON_UNESCAPED_UNICODE));
 
         $this->display('field/response/add');
     }

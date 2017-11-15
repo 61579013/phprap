@@ -71,7 +71,7 @@
 
         //选择mock规则
         var selectMemberBtn = $('.js_selectMockRuleBtn');
-        var localArrayData = "{{$methods}}";
+        var localArrayData = {{$methods}};
 
         selectMemberBtn.typeahead({
             source: localArrayData,
