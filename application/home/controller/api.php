@@ -2,6 +2,7 @@
 
 namespace app\home\controller;
 
+use app\log;
 use gophp\request;
 use gophp\response;
 use gophp\validate;
@@ -38,12 +39,15 @@ class api extends auth {
     /** 
      * 删除接口
      */
-    public function delete(){
+    public function delete()
+    {
 
-        $id       = request::post('id', 0);
+        $api_id   = request::post('id', 0);
         $password = request::post('password', '');
 
-        if(!_uri('api', $id)){
+        $api = \app\api::get_api_info($api_id);
+
+        if(!$api){
 
             response::ajax(['code' => 301, 'msg' => '请选择要删除的接口!']);
 
@@ -55,9 +59,23 @@ class api extends auth {
 
         }
 
-        $result = db('api')->show(false)->delete($id);
+        $result = db('api')->show(false)->delete($api_id);
+
+        $project = \app\api::get_project_info($api_id);
+
+        $module = \app\module::get_module_info($api['module_id']);
 
         if($result){
+
+            // 记录日志
+            $log = [
+                'project_id' => $project['id'],
+                'type'       => '删除',
+                'object'     => '接口',
+                'content'    => '删除<code>'.$module['title'].'</code>下的接口<code>' . $api['title'] . '</code>',
+            ];
+
+            log::project($log);
 
             response::ajax(['code' => 200, 'msg' => '删除成功!']);
 
