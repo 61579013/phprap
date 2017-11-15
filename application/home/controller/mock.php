@@ -68,9 +68,9 @@ class mock extends controller {
             $type  = $request_field['type'];
             $value = $request_data[$name];
 
-            if($request_field['is_required'] && !$name){
+            if($request_field['is_required'] && !$request_data['name']){
 
-                response::ajax(['code'=> 301+$k, 'msg' => '缺失必要参数' . $name]);
+                response::ajax(['code'=> 301+$k, 'msg' => '缺失必要参数' . $request_data['name']]);
 
             }
 
