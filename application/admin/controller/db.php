@@ -154,14 +154,6 @@ class db extends auth {
 
         $dbbak = db('dbbak')->find($id);
 
-        $file = RUNTIME_PATH . '/data/' . $dbbak['file'];
-
-        if(!file::delete($file)){
-
-            response::ajax(['code'=> 300, 'msg'=>'删除失败']);
-
-        }
-
         $result = db('dbbak')->delete($id);
 
         if(!$result){
@@ -169,6 +161,10 @@ class db extends auth {
             response::ajax(['code'=> 301, 'msg'=>'删除失败']);
 
         }
+
+        $file = RUNTIME_PATH . '/data/' . $dbbak['file'];
+
+        file::delete($file);
 
         response::ajax(['code'=> 200, 'msg'=>'删除成功']);
 
