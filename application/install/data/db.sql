@@ -40,7 +40,7 @@ CREATE TABLE `doc_api` (
 --  Records of `doc_api`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', '1', 'goods/{id}', '', '1', null, '2017-11-04 21:47:01');
+INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', 'GET', 'goods/{id}', '', '1', null, '2017-11-04 21:47:01');
 COMMIT;
 
 -- ----------------------------
@@ -102,7 +102,7 @@ CREATE TABLE `doc_field` (
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '接口名称',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '接口标题',
   `type` varchar(10) NOT NULL DEFAULT '' COMMENT '字段类型',
-  `method` tinyint(3) NOT NULL DEFAULT '1' COMMENT '参数类型，1:请求字段 2:响应字段',
+  `method` tinyint(3) NOT NULL DEFAULT '1' COMMENT '参数类型，1:请求字段 2:响应字段 3:header字段',
   `is_required` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否必传',
   `default_value` varchar(250) NOT NULL DEFAULT '' COMMENT '默认值',
   `intro` varchar(250) NOT NULL DEFAULT '' COMMENT '备注',
