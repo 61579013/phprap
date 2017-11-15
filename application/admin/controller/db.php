@@ -63,12 +63,8 @@ class db extends auth {
             $sql .= $schema->getDeleteTableSql($table) . ";\r\n";
             // 创建表结构
             $sql .= $schema->getCreateTableSql($table) . ";\r\n";
-
-            // 备份数据库数据不需要备份
-            if(false == strpos($table, 'dbbak')){
-                // 插入数据
-                $sql .= $schema->getInsertTableSql($table) . ";\r\n";
-            }
+            // 插入数据
+            $sql .= $schema->getInsertTableSql($table) . ";\r\n";
 
         }
 
