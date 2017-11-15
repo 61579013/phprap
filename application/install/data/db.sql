@@ -221,7 +221,7 @@ CREATE TABLE `doc_project` (
 --  Records of `doc_project`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_project` VALUES ('1', '1', '测试项目', '测试专用项目', '[{\"name\":\"product\",\"title\":\"\\u751f\\u4ea7\\u73af\\u5883\",\"domain\":\"http:\\/\\/phprap.gouguoyin.cn\"},{\"name\":\"develop\",\"title\":\"\\u5f00\\u53d1\\u73af\\u5883\",\"domain\":\"http:\\/\\/demo.gouguoyin.cn\"}]', '1', '0', '2017-11-04 21:45:53', '2017-11-04 21:50:32');
+INSERT INTO `doc_project` VALUES ('1', '1', '测试项目', '测试专用项目', '[{\"name\":\"product\",\"title\":\"生产环境",\"domain\":\"http:\\/\\/phprap.gouguoyin.cn\"},{\"name\":\"develop\",\"title\":\"测试环境",\"domain\":\"http:\\/\\/demo.gouguoyin.cn\"}]', '1', '0', '2017-11-04 21:45:53', '2017-11-04 21:50:32');
 COMMIT;
 
 -- ----------------------------
