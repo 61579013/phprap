@@ -14,6 +14,7 @@ use gophp\curl;
 use gophp\db;
 use gophp\helper\file;
 use gophp\helper\url;
+use gophp\reflect;
 use gophp\request;
 use gophp\schema;
 use app;
@@ -26,14 +27,7 @@ class test {
      */
     public function index(){
 
-        $url = 'http://demo.gouguoyin.cn/mock/FzxxmyQzxV.html';
-        $method = 'GET';
-
-        $curl = new curl($url, $method);
-
-
-
-        $a = $curl->getBody();
+        $a = reflect::getMethods(app\mock::class);
 
 //        $b = request::curl('http://cms.juzifenqi.com/api/page/list.php','get');
 

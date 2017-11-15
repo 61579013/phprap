@@ -29,7 +29,7 @@ class setting extends auth {
 
             }else{
 
-                $result = db('config')->add(['config' => json_encode($config)]);
+                $result = db('config')->add(['config' => json_encode($config, JSON_UNESCAPED_UNICODE)]);
 
             }
 

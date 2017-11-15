@@ -118,7 +118,7 @@ class api extends auth {
         $header_fields = \app\field::get_field_list($api_id, 3);
 
         // 获取返回json示例
-        $respose_json = json_encode(\app\field::get_default_data($api_id));
+        $respose_json = json_encode(\app\field::get_default_data($api_id), JSON_UNESCAPED_UNICODE);
 
         $this->assign('api', $api);
         $this->assign('modules', $modules);
@@ -223,7 +223,7 @@ class api extends auth {
         $response_fields = \app\field::get_field_list($api_id, 2);
 
         // 获取返回json示例
-        $respose_json = json_encode(\app\field::get_default_data($api_id));
+        $respose_json = json_encode(\app\field::get_default_data($api_id), JSON_UNESCAPED_UNICODE);
 
         $this->assign('api', $api);
         $this->assign('project', $project);

@@ -2,6 +2,7 @@
 
 namespace app\home\controller;
 
+use gophp\reflect;
 use gophp\request;
 use gophp\response;
 
@@ -72,11 +73,14 @@ class field extends auth {
 
         $field = \app\field::get_field_info($field_id);
 
+        $methods = reflect::getMethods(\app\mock::class);
+
         $field['api_id']    = $api_id;
         $field['parent_id'] = $parent_id;
         $field['id']        = $field_id;
 
         $this->assign('field', $field);
+        $this->assign('$method', json_encode($methods, JSON_UNESCAPED_UNICODE));
 
         $this->display('field/response/add');
     }
@@ -122,7 +126,7 @@ class field extends auth {
         $api = \app\api::get_api_info($api_id);
 
         // 获取返回json示例
-        $respose_json = json_encode(\app\field::get_default_data($api_id));
+        $respose_json = json_encode(\app\field::get_default_data($api_id), JSON_UNESCAPED_UNICODE);
 
         $this->assign('api', $api);
         $this->assign('respose_json', $respose_json);
