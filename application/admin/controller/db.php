@@ -64,7 +64,10 @@ class db extends auth {
             // 创建表结构
             $sql .= $schema->getCreateTableSql($table) . ";\r\n";
             // 插入数据
-            $sql .= $schema->getInsertTableSql($table) . ";\r\n";
+            if($schema->getInsertTableSql($table)){
+
+                $sql .= $schema->getInsertTableSql($table) . ";\r\n";
+            }
 
         }
 
