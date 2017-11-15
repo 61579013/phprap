@@ -76,7 +76,7 @@
         <!-- /.row -->
         <form id="js_requestForm" method="post" action="{{url('debug')}}">
             <input name="api[id]" type="hidden" value="{{$api.id}}">
-            <input class="js_ApiMethod" name="api[method]" type="hidden" value="post">
+            <input class="js_ApiMethod" name="api[method]" type="hidden" value="{{$api.method}}">
         <div class="row">
             <div class="col-lg-7">
                 <div class="row">
@@ -183,8 +183,8 @@
 <div class="hidden js_headerCloneBox">
     <table>
     <tr>
-        <td style="width:25%"><input onclick="selectHeader()" name="header[name][]" class="form-control js_selectHeaderBtn" placeholder="key" datatype="*" value=""/></td>
-        <td style="width:70%"><input name="header[title][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+        <td style="width:25%"><input name="header[key][]" class="form-control js_selectHeaderBtn" placeholder="key" datatype="*" value=""/></td>
+        <td style="width:70%"><input name="header[value][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
         <td style="width:5%">
             <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
         </td>
@@ -195,8 +195,8 @@
 <div class="hidden js_requestCloneBox">
     <table>
         <tr>
-            <td style="width:25%"><input name="request[name][]" class="form-control" placeholder="key" datatype="*" value=""/></td>
-            <td style="width:70%"><input name="request[title][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+            <td style="width:25%"><input name="request[key][]" class="form-control" placeholder="key" datatype="*" value=""/></td>
+            <td style="width:70%"><input name="request[value][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
             <td style="width:5%">
                 <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
             </td>

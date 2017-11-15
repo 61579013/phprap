@@ -24,6 +24,25 @@ class field extends auth {
 
     }
 
+    // 添加header参数页面
+    public function header()
+    {
+
+        $ids = request::get('id', '');
+
+        list($api_id, $field_id) = explode('-', $ids);
+
+        $field = \app\field::get_field_info($field_id);
+
+        $field['api_id'] = $api_id ? $api_id : 0;
+        $field['id']     = $field_id;
+
+        $this->assign('field', $field);
+
+        $this->display('field/header/add');
+
+    }
+
     // 添加请求参数页面
     public function request()
     {
@@ -84,6 +103,11 @@ class field extends auth {
 
             $this->assign('response_fields', $fields);
             $this->display('field/response/load');
+
+        }elseif($method == 3){
+
+            $this->assign('header_fields', $fields);
+            $this->display('field/header/load');
 
         }
 

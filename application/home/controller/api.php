@@ -17,83 +17,9 @@ class api extends auth {
 
             $api = request::post('api', []);
 
-            $api_id    = $api['id'] ? $api['id'] : 0;
-            $module_id = $api['module_id'] ? $api['module_id'] : 0;
+            $result = \app\api::add($api);
 
-            // 检测是否选择模块
-            if($module_id){
-
-                $data['module_id'] = $module_id;
-
-            }else{
-
-                response::ajax(['code' => 301, 'msg' => '请选择所属模块']);
-
-            }
-
-            // 检测是否填写接口名称
-            if($title = $api['title']){
-
-                $data['title'] = $title;
-
-            }else{
-
-                response::ajax(['code' => 302, 'msg' => '接口名称不能为空']);
-
-            }
-
-            // 检测是否填写接口地址
-            if($uri = $api['uri']){
-
-                $data['uri'] = trim($uri, '/');
-
-            }else{
-
-                response::ajax(['code' => 302, 'msg' => '接口地址不能为空']);
-
-            }
-
-            // 检测接口名称是否已存在
-            $result = db('api')->show(false)->where('module_id', '=', $module_id)->where('title', '=', $title)->where('id', 'not in', [$api_id])->find();
-
-            if($result){
-
-                response::ajax(['code' => 304, 'msg' => '该接口名称已存在']);
-
-            }
-
-            // 检测是否填写接口简介
-            if($intro = $api['intro']){
-
-                $data['intro'] = $intro;
-
-            }
-
-            // 接口请求方式
-            $data['method']  = $api['method'];
-            $data['user_id'] = $this->user_id;
-
-            if(\app\api::get_api_info($api_id)){
-                // 更新操作
-                $result = db('api')->where('id', '=', $api_id)->update($data);
-
-                if($result !== false){
-
-                    response::ajax(['code' => 200, 'msg' => '接口更新成功']);
-
-                }
-
-            }else{
-
-                $data['add_time']  = date('Y-m-d H:i:s');
-                $result = db('api')->add($data);
-
-                if($result){
-
-                    response::ajax(['code' => 200, 'msg' => '接口添加成功']);
-
-                }
-            }
+            response::ajax(['code' => $result['code'], 'msg' => $result['msg']]);
 
         }else{
 
@@ -106,7 +32,6 @@ class api extends auth {
             $this->display('api/add');
 
         }
-
 
     }
 
@@ -171,6 +96,9 @@ class api extends auth {
         // 获取响应参数列表
         $response_fields = \app\field::get_field_list($api_id, 2);
 
+        // 获取header参数列表
+        $header_fields = \app\field::get_field_list($api_id, 3);
+
         // 获取返回json示例
         $respose_json = json_encode(\app\field::get_default_data($api_id));
 
@@ -178,6 +106,7 @@ class api extends auth {
         $this->assign('modules', $modules);
         $this->assign('request_fields', $request_fields);
         $this->assign('response_fields', $response_fields);
+        $this->assign('header_fields', $header_fields);
         $this->assign('respose_json', $respose_json);
 
         $this->display('api/edit');
@@ -214,11 +143,15 @@ class api extends auth {
         // 获取响应参数列表
         $response_fields = \app\field::get_field_list($api_id, 2);
 
+        // 获取header参数列表
+        $header_fields = \app\field::get_field_list($api_id, 3);
+
         $this->assign('api', $api);
         $this->assign('project', $project);
         $this->assign('modules', $modules);
         $this->assign('request_fields', $request_fields);
         $this->assign('response_fields', $response_fields);
+        $this->assign('header_fields', $header_fields);
 
         $this->display('api/load');
 
@@ -249,6 +182,7 @@ class api extends auth {
         $project_id    = _uri('module', $api['module_id'], 'project_id');
 
         $project       = _uri('project', $project_id);
+        $project['encode_id'] = id_encode($project_id);
 
         if(!\app\member::has_rule($project_id, 'api', 'look')){
 
@@ -260,6 +194,9 @@ class api extends auth {
 
         // 获取项目模块
         $modules = db('module')->where('project_id', '=', $project_id)->findAll();
+
+        // 获取header参数列表
+        $header_fields = \app\field::get_field_list($api_id, 3);
 
         // 获取请求参数列表
         $request_fields = \app\field::get_field_list($api_id, 1);
@@ -274,6 +211,7 @@ class api extends auth {
         $this->assign('project', $project);
         $this->assign('envs', $envs);
         $this->assign('modules', $modules);
+        $this->assign('header_fields', $header_fields);
         $this->assign('request_fields', $request_fields);
         $this->assign('response_fields', $response_fields);
         $this->assign('respose_json', $respose_json);

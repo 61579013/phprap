@@ -88,6 +88,33 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    Haader参数
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+
+                        <div class="panel-header">
+                            {{include_file name='field/header/load'}}
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default js_addHeaderFieldBtn" data-title="添加header参数" data-id="{{$api.id}}-0"><i class="fa fa-fw fa-plus"></i>添加参数</button>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     请求参数
                 </div>
                 <!-- /.panel-heading -->
@@ -110,7 +137,6 @@
         </div>
         <!-- /.col-lg-6 -->
     </div>
-
 
     <div class="row">
         <div class="col-lg-12">
@@ -145,7 +171,30 @@
 
 </form>
 
+<!-- 添加/编辑header字段模态框 -->
+<div class="modal fade" id="js_addHeaderFieldModal" role="dialog">
+    <div class="modal-dialog" role="document">
 
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加header参数</h4>
+            </div>
+            <div class="modal-body">
+
+                <iframe id="js_addHeaderFieldIframe" style="min-height: 250px;" src="{{url('field/header')}}"></iframe>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary js_headerSubmitBtn">提交</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 <!-- 添加/编辑请求字段模态框 -->
 <div class="modal fade" id="js_addRequestFieldModal" role="dialog">
     <div class="modal-dialog" role="document">
@@ -197,20 +246,18 @@
 
 <script>
 
-
     $(function(){
-        //control+s快速保存
-        document.onkeydown=function()   {
-            if (event.ctrlKey == true && event.keyCode == 83) {//Ctrl+S
-                event.returnvalue = false;
-                $("#js_addApiForm").submit();
-                //alert('触发ctrl+s');
-            }
-
-        };
 
         //表单合法性验证
         $("#js_addApiForm").validateForm();
+
+        // 添加/编辑header字段
+        $(".js_addHeaderFieldBtn").iframeModal({
+            modalItem: '#js_addHeaderFieldModal', //modal元素
+            iframeItem: '#js_addHeaderFieldIframe', //提交按钮
+            submitBtn: '.js_headerSubmitBtn',
+            clickBtn: '.js_addHeaderFieldBtn',
+        });
 
         // 添加/编辑请求字段
         $(".js_addRequestFieldBtn").iframeModal({

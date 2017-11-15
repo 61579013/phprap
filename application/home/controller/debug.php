@@ -13,7 +13,8 @@ class debug extends controller {
     // 获取接口id
     public function index()
     {
-        $api  = request::post('api', []);
+        $api     = request::post('api', []);
+        $request = request::post('request', []);
 
         if(!$url = $api['url']){
 
@@ -27,7 +28,15 @@ class debug extends controller {
 
         }
 
-        $curl = new curl($url, $method);
+        $data = [];
+
+        foreach ($request as $k=>$v){
+            foreach ($v as $k1=>$v1){
+                $data[$request['key'][$k1]] = $v1;
+            }
+        }
+
+        $curl = new curl($url, $method, $data);
 
         if($info = $curl->getInfo()){
 

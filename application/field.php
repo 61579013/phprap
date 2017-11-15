@@ -282,6 +282,12 @@ class field {
 
             $data['default_value'] = $mcok_value ? $mcok_value : '';
 
+        }elseif($post['method'] == 3){
+
+            $type_title = 'header字段';
+
+            $data['default_value'] = $post['default_value'];
+
         }
 
         $data['method']      = $post['method'];
@@ -337,6 +343,31 @@ class field {
                 log::project($log);
             }
 
+            if($data['method'] == 3 && $field['default_value'] != $data['default_value']){
+
+                $log = [
+                    'project_id' => $project['id'],
+                    'type'       => '更新',
+                    'object'     => '字段',
+                    'content'    => '将接口<code>' . $api['title'] . '</code>的' . $type_title .'<code>'.$field['name'] .'</code>的值由'.'<code>' . $field['default_value'] . '</code>'.'修改为<code>' . $data['default_value'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            if($field['intro'] != $data['intro']){
+
+                $log = [
+                    'project_id' => $project['id'],
+                    'type'       => '更新',
+                    'object'     => '字段',
+                    'content'    => '将接口<code>' . $api['title'] . '</code>的' . $type_title .'<code>'.$field['name'] .'</code>的简介由'.'<code>' . $field['intro'] . '</code>'.'修改为<code>' . $data['intro'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+
             response::ajax(['code' => 200, 'msg' => $type_title . '更新成功']);
 
         }else{
@@ -353,12 +384,22 @@ class field {
 
             $project = self::get_project_info($id);
 
+            if($post['method'] == 3){
+
+                $log_content = '给接口<code>' . $api['title'] . '</code>新增' . $type_title . '<code>' . $data['name'] . '</code>,字段值为<code>'. $data['default_value']. '</code>';
+
+            }else{
+
+                $log_content = '给接口<code>' . $api['title'] . '</code>新增' . $type_title . '<code>' . $data['name'] . '('.$data['title'].')'. '</code>';
+
+            }
+
             // 记录日志
             $log = [
                 'project_id' => $project['id'],
                 'type'       => '添加',
                 'object'     => '字段',
-                'content'    => '给接口<code>' . $api['title'] . '</code>新增' . $type_title . '<code>' . $data['name'] . '('.$data['title'].')'. '</code>',
+                'content'    => $log_content,
             ];
 
             log::project($log);
@@ -388,6 +429,10 @@ class field {
         }elseif($field['method'] == 2){
 
             $type_title = '响应字段';
+
+        }elseif($field['method'] == 3){
+
+            $type_title = 'header字段';
 
         }
 

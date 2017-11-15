@@ -210,7 +210,7 @@ CREATE TABLE `doc_project` (
   `intro` varchar(255) NOT NULL COMMENT '项目描述',
   `envs` text NOT NULL COMMENT '环境域名,json字符串',
   `allow_search` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否允许被搜索到',
-  `sort` int(10) NOT NULL,
+  `sort` int(10) NOT NULL DEFAULT '0' ,
   `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
