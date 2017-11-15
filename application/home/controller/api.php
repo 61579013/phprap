@@ -72,7 +72,7 @@ class api extends auth {
                 'project_id' => $project['id'],
                 'type'       => '删除',
                 'object'     => '接口',
-                'content'    => '删除<code>'.$module['title'].'</code>下的接口<code>' . $api['title'] . '</code>',
+                'content'    => '删除模块<code>'.$module['title'].'</code>下的接口<code>' . $api['title'] . '</code>',
             ];
 
             log::project($log);
