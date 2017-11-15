@@ -10,9 +10,12 @@ use app\statistics;
 use app\tree;
 use gophp\backup;
 use gophp\config;
+use gophp\curl;
 use gophp\db;
 use gophp\helper\file;
 use gophp\helper\url;
+use gophp\reflect;
+use gophp\request;
 use gophp\schema;
 use app;
 
@@ -24,11 +27,9 @@ class test {
      */
     public function index(){
 
-        $schema = schema::instance();
+        $a = reflect::getMethods(app\mock::class);
 
-        $a = strpos('doc_dbbak', 'dbbak1');
-
-
+//        $b = request::curl('http://cms.juzifenqi.com/api/page/list.php','get');
 
         dump($a);
 

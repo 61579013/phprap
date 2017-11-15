@@ -63,10 +63,9 @@ class db extends auth {
             $sql .= $schema->getDeleteTableSql($table) . ";\r\n";
             // 创建表结构
             $sql .= $schema->getCreateTableSql($table) . ";\r\n";
+            // 插入数据
+            if($schema->getInsertTableSql($table)){
 
-            // 备份数据库数据不需要备份
-            if(false == strpos($table, 'dbbak')){
-                // 插入数据
                 $sql .= $schema->getInsertTableSql($table) . ";\r\n";
             }
 
@@ -158,14 +157,6 @@ class db extends auth {
 
         $dbbak = db('dbbak')->find($id);
 
-        $file = RUNTIME_PATH . '/data/' . $dbbak['file'];
-
-        if(!file::delete($file)){
-
-            response::ajax(['code'=> 300, 'msg'=>'删除失败']);
-
-        }
-
         $result = db('dbbak')->delete($id);
 
         if(!$result){
@@ -173,6 +164,10 @@ class db extends auth {
             response::ajax(['code'=> 301, 'msg'=>'删除失败']);
 
         }
+
+        $file = RUNTIME_PATH . '/data/' . $dbbak['file'];
+
+        file::delete($file);
 
         response::ajax(['code'=> 200, 'msg'=>'删除成功']);
 

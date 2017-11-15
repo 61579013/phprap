@@ -282,6 +282,12 @@ class field {
 
             $data['default_value'] = $mcok_value ? $mcok_value : '';
 
+        }elseif($post['method'] == 3){
+
+            $type_title = 'header字段';
+
+            $data['default_value'] = $post['default_value'];
+
         }
 
         $data['method']      = $post['method'];
@@ -337,6 +343,31 @@ class field {
                 log::project($log);
             }
 
+            if($data['method'] == 3 && $field['default_value'] != $data['default_value']){
+
+                $log = [
+                    'project_id' => $project['id'],
+                    'type'       => '更新',
+                    'object'     => '字段',
+                    'content'    => '将接口<code>' . $api['title'] . '</code>的' . $type_title .'<code>'.$field['name'] .'</code>的值由'.'<code>' . $field['default_value'] . '</code>'.'修改为<code>' . $data['default_value'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+            if($field['intro'] != $data['intro']){
+
+                $log = [
+                    'project_id' => $project['id'],
+                    'type'       => '更新',
+                    'object'     => '字段',
+                    'content'    => '将接口<code>' . $api['title'] . '</code>的' . $type_title .'<code>'.$field['name'] .'</code>的简介由'.'<code>' . $field['intro'] . '</code>'.'修改为<code>' . $data['intro'] . '</code>',
+                ];
+
+                log::project($log);
+            }
+
+
             response::ajax(['code' => 200, 'msg' => $type_title . '更新成功']);
 
         }else{
@@ -353,12 +384,22 @@ class field {
 
             $project = self::get_project_info($id);
 
+            if($post['method'] == 3){
+
+                $log_content = '给接口<code>' . $api['title'] . '</code>新增' . $type_title . '<code>' . $data['name'] . '</code>,字段值为<code>'. $data['default_value']. '</code>';
+
+            }else{
+
+                $log_content = '给接口<code>' . $api['title'] . '</code>新增' . $type_title . '<code>' . $data['name'] . '('.$data['title'].')'. '</code>';
+
+            }
+
             // 记录日志
             $log = [
                 'project_id' => $project['id'],
                 'type'       => '添加',
                 'object'     => '字段',
-                'content'    => '给接口<code>' . $api['title'] . '</code>新增' . $type_title . '<code>' . $data['name'] . '('.$data['title'].')'. '</code>',
+                'content'    => $log_content,
             ];
 
             log::project($log);
@@ -388,6 +429,10 @@ class field {
         }elseif($field['method'] == 2){
 
             $type_title = '响应字段';
+
+        }elseif($field['method'] == 3){
+
+            $type_title = 'header字段';
 
         }
 
@@ -457,6 +502,8 @@ class field {
     public static function get_mock_data($api_id, $parend_id=0)
     {
 
+        $api_id = $api_id ? $api_id : 0;
+
         $fields = \db('field')->where('method', '=', 2)->where('api_id', '=', $api_id)->where('parent_id', '=', $parend_id)->findAll();
 
         foreach ($fields as $k => $v){
@@ -465,15 +512,21 @@ class field {
 
             if($v['type'] == 'array'){
 
-                $data[$name][] = self::get_mock_data($api_id, $v['id']);
+                $value = self::get_mock_data($api_id, $v['id']);
+
+                $data[$name][] = $value ? $value : array();
 
             }if($v['type'] == 'object'){
 
-                $data[$name] = self::get_mock_data($api_id, $v['id']);
+                $value = self::get_mock_data($api_id, $v['id']);
+
+                $data[$name] = $value ? $value : (object)array();
 
             }else{
 
-                $data[$name] = field::get_mock_value($v['mock']);
+                $v['mock'] and $value = field::get_mock_value($v['mock']);
+
+                $data[$name] = $value;
 
             }
         }

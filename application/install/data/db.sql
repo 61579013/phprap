@@ -25,7 +25,7 @@ CREATE TABLE `doc_api` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `module_id` int(10) NOT NULL DEFAULT '0' COMMENT '模块id',
   `title` varchar(250) NOT NULL DEFAULT '' COMMENT '接口名',
-  `method` int(3) NOT NULL DEFAULT '2' COMMENT '请求方法，1:get 2:post 3:put',
+  `method` varchar(10) NOT NULL DEFAULT '' COMMENT '请求方式',
   `uri` varchar(250) NOT NULL DEFAULT '' COMMENT '接口地址',
   `intro` varchar(250) NOT NULL DEFAULT '' COMMENT '接口简介',
   `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
@@ -40,7 +40,7 @@ CREATE TABLE `doc_api` (
 --  Records of `doc_api`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', '1', 'goods/{id}', '', '1', null, '2017-11-04 21:47:01');
+INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', 'GET', 'goods/{id}', '', '1', null, '2017-11-04 21:47:01');
 COMMIT;
 
 -- ----------------------------
@@ -102,7 +102,7 @@ CREATE TABLE `doc_field` (
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '接口名称',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '接口标题',
   `type` varchar(10) NOT NULL DEFAULT '' COMMENT '字段类型',
-  `method` tinyint(3) NOT NULL DEFAULT '1' COMMENT '参数类型，1:请求字段 2:响应字段',
+  `method` tinyint(3) NOT NULL DEFAULT '1' COMMENT '参数类型，1:请求字段 2:响应字段 3:header字段',
   `is_required` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否必传',
   `default_value` varchar(250) NOT NULL DEFAULT '' COMMENT '默认值',
   `intro` varchar(250) NOT NULL DEFAULT '' COMMENT '备注',
@@ -118,7 +118,7 @@ CREATE TABLE `doc_field` (
 --  Records of `doc_field`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_field` VALUES ('1', '1', '1', '0', 'code', '返回状态码', 'number', '2', '0', '239', '', 'number|200-300', '2017-11-01 02:07:50'), ('3', '1', '1', '0', 'msg', '返回信息', 'string', '2', '0', '成功消息216', '', 'message|success', '2017-11-03 16:52:02'), ('4', '1', '3', '0', 'data', '数据实体', 'array', '2', '0', '', '', '', '2017-11-03 17:12:54'), ('5', '1', '1', '4', 'name', '商品名称', 'string', '2', '0', '华为（HUAWEI）B3智能手环 运动计步蓝牙通话男女手表 B2升级版 领券-摩卡棕-选商务版 商务版', '', 'goods|name', '2017-11-03 17:13:07'), ('6', '1', '1', '4', 'desc', '商品描述', 'string', '2', '0', '红米5A轻巧手感，5英寸屏幕，高通骁龙处理器，1300万摄像头', '', 'goods|desc', '2017-11-03 17:39:51'), ('7', '1', '1', '0', 'goodsId', '商品id', 'number', '1', '1', '0', '', '', '2017-11-04 21:52:42'), ('8', '1', '1', '4', 'price', '商品价格', 'float', '2', '0', '02.29', '', 'price|2', '2017-11-04 21:55:34'), ('9', '1', '1', '4', 'cover', '商品封面', 'string', '2', '0', 'https://dummyimage.com/200x200/', '', 'image|200x200', '2017-11-04 21:58:28');
+INSERT INTO `doc_field` VALUES ('1', '1', '1', '0', 'code', '返回状态码', 'number', '2', '0', '219', '', 'number|200-300', '2017-11-01 02:07:50'), ('3', '1', '1', '0', 'msg', '返回信息', 'string', '2', '0', '成功消息805', '', 'message|success', '2017-11-03 16:52:02'), ('4', '1', '3', '0', 'data', '数据实体', 'array', '2', '0', '', '', '', '2017-11-03 17:12:54'), ('5', '1', '1', '4', 'name', '商品名称', 'string', '2', '0', '诺伊曼乳胶宿舍床垫子榻榻米单人床褥垫1.8米床 天然乳胶床垫4cm 90cm*190cm', '', 'goods|name', '2017-11-03 17:13:07'), ('6', '1', '1', '4', 'desc', '商品描述', 'string', '2', '0', '【拯救者全新升级，外观更炫酷，色彩更丰富】【靠谱之选】天逸性能 稳定高效 使用流畅 商务稳重', '', 'goods|desc', '2017-11-03 17:39:51'), ('7', '1', '1', '0', 'goodsId', '商品id', 'number', '1', '1', '0', '', '', '2017-11-04 21:52:42'), ('8', '1', '1', '4', 'price', '商品价格', 'float', '2', '0', '81.76', '', 'price|2', '2017-11-04 21:55:34'), ('9', '1', '1', '4', 'cover', '商品封面', 'string', '2', '0', 'https://dummyimage.com/200x200/', '', 'image|200x200', '2017-11-04 21:58:28'), ('10', '1', '1', '0', 'Content-Type', 'header头', 'string', '3', '0', 'application/json;charset=utf-8', '', '', '2017-11-15 18:02:29');
 COMMIT;
 
 -- ----------------------------
@@ -210,7 +210,7 @@ CREATE TABLE `doc_project` (
   `intro` varchar(255) NOT NULL COMMENT '项目描述',
   `envs` text NOT NULL COMMENT '环境域名,json字符串',
   `allow_search` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否允许被搜索到',
-  `sort` int(10) NOT NULL,
+  `sort` int(10) NOT NULL DEFAULT '0' ,
   `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
@@ -232,7 +232,8 @@ CREATE TABLE `doc_project_log` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `project_id` int(1) NOT NULL DEFAULT '0' COMMENT '项目id',
   `user_id` int(10) NOT NULL,
-  `user_name` varchar(200) NOT NULL,
+  `user_name` varchar(200) NOT NULL DEFAULT '' COMMENT '操作人昵称',
+  `user_email` varchar(50) NOT NULL DEFAULT '' COMMENT '操作人邮箱',
   `type` varchar(10) NOT NULL COMMENT '操作类型',
   `object` varchar(20) NOT NULL,
   `content` text NOT NULL COMMENT '对象',

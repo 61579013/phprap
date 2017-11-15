@@ -92,86 +92,86 @@ function confirm(msg, ok) {
 (function($){
     $.fn.validateForm = function(options){
 
-    var defaults = {
-        submitBtn: '.js_submit',
-        before: '', //上传成功时的回调函数
-        success: '', //上传成功时的回调函数
-        error: '' //上传失败时的回调函数
+        var defaults = {
+            submitBtn: '.js_submit',
+            before: '', //上传成功时的回调函数
+            success: '', //上传成功时的回调函数
+            error: '' //上传失败时的回调函数
+
+        };
+
+        var thisObj = $(this);
+        var config  = $.extend(defaults, options);
+        var before  = config.before;
+        var success = config.success;
+        var error   = config.error;
+        var submitBtn = config.submitBtn;
+
+        thisObj.Validform({
+
+            tiptype:function(msg,o,cssctl){
+
+                if(!o.obj.is("form")){
+
+                    var objtip=o.obj.siblings(".Validform_checktip");
+
+                    cssctl(objtip,o.type);
+
+                    objtip.text(msg);
+
+                }
+
+            },
+
+            label:"label",
+
+            ajaxPost:true,
+
+            btnSubmit: submitBtn,
+
+            beforeSubmit: function () {
+
+                if(before && before() === false){
+
+                    return false;
+                }
+
+                $(submitBtn).attr("disabled", "disabled").text('提交中..');
+            },
+            callback:function(json){
+
+                if(json.code == 200){
+
+                    $(submitBtn).attr("disabled", "disabled").text('提交成功');
+
+                    alert(json.msg, 1000, function () {
+
+                        if(success){
+
+                            success();
+
+                        }else{
+
+                            window.location.reload();
+
+                        }
+                    });
+
+                }else{
+
+                    error && error();
+
+                    alert(json.msg, 3000);
+
+                    $(submitBtn).text('重新提交').removeAttr("disabled");
+
+                }
+
+            }
+
+        });
 
     };
-
-    var thisObj = $(this);
-    var config  = $.extend(defaults, options);
-    var before  = config.before;
-    var success = config.success;
-    var error   = config.error;
-    var submitBtn = config.submitBtn;
-
-    thisObj.Validform({
-
-        tiptype:function(msg,o,cssctl){
-
-            if(!o.obj.is("form")){
-
-                var objtip=o.obj.siblings(".Validform_checktip");
-
-                cssctl(objtip,o.type);
-
-                objtip.text(msg);
-
-            }
-
-        },
-
-        label:"label",
-
-        ajaxPost:true,
-
-        btnSubmit: submitBtn,
-
-        beforeSubmit: function () {
-
-            if(before && before() === false){
-
-                return false;
-            }
-
-            $(submitBtn).attr("disabled", "disabled").text('提交中..');
-        },
-        callback:function(json){
-
-            if(json.code == 200){
-
-                $(submitBtn).attr("disabled", "disabled").text('提交成功');
-
-                alert(json.msg, 1000, function () {
-
-                    if(success){
-
-                        success();
-
-                    }else{
-
-                        window.location.reload();
-
-                    }
-                });
-
-            }else{
-
-                error && error();
-
-                alert(json.msg, 3000);
-
-                $(submitBtn).text('重新提交').removeAttr("disabled");
-
-            }
-
-        }
-
-    });
-
-};
 })(jQuery);
 
 /**
@@ -251,20 +251,20 @@ function confirm(msg, ok) {
 (function($){
     $.fn.enterSubmit = function(callback){
 
-    var callback = callback ? callback: '';
-    var thisObj = $(this);
+        var callback = callback ? callback: '';
+        var thisObj = $(this);
 
-    $('body').bind('keypress',function(event){
+        $('body').bind('keypress',function(event){
 
-        if(event.keyCode == "13") {
+            if(event.keyCode == "13") {
 
-            callback && callback();
+                callback && callback();
 
-            thisObj.trigger('submit');
+                thisObj.trigger('submit');
 
-        }
+            }
 
-    });
+        });
 
-};
+    };
 })(jQuery);

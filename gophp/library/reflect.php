@@ -102,6 +102,30 @@ class reflect
 
     }
 
+    // 获取某个类中所有公共方法名
+    public static function getMethods($class)
+    {
+
+        $reflectionClass = self::getClass($class);
+
+        $methods =  $reflectionClass->getMethods();
+
+        $name = [];
+
+        foreach ($methods as $method) {
+
+            if($method->isPublic()){
+
+                $name[] =  $method->getName();
+
+            }
+
+        }
+
+        return $name;
+
+    }
+
     // 执行有访问权限方法
     public static function invoke($class, $method)
     {

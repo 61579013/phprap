@@ -20,9 +20,10 @@ class log {
 
         $user = user::get_user_info();
 
-        $data['user_id']   = $user['id'];
-        $data['user_name'] = $user['name'] . '(' . $user['email'] . ')';
-        $data['add_time']  = date('Y-m-d H:i:s');
+        $data['user_id']    = $user['id'];
+        $data['user_name']  = $user['name'];
+        $data['user_email'] = $user['email'];
+        $data['add_time']   = date('Y-m-d H:i:s');
 
         return db('project_log')->show(false)->add($data);
 

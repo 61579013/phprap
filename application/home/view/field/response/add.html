@@ -45,7 +45,7 @@
                         <i class="fa fa-info-circle"></i>
                     </a>
                 </label>
-                <input class="form-control" name="field[mock]" value="{{$field.mock}}" placeholder="非必填，如果要使用mock服务，必须填写" datatype="*" ignore="ignore">
+                <input class="form-control js_selectMockRuleBtn" name="field[mock]" value="{{$field.mock}}" placeholder="非必填，如果要使用mock服务，必须填写" datatype="*" ignore="ignore">
             </div>
 
             <div class="form-group">
@@ -61,12 +61,24 @@
     <!-- /.row -->
 </div>
 <!-- /#wrapper -->
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap3-typeahead.min.js"></script>
 
 <script>
 
     $(function(){
 
         $('[data-toggle="tooltip"]').tooltip();
+
+        //选择mock规则
+        var selectMemberBtn = $('.js_selectMockRuleBtn');
+        var localArrayData = {{$methods}};
+
+        selectMemberBtn.typeahead({
+            source: localArrayData,
+            items: 8, //显示8条
+            delay: 100, //延迟时间
+
+        });
 
         //验证表单
         var responseFieldModal = $(window.parent.document).find('#js_addResponseFieldModal');
@@ -84,12 +96,11 @@
                 var apiId = "{{$field.api_id}}";
                 $('#js_addApiForm', parent.document).find(".panel-response").load("{{url('field/load')}}", {'method':2,'api_id':apiId});
                 // 重新载入响应示例json
-                alert('lll', 500);
                 $('#js_addApiForm', parent.document).find(".panel-json").load("{{url('field/json')}}", {'api_id':apiId}, function () {
                     // 格式化json
                     window.parent.jsonFormat();
                     // 吐司提示
-                    $(window.parent.document).contents().find('[data-toggle="tooltip"]').tooltip();
+                    //$(window.parent.document).contents().find('[data-toggle="tooltip"]').tooltip();
                 });
                 // 关闭父级模态框
                 responseFieldModal.find(".js_close").trigger('click');
