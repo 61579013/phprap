@@ -124,6 +124,9 @@ class debug extends controller {
         // 获取请求参数列表
         $request_fields = \app\field::get_field_list($id, 1);
 
+        // 获取header参数列表
+        $header_fields = \app\field::get_field_list($id, 3);
+
         $methods = \app\api::get_method_list();
 
         $this->assign('api', $api);
@@ -131,8 +134,9 @@ class debug extends controller {
         $this->assign('methods', $methods);
 
         $this->assign('request_fields', $request_fields);
+        $this->assign('header_fields', $header_fields);
 
-        $this->display('debug/index');
+        $this->display('debug/detail');
 
     }
 

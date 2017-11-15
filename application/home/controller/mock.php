@@ -38,7 +38,7 @@ class mock extends controller {
 
         if($api['method'] != request::getMethod()){
 
-            response::ajax(['code'=> 300, 'msg' => '非法请求方式[' . request::getMethod() . ']']);
+            //response::ajax(['code'=> 300, 'msg' => '非法请求方式[' . request::getMethod() . ']']);
 
         }
 

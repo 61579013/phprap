@@ -118,12 +118,16 @@
                                     <div class="table-responsive">
                                         <table class="table header-table">
                                             <tbody>
+                                            {{foreach $header_fields as $header_field}}
+
                                             <tr>
-                                                <td style="width:25%"> <input name="header[key][]" class="form-control js_selectHeaderBtn" placeholder="key" value="" /> </td>
-                                                <td style="width:70%"> <input name="header[value][]" class="form-control" placeholder="value" value="" /> </td>
+                                                <td style="width:25%"> <input name="header[key][]" class="form-control js_selectHeaderBtn" placeholder="key" value="{{$header_field.name}}" /> </td>
+                                                <td style="width:40%"> <input name="header[value][]" class="form-control" placeholder="value" value="{{$header_field.default_value}}" /> </td>
+                                                <td style="width:30%"> <input class="form-control" placeholder="description" value="{{$header_field.intro}}" /> </td>
                                                 <td style="width:5%">
                                                     <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-title="删除header参数" data-project_id="3"></a> </td>
                                             </tr>
+                                            {{/foreach}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -152,7 +156,8 @@
                                             {{foreach $request_fields as $request_field}}
                                             <tr>
                                                 <td style="width:25%"><input name="request[key][]" class="form-control" placeholder="key" value="{{$request_field.name}}"/></td>
-                                                <td style="width:70%"><input name="request[value][]" class="form-control" placeholder="value" value="{{$request_field.default_value}}"/></td>
+                                                <td style="width:40%"><input name="request[value][]" class="form-control" placeholder="value" value="{{$request_field.default_value}}"/></td>
+                                                <td style="width:30%"><input class="form-control" placeholder="description" value="{{$request_field.title}}"/></td>
                                                 <td style="width:5%">
                                                     <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
                                                 </td>
@@ -184,7 +189,8 @@
     <table>
     <tr>
         <td style="width:25%"><input name="header[key][]" class="form-control js_selectHeaderBtn" placeholder="key" datatype="*" value=""/></td>
-        <td style="width:70%"><input name="header[value][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+        <td style="width:40%"><input name="header[value][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+        <td style="width:30%"><input class="form-control" placeholder="description" value=""/></td>
         <td style="width:5%">
             <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
         </td>
@@ -196,7 +202,8 @@
     <table>
         <tr>
             <td style="width:25%"><input name="request[key][]" class="form-control" placeholder="key" datatype="*" value=""/></td>
-            <td style="width:70%"><input name="request[value][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+            <td style="width:40%"><input name="request[value][]" class="form-control" placeholder="value" datatype="*" value=""/></td>
+            <td style="width:30%"><input class="form-control" placeholder="description" value=""/></td>
             <td style="width:5%">
                 <a href="javascript:void(0);" class="fa fa-trash-o js_deleteBtn" data-project_id="3"></a>
             </td>
@@ -264,12 +271,31 @@
         });
 
         //验证表单
-        $("#js_requestForm").validateForm({
-            submitBtn: '.js_submit',
-            before:function () {
+        $("#js_requestForm").Validform({
+            tiptype:function(msg,o,cssctl){
+
+                if(!o.obj.is("form")){
+
+                    var objtip=o.obj.siblings(".Validform_checktip");
+
+                    cssctl(objtip,o.type);
+
+                    objtip.text(msg);
+
+                }
+
+            },
+
+            btnSubmit:".js_submit",
+
+            label:"label",
+
+            ajaxPost:true,
+
+            beforeSubmit: function () {
                 $(".js_submit").attr("disabled", "disabled");
             },
-            callback:function (data) {
+            callback: function (data) {
                 var url  = "{{url('debug/load')}}";
                 var info = data.info;
                 var body = data.body;
@@ -277,8 +303,7 @@
                 $(".js_responseBox").load(url, {info:info,header:header,body:body});
 
                 $(".js_submit").removeAttr("disabled");
-
-            },
+            }
 
         });
 

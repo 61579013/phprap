@@ -59,11 +59,11 @@ class api extends auth {
 
         }
 
-        $result = db('api')->show(false)->delete($api_id);
+        $result  = db('api')->show(false)->delete($api_id);
 
         $project = \app\api::get_project_info($api_id);
 
-        $module = \app\module::get_module_info($api['module_id']);
+        $module  = \app\module::get_module_info($api['module_id']);
 
         if($result){
 

@@ -502,6 +502,8 @@ class field {
     public static function get_mock_data($api_id, $parend_id=0)
     {
 
+        $api_id = $api_id ? $api_id : 0;
+
         $fields = \db('field')->where('method', '=', 2)->where('api_id', '=', $api_id)->where('parent_id', '=', $parend_id)->findAll();
 
         foreach ($fields as $k => $v){
@@ -510,15 +512,21 @@ class field {
 
             if($v['type'] == 'array'){
 
-                $data[$name][] = self::get_mock_data($api_id, $v['id']);
+                $value = self::get_mock_data($api_id, $v['id']);
+
+                $data[$name][] = $value ? $value : array();
 
             }if($v['type'] == 'object'){
 
-                $data[$name] = self::get_mock_data($api_id, $v['id']);
+                $value = self::get_mock_data($api_id, $v['id']);
+
+                $data[$name] = $value ? $value : (object)array();
 
             }else{
 
-                $data[$name] = field::get_mock_value($v['mock']);
+                $v['mock'] and $value = field::get_mock_value($v['mock']);
+
+                $data[$name] = $value;
 
             }
         }
