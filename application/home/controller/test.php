@@ -29,6 +29,9 @@ class test {
 
 
 
+        db::instance()->table1();
+
+
     }
 
 
