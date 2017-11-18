@@ -27,11 +27,6 @@ class test {
      */
     public function index(){
 
-        $a = reflect::getMethods(app\mock::class);
-
-//        $b = request::curl('http://cms.juzifenqi.com/api/page/list.php','get');
-
-        dump($a);
 
 
     }
