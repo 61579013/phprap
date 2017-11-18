@@ -48,14 +48,14 @@ defined('RUNTIME_PATH') or define('RUNTIME_PATH', ROOT_PATH . DS . 'runtime');
 // 定义日志目录
 defined('LOG_PATH') or define('LOG_PATH', RUNTIME_PATH . DS . 'log');
 
-// 定义公共访问目录
-defined('PUBLIC_PATH') or define('PUBLIC_PATH', ROOT_PATH . DS . 'public');
+// 定义web访问目录
+defined('WEB_PATH') or define('WEB_PATH', ROOT_PATH . DS . 'public');
 
 // 定义静态资源目录
-defined('STATIC_PATH') or define('STATIC_PATH', PUBLIC_PATH . DS . 'static');
+defined('STATIC_PATH') or define('STATIC_PATH', WEB_PATH . DS . 'static');
 
 // 定义文件上传目录
-defined('UPLOAD_PATH') or define('UPLOAD_PATH', PUBLIC_PATH . DS . 'upload');
+defined('UPLOAD_PATH') or define('UPLOAD_PATH', WEB_PATH . DS . 'upload');
 
 // 定义错误调试变量
 defined('DEBUG_PARAM') or define('DEBUG_PARAM', 'debug');
