@@ -12,6 +12,8 @@ class register extends controller {
 
     public function index(){
 
+        $register_token = config::get_config_value('register_token');
+
         if(request::isPost()){
 
             $email    = request::post('email', '');
@@ -27,8 +29,6 @@ class register extends controller {
                 return response::ajax(['code' => 401, 'msg' => '该邮箱已被注册，请直接登录或者更换邮箱!']);
 
             }
-
-            $register_token = config::get_config_value('register_token');
 
             if(trim($token) != $register_token){
 
@@ -57,6 +57,17 @@ class register extends controller {
 
             if($user_id){
 
+                // 添加登录日志
+                db('login_log')->add([
+                    'user_id' => $user_id,
+                    'user_name' => $name,
+                    'user_email' => $email,
+                    'add_time'=> date('Y-m-d H:i:s'),
+                    'ip'      => request::getClientIp(),
+                    'address' => get_ip_address(),
+                    'device'  => get_visit_source(),
+                ]);
+
                 session('user_id', $user_id, 24*3600);
 
                 return response::ajax(['code' => 200, 'msg' => '注册成功!']);
@@ -69,8 +80,6 @@ class register extends controller {
 
 
         }else{
-
-            $register_token = config::get_config_value('register_token');
 
             $this->assign('register_token', $register_token);
 
