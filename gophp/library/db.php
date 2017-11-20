@@ -137,7 +137,7 @@ class db extends contract
 
     }
 
-    public function find($field)
+    public function find($field = '*')
     {
 
         $method = __FUNCTION__;
