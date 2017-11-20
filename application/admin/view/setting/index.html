@@ -50,6 +50,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label>注册口令</label>
+                                        <input class="form-control" name="config[register_token]" value="{{$config['register_token']}}" placeholder="非必填，4-10个字符，区分大小写" value="123456" datatype="*6-20" nullmsg="请输入注册口令！" errormsg="至少6位">
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>重置默认密码</label>
                                         <input class="form-control" name="config[default_password]" value="{{$config['default_password']}}" placeholder="必填，6-20个英文字母、数字或下划线组成的字符" value="123456" datatype="*6-20" nullmsg="请输入重置默认密码！" errormsg="至少6位">
                                     </div>

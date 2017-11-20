@@ -2,6 +2,7 @@
 
 namespace app\home\controller;
 
+use app\config;
 use gophp\captcha;
 use gophp\controller;
 use gophp\request;
@@ -17,12 +18,21 @@ class register extends controller {
             $name     = request::post('name', '');
             $password = request::post('password', '');
             $code     = request::post('code', '');
+            $token    = request::post('token', '');
 
             $user = db('user')->where('email', '=', trim($email))->find();
 
             if($user){
 
                 return response::ajax(['code' => 401, 'msg' => '该邮箱已被注册，请直接登录或者更换邮箱!']);
+
+            }
+
+            $register_token = config::get_config_value('register_token');
+
+            if(trim($token) != $register_token){
+
+                return response::ajax(['code' => 402, 'msg' => '请输入正确的注册口令！']);
 
             }
 
@@ -59,6 +69,10 @@ class register extends controller {
 
 
         }else{
+
+            $register_token = config::get_config_value('register_token');
+
+            $this->assign('register_token', $register_token);
 
             $this->display('register');
 
