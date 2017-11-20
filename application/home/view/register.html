@@ -34,6 +34,12 @@
                                     <input class="form-control" placeholder="确认密码" name="repassword" type="password"  datatype="*6-20" recheck="password" nullmsg="请输入重复密码！" errormsg="重复密码与密码不一致">
 <!--                                    <span class="Validform_checktip"></span>-->
                                 </div>
+                                {{if $register_token}}
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="注册口令，必填，区分大小写" name="token" type="text"  datatype="*">
+                                    <!--                                    <span class="Validform_checktip"></span>-->
+                                </div>
+                                {{/if}}
 
                                 <div class="form-group">
                                     <div class="input-group">
