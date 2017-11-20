@@ -12,7 +12,7 @@ class exception extends \Exception
 
     protected $sql;
 
-    public function __construct($message, $sql, $code)
+    public function __construct($message, $sql, $code = '')
     {
 
         parent::__construct($message, $code);
