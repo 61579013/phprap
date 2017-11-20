@@ -177,7 +177,7 @@ if(!function_exists('url'))
 if(!function_exists('db'))
 {
 
-    function db($table, $driver)
+    function db($table, $driver=null)
     {
 
         $driver = $driver ? $driver : 'mysql';
