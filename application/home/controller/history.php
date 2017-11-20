@@ -48,7 +48,7 @@ class history extends auth {
 
         $sql   = "select * from $table_name $where";
 
-        $total = count($db->show(false)->query($sql));
+        $total = count($db->query($sql));
 
         $pre_rows = 10;
 

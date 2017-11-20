@@ -263,7 +263,7 @@ class project extends auth {
 
             $user_sql = 'select id from ' . $table_suffix . 'user where ' .  "(name like '%{$user}%' or email like '%{$user}%') ";
 
-            $user_ids = $db->show(false)->query($user_sql);
+            $user_ids = $db->query($user_sql);
 
             $user_ids = array_column($user_ids, 'id');
 
@@ -289,7 +289,7 @@ class project extends auth {
 
         $sql   = "select * from $table_name $where order by id desc";
 
-        $total = count($db->show(false)->query($sql));
+        $total = count($db->query($sql));
 
         $pre_rows = 10;
 
