@@ -17,12 +17,6 @@ class check
 
         }
 
-        $is_close = get_config('is_close');
-
-        if($is_close){
-            exit(get_config('close_msg'));
-        }
-
         return true;
     }
 
