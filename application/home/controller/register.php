@@ -59,13 +59,13 @@ class register extends controller {
 
                 // 添加登录日志
                 db('login_log')->add([
-                    'user_id' => $user_id,
-                    'user_name' => $name,
+                    'user_id'    => $user_id,
+                    'user_name'  => $name,
                     'user_email' => $email,
-                    'add_time'=> date('Y-m-d H:i:s'),
                     'ip'      => request::getClientIp(),
                     'address' => get_ip_address(),
                     'device'  => get_visit_source(),
+                    'add_time'=> date('Y-m-d H:i:s'),
                 ]);
 
                 session('user_id', $user_id, 24*3600);
