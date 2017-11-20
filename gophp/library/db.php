@@ -56,7 +56,7 @@ class db extends contract
 
     }
 
-    public function table($table, $prefix)
+    public function table($table, $prefix = '')
     {
 
         $this->connect();
