@@ -8,7 +8,7 @@
 ## 相关
  - 官方网站：[phprap.gouguoyin.cn](http://phprap.gouguoyin.cn)
  - 演示网站：[apidoc.gouguoyin.cn](http://apidoc.gouguoyin.cn)
- - mock规则：[phprap/wiki/Mock](https://github.com/gouguoyin/phprap/wiki/Mock)
+ - 使用文档：[phprap.gouguoyin.cn/doc](http://phprap.gouguoyin.cn/doc/introduce.html)
  - 作者博客：[www.gouguoyin.cn](http://www.gouguoyin.cn/about.html)
  
 ## 特性
