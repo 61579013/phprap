@@ -155,6 +155,12 @@ function is_default_password()
 
     $user = \app\user::get_user_info();
 
+    if(!$user){
+
+        return false;
+
+    }
+
     $default_password = md5(encrypt(\app\config::get_config_value('default_password')));
 
     if($default_password == $user['password']){

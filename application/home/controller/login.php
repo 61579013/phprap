@@ -19,7 +19,7 @@ class login extends controller {
 
             response::redirect('project/select');
 
-        }elseif(request::isAjax()){
+        }elseif(request::isPost()){
 
             $email    = request::post('email', '');
             $password = request::post('password', '');
