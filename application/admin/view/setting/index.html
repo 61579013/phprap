@@ -78,23 +78,6 @@
                                         <input class="form-control" name="config[push_time]" value="{{$config['push_time']|default:3}}" placeholder="单位秒" value="3" datatype="n">
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="control-label">是否关闭:</label>
-                                        <div class="form-group">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="config[is_close]" {{if $config['is_close'] == 0}}checked{{/if}} value=0> 否
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="config[is_close]" {{if $config['is_close'] == 1}}checked{{/if}} value=1 > 是
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group js_closeMsg hidden">
-                                        <label>关闭时信息</label>
-                                        <textarea class="form-control" name="config[close_msg]" rows="2" datatype="*2-250" ignore="ignore" nullmsg="请输入关闭时提示信息！" errormsg="至少2位">{{$config['close_msg']}}</textarea>
-                                    </div>
-
                                     <button type="reset" class="btn btn-default">重置</button>
                                     <button type="button" class="btn btn-primary js_submit">提交</button>
 
@@ -143,30 +126,6 @@
         // 选择不时时推送时
         $("input[name='config[is_push]']").click(function(){
             pushTimeShow();
-        });
-
-        //展示关闭提示信息
-        var closeMsgShow = function(){
-            var isClose = $("input[name='config[is_close]']:checked").val();
-
-            if(isClose == 1){
-
-                $(".js_closeMsg").removeClass("hidden");
-                $(".js_closeMsg textarea").attr("ignore",'');
-
-            }else{
-
-                $(".js_closeMsg").addClass("hidden");
-                $(".js_closeMsg textarea").attr("ignore",'ignore');
-
-            }
-        }
-
-        closeMsgShow();
-
-        // 选择关闭网站时
-        $("input[name='config[is_close]']").click(function(){
-            closeMsgShow();
         });
 
         $(function(){
