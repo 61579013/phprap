@@ -50,7 +50,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>注册口令</label>
+                                        <label>注册口令 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="如果不填写注册口令，那么注册页面不会有输出注册口令项">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a></label>
                                         <input class="form-control" name="config[register_token]" value="{{$config['register_token']}}" placeholder="非必填，4-10个字符，区分大小写" value="123456" datatype="*6-20" nullmsg="请输入注册口令！" errormsg="至少6位">
                                     </div>
 
@@ -60,7 +62,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="recipient-name" class="control-label">是否推送消息: <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="如果设为是，那么会在指定时间间隔内推送项目加入申请和申请结果，否则只有在刷新页面时才会推送消息">
+                                        <label for="recipient-name" class="control-label">是否推送消息 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="如果设为是，那么会在指定时间间隔内推送项目加入申请和申请结果，否则只有在刷新页面时才会推送消息">
                                                 <i class="fa fa-info-circle"></i>
                                             </a></label>
                                         <div class="form-group">
