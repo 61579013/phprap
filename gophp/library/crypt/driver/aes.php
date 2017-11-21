@@ -13,8 +13,7 @@ class aes extends contract
     public function __construct($config)
     {
 
-        if(!extension_loaded('openssl'))
-        {
+        if(!extension_loaded('openssl')) {
 
             throw new exception('openssl extension missing:', 'openssl extension not install');
 
