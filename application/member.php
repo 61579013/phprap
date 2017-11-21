@@ -235,7 +235,7 @@ class member {
                 $title .= '转让、';
             }
             if($rule == 'export'){
-                $title .= '转让、';
+                $title .= '导出、';
             }
 
 
