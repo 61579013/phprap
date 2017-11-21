@@ -13,7 +13,7 @@ class check
 
         if(!file::exists(RUNTIME_PATH.'/install.lock')){
 
-            response::redirect('install');exit;
+            response::redirect('install/step1');exit;
 
         }
 
