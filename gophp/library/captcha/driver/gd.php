@@ -4,6 +4,7 @@ namespace gophp\captcha\driver;
 
 use gophp\captcha\contract;
 use gophp\config;
+use gophp\exception;
 use gophp\session;
 
 class gd extends contract
@@ -25,7 +26,7 @@ class gd extends contract
         if(!extension_loaded('gd'))
         {
 
-            throw new exception('GD Error', 'GD extension not install');
+            throw new exception('GD extension missing:', 'GD extension not install');
 
         }
 
