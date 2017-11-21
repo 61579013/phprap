@@ -4,7 +4,7 @@
 define('ROOT_PATH', __DIR__ . '/..');
 
 // 定义web访问目录
-define('WEB_PATH', ROOT_PATH . DS . 'public');
+define('WEB_PATH', ROOT_PATH . '/public');
 
 // 定义应用目录
 define('APP_PATH', ROOT_PATH . '/application');
