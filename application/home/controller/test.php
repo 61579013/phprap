@@ -29,7 +29,7 @@ class test {
 
 
 
-        db::instance()->table1();
+        dump(ROOT_PATH);
 
 
     }

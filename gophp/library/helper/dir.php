@@ -146,7 +146,7 @@ class dir
 
             }
 
-            $dirList[] = iconv('gbk', 'utf-8', $file);
+            $dirList[] = $file;
 
         }
 
