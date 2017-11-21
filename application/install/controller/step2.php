@@ -41,7 +41,7 @@ class step2 extends auth {
 
             }
 
-            $require_mysql_version = '5.4.0';
+            $require_mysql_version = '5.1.0';
 
             if(!version_compare( schema::instance()->version(), $require_mysql_version, '>=' )){
 
