@@ -10,15 +10,18 @@ class crypt extends contract
 
     public $config;
     public $driver;
+    public $method;
 
     use driver;
 
     private function __construct()
     {
 
-        $this->config = config::get('crypt');
+        $config       = config::get('crypt');
 
-        $this->driver = $this->config['driver'];
+        $this->driver = $config['driver'];
+
+        $this->config = $config[$this->driver];
 
     }
 

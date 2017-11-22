@@ -2,10 +2,10 @@
 //默认配置
 return [
 
-    'driver' => 'aes',
-    'aes' => [
+    'driver' => 'openssl',
+    'openssl' => [
         'token'  => 'RwOtehgT4JC4LxvU',
-        'type'   => '128',
+        'method' => 'AES-256-CBC',
     ],
 
 ];
