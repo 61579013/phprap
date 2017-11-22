@@ -32,7 +32,7 @@
  - PDO 拓展
  - GD 拓展
  - CURL 拓展
- - MCRYPT 拓展
+ - OPENSSL 拓展
  
 ## 安装
 
@@ -251,4 +251,4 @@
 - 如果觉得还不错，请作者喝杯咖啡吧，开源不易，您的支持是我前进的动力！
 
 ![微信](http://gouguoyin.qiniudn.com/wepay.jpg)
-![支付宝](http://gouguoyin.qiniudn.com/alipay1.jpg)
+![支付宝](http://gouguoyin.qiniudn.com/alipay.jpg)
