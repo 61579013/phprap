@@ -29,8 +29,7 @@ CREATE TABLE `doc_api` (
   `uri` varchar(250) NOT NULL DEFAULT '' COMMENT '接口地址',
   `intro` varchar(250) NOT NULL DEFAULT '' COMMENT '接口简介',
   `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
-  `demo` text COMMENT '演示数据',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`),
   KEY `module_id_index` (`module_id`),
   KEY `user_id_index` (`user_id`)
@@ -53,7 +52,7 @@ CREATE TABLE `doc_apply` (
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '项目创建者id',
   `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '申请用户id',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`),
@@ -67,7 +66,7 @@ DROP TABLE IF EXISTS `doc_config`;
 CREATE TABLE `doc_config` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `config` text NOT NULL,
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
@@ -86,7 +85,7 @@ CREATE TABLE `doc_dbbak` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `file` varchar(250) NOT NULL,
   `size` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '大小，单位KB',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -107,7 +106,7 @@ CREATE TABLE `doc_field` (
   `default_value` varchar(250) NOT NULL DEFAULT '' COMMENT '默认值',
   `intro` varchar(250) NOT NULL DEFAULT '' COMMENT '备注',
   `mock` varchar(200) NOT NULL DEFAULT '' COMMENT 'mock规则',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`),
   KEY `api_id_index` (`api_id`),
   KEY `user_id_index` (`user_id`),
@@ -133,7 +132,7 @@ CREATE TABLE `doc_login_log` (
   `ip` varchar(50) NOT NULL DEFAULT '' COMMENT '登录ip',
   `address` varchar(255) NOT NULL DEFAULT '' COMMENT '登录地址',
   `device` varchar(50) NOT NULL DEFAULT '' COMMENT '登录设备',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='登录日志表';
 
@@ -149,7 +148,7 @@ CREATE TABLE `doc_member` (
   `module_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '权限',
   `api_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '接口权限',
   `member_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '成员权限',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`) USING BTREE,
   KEY `project_id_index` (`project_id`) USING BTREE
@@ -166,7 +165,7 @@ CREATE TABLE `doc_module` (
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '模块名称',
   `intro` varchar(255) NOT NULL DEFAULT '' COMMENT '项目描述',
   `sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `project_id_index` (`project_id`),
   KEY `user_id_index` (`user_id`)
@@ -192,7 +191,7 @@ CREATE TABLE `doc_notify` (
   `type` varchar(10) NOT NULL,
   `message` varchar(250) NOT NULL DEFAULT '',
   `is_readed` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否读过',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `to_user_id` (`to_user_id`),
@@ -211,8 +210,8 @@ CREATE TABLE `doc_project` (
   `envs` text NOT NULL COMMENT '环境域名,json字符串',
   `allow_search` tinyint(3) NOT NULL DEFAULT '1' COMMENT '是否允许被搜索到',
   `sort` int(10) NOT NULL DEFAULT '0' ,
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL COMMENT '最后更新时间',
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL COMMENT '最后更新时间',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='项目表';
@@ -242,7 +241,7 @@ CREATE TABLE `doc_project_log` (
   `api_name` varchar(200) DEFAULT NULL,
   `field_name` varchar(200) DEFAULT NULL,
   `member_name` varchar(200) DEFAULT NULL,
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -260,7 +259,7 @@ CREATE TABLE `doc_user` (
   `ip` varchar(250) NOT NULL DEFAULT '' COMMENT '注册ip',
   `address` varchar(255) NOT NULL DEFAULT '' COMMENT '注册地址',
   `device` varchar(255) NOT NULL DEFAULT '' COMMENT '登录设备',
-  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='会员表';
