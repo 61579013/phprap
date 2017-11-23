@@ -39,7 +39,7 @@ CREATE TABLE `doc_api` (
 --  Records of `doc_api`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', 'GET', 'goods/{id}', '', '1', null, '2017-11-04 21:47:01');
+INSERT INTO `doc_api` VALUES ('1', '1', '获取商品详情', 'GET', 'goods/{id}', '', '1', '2017-11-04 21:47:01');
 COMMIT;
 
 -- ----------------------------
