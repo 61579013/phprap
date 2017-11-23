@@ -147,7 +147,7 @@ if(!function_exists('config'))
 if(!function_exists('load'))
 {
 
-    function load($file, $data)
+    function load($file, $data = null)
     {
 
         return \gophp\helper\file::load($file, $data);
