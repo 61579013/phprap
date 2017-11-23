@@ -5,17 +5,17 @@
 
 <body>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="install-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title text-center">安装步骤一</h3>
-                    </div>
-                    <div class="panel-body">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="install-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">安装步骤一</h3>
+                </div>
+                <div class="panel-body">
 
-                        {{include_file name='public/nav' step=1}}
-                        <form id="js_step1Form" role="form" action="{{url('install/step1')}}" method="post">
+                    {{include_file name='public/nav' step=1}}
+                    <form id="js_step1Form" role="form" action="{{url('install/step1')}}" method="post">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
@@ -246,59 +246,59 @@
                             </div>
 
                         </div>
-                        </form>
-                    </div>
-
+                    </form>
                 </div>
+
             </div>
         </div>
-
     </div>
-    <script>
 
-        $(function(){
+</div>
+<script>
 
-            //验证登录表单
-            $("#js_step1Form").Validform({
+    $(function(){
 
-                tiptype:function(msg,o,cssctl){
+        //验证登录表单
+        $("#js_step1Form").Validform({
 
-                    if(!o.obj.is("form")){
+            tiptype:function(msg,o,cssctl){
 
-                        var objtip=o.obj.siblings(".Validform_checktip");
+                if(!o.obj.is("form")){
 
-                        cssctl(objtip,o.type);
+                    var objtip=o.obj.siblings(".Validform_checktip");
 
-                        objtip.text(msg);
+                    cssctl(objtip,o.type);
 
-                    }
-
-                },
-
-                label:"label",
-
-                ajaxPost:true,
-
-                btnSubmit: '.js_submit',
-
-                callback:function(json){
-
-                    if(json.code == 200){
-
-                        window.location.href = "{{url('install/step2')}}";
-
-                    }else{
-
-                        alert(json.msg, 2000);
-
-                    }
+                    objtip.text(msg);
 
                 }
 
-            });
+            },
+
+            label:"label",
+
+            ajaxPost:true,
+
+            btnSubmit: '.js_submit',
+
+            callback:function(json){
+
+                if(json.code == 200){
+
+                    window.location.href = "{{url('install/step2')}}";
+
+                }else{
+
+                    alert(json.msg, 2000);
+
+                }
+
+            }
+
+        });
 
 
-        })
+    })
 
-    </script>
-    {{include_file name='public/footer'}}
+</script>
+{{include_file name='public/footer'}}
