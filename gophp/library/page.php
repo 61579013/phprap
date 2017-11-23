@@ -12,7 +12,7 @@ class page{
     public $pageParam; // 分页参数
     public $arguments = []; // 附加参数
 
-    public function __construct($totalRows, $pageRows, $arguments)
+    public function __construct($totalRows, $pageRows, $arguments = array())
     {
 
         $this->pageParam = config::get('http', 'page_param');
