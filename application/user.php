@@ -21,7 +21,7 @@ class user {
      * @param $user_id
      * @return mixed
      */
-    public static function get_user_info($user_id = 0)
+    public static function get_user_info($user_id = null)
     {
         if(!$user_id){
 
@@ -37,7 +37,7 @@ class user {
      * 根据用户id获取用户名
      * @param $user_id
      */
-    public static function get_user_name($user_id = 0)
+    public static function get_user_name($user_id = null)
     {
 
         return self::get_user_info($user_id)['name'];
@@ -48,7 +48,7 @@ class user {
      * 根据用户id获取用户名(邮箱)
      * @param $user_id
      */
-    public static function get_name_email($user_id = 0)
+    public static function get_name_email($user_id = null)
     {
 
         $user = self::get_user_info($user_id);
@@ -61,7 +61,7 @@ class user {
      * 根据用户id获取用户类型
      * @param $user_id
      */
-    public static function get_user_type($user_id = 0)
+    public static function get_user_type($user_id = null)
     {
 
         return self::get_user_info($user_id)['type'];
@@ -72,7 +72,7 @@ class user {
      * 根据用户id获取用户昵称
      * @param $user_id
      */
-    public static function get_user_email($user_id = 0)
+    public static function get_user_email($user_id = null)
     {
 
         return self::get_user_info($user_id)['email'];
@@ -94,7 +94,7 @@ class user {
      * 根据用户id获取创建的项目数量
      * @param $user_id
      */
-    public static function get_create_project_num($user_id = 0)
+    public static function get_create_project_num($user_id = null)
     {
 
         if(!$user_id){
@@ -111,7 +111,7 @@ class user {
      * 根据用户id获取参与的项目数量
      * @param $user_id
      */
-    public static function get_join_project_num($user_id = 0)
+    public static function get_join_project_num($user_id = null)
     {
 
         if(!$user_id){
@@ -129,7 +129,7 @@ class user {
      * @param array $filter
      * @return mixed
      */
-    public static function get_user_list($filter=[])
+    public static function get_user_list()
     {
 
         $users = db('user')->findAll();
