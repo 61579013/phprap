@@ -10,6 +10,7 @@ use app\statistics;
 use app\tree;
 use gophp\backup;
 use gophp\config;
+use gophp\controller;
 use gophp\crypt;
 use gophp\curl;
 use gophp\db;
@@ -21,7 +22,7 @@ use gophp\schema;
 use app;
 
 
-class test {
+class test extends controller {
 
     private $key;
     private $method;
@@ -31,17 +32,13 @@ class test {
      */
     public function index(){
 
-        $aes = crypt::instance();
+        $url = 'https://api.github.com/repos/gouguoyin/phprap';
 
-        $a = $aes->encrypt('hhhh');
-
-        $b = $aes->decrypt('eyJpdiI6IlptUmhhMmx1Wld3N2FXNXFZV3BrYWc9PSIsInZhbHVlIjoiXC9zY2s4emcrV0hzRDQ2TzhnWGtWRVE9PSJ9');
 
         dump($a,$b);
 
 
     }
-
 
 
 }

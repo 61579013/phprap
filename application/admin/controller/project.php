@@ -31,7 +31,17 @@ class project extends auth {
 
             $joiner_ids = $db->table('member')->where('user_id', '=', $joiner_id)->column('project_id');
 
-            $where .= "id in (" . implode(',', $joiner_ids) . ')';
+            $joiner_ids and $where .= "id in (" . implode(',', $joiner_ids) . ')';
+
+            if($joiner_ids){
+
+                $where .= "id in (" . implode(',', $joiner_ids) . ')';
+
+            }else{
+
+                $where .= "id = 0";
+
+            }
 
         }
 
