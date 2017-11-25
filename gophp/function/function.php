@@ -321,12 +321,12 @@ if(!function_exists('decrypt'))
 if(!function_exists('_uri'))
 {
 
-    function _uri($table, $id, $value)
+    function _uri($table, $id, $value = null)
     {
 
         $db = \gophp\db::instance();
 
-        if(isset($value)){
+        if($value){
 
             return $db->table($table)->show(false)->where('id', '=', $id)->value($value);
 
