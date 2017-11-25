@@ -548,7 +548,7 @@ class mysql extends contract
      * @param $field
      * @return \PDOStatement|string
      */
-    public function count($field)
+    public function count($field = '*')
     {
         $field = $field ? $field : '*';
 

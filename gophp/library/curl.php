@@ -64,6 +64,8 @@ class curl
         // 设置请求的URL
         curl_setopt($this->curl, CURLOPT_URL, $this->url);
 
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->headers);
+
         return $this->curl;
 
     }
