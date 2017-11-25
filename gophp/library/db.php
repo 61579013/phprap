@@ -164,7 +164,7 @@ class db extends contract
 
     }
 
-    public function findAll($field)
+    public function findAll($field = '*')
     {
 
         $method = __FUNCTION__;
@@ -244,7 +244,7 @@ class db extends contract
 
     }
 
-    public function count($field)
+    public function count($field = '*')
     {
 
         $method = __FUNCTION__;
