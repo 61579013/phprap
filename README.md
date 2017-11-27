@@ -6,9 +6,9 @@
  - stable：稳定版本，建议下载安装，下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)
  
 ## 相关
- - 官方网站：[phprap.gouguoyin.cn](http://phprap.gouguoyin.cn)
- - 演示网站：[apidoc.gouguoyin.cn](http://apidoc.gouguoyin.cn)
- - 使用文档：[phprap.gouguoyin.cn/doc](http://phprap.gouguoyin.cn/doc/index.html)
+ - 官方网站：[www.phprap.com](http://www.phprap.com)
+ - 演示网站：[demo.phprap.com](http://demo.phprap.com)
+ - 使用文档：[www.phprap.com/doc](http://www.phprap.com/doc/index.html)
  - 作者博客：[www.gouguoyin.cn](http://www.gouguoyin.cn/about.html)
  
 ## 特性
