@@ -97,7 +97,7 @@ class db extends contract
 
     }
 
-    public function join($join, $type)
+    public function join($join, $type = 'inner')
     {
 
         $method = __FUNCTION__;
