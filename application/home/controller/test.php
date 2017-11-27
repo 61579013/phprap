@@ -24,20 +24,40 @@ use app;
 
 class test extends controller {
 
-    private $key;
-    private $method;
-
     /**
      * 添加/编辑字段
      */
-    public function index(){
+    public function star_widget(){
 
         $url = 'https://api.github.com/repos/gouguoyin/phprap';
 
+        $headers = array(
+            'User-Agent:' . $_SERVER['HTTP_USER_AGENT'],
+            'Content-type:application/x-www-form-urlencoded',
+        );
 
-        dump($a,$b);
+        $curl = new curl($url, 'get', '', $headers);
 
+        $html = 'document.write(\'';
 
+        $html .=  <<<HTML
+<span class="github-btn"><a class="gh-btn" href="https://github.com/twbs/bootstrap/" target="_blank" aria-label="Star on GitHub"><span class="gh-ico" aria-hidden="true"></span> <span class="gh-text">Star</span></a> <a class="gh-count" href="https://github.com/twbs/bootstrap/stargazers" target="_blank" aria-label="118,390 stargazers on GitHub" style="display: block;">118,390</a></span>
+HTML;
+        $html .= '\');';
+
+        $expire = 604800;
+        header ( 'Content-type: application/x-javascript' );
+        header ( 'Cache-Control: max-age=' . $expire );
+        header ( 'Accept-Ranges: bytes' );
+        header ( 'Content-Length: ' . strlen ( $html ) );
+
+        echo $html;
+
+    }
+
+    public function github()
+    {
+        $this->display('github');
     }
 
 
