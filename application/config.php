@@ -4,7 +4,7 @@ namespace app;
 
 class config {
 
-    public static function get_config_value($config_name){
+    public static function get_config_value($config_name = null){
 
         $config = db('config')->value('config');
 
@@ -14,7 +14,7 @@ class config {
 
     }
 
-    public static function get_project_config($field)
+    public static function get_project_config($field = null)
     {
 
         $project_config = config('project');
