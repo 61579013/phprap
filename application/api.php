@@ -187,7 +187,7 @@ class api {
      * 根据模块id获取接口列表
      * @param $user_id
      */
-    public static function get_api_info($api_id)
+    public static function get_api_info($api_id = 0)
     {
 
         $api_id = $api_id ? $api_id : 0;
@@ -207,7 +207,7 @@ class api {
 
     }
 
-    public static function get_method_list($method_id)
+    public static function get_method_list($method_id = 0)
     {
 
         $method[1] = 'GET';
