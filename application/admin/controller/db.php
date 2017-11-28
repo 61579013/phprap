@@ -16,7 +16,7 @@ class db extends auth {
         $db = \gophp\db::instance();
 
         $table_suffix = $db->suffix;
-        $table_name   = $table_suffix .'dbbak';
+        $table_name   = $table_suffix .'db_bak';
 
         $sql   = "select * from $table_name order by id desc";
 
@@ -79,7 +79,7 @@ class db extends auth {
 
         $size = file::getInfo($file,'size')/1024;
 
-        $result = db('dbbak')->add(['file' => $name,'size' => $size]);
+        $result = db('db_bak')->add(['file' => $name,'size' => $size]);
 
         if($result){
 
@@ -101,7 +101,7 @@ class db extends auth {
 
         $db = \gophp\db::instance();
 
-        $dbbak = db('dbbak')->find($id);
+        $dbbak = db('db_bak')->find($id);
 
         if(!$dbbak){
             return false;
@@ -139,7 +139,7 @@ class db extends auth {
 
         $id = request::get('id', 0);
 
-        $dbbak = db('dbbak')->find($id);
+        $dbbak = db('db_bak')->find($id);
 
         $file = RUNTIME_PATH . '/data/' . $dbbak['file'];
 
@@ -155,9 +155,9 @@ class db extends auth {
 
         $id = request::post('id', 0);
 
-        $dbbak = db('dbbak')->find($id);
+        $dbbak = db('db_bak')->find($id);
 
-        $result = db('dbbak')->delete($id);
+        $result = db('db_bak')->delete($id);
 
         if(!$result){
 
