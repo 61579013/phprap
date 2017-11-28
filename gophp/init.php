@@ -11,7 +11,7 @@ require __DIR__ . '/function/function.php';
 require  COMMON_PATH . '/function/function.php';
 
 // 检测PHP版本
-version_compare( PHP_VERSION, '5.5.0', '>=' ) or die( 'PHP版本需要大于5.5.0,当前版本' . PHP_VERSION);
+version_compare( PHP_VERSION, '5.4.0', '>=' ) or die( 'PHP版本需要大于5.4.0,当前版本' . PHP_VERSION);
 
 // 检测是否安装openssl扩展
 extension_loaded('openssl') or die('openssl扩展必须安装');
