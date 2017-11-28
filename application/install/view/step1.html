@@ -84,10 +84,10 @@
 
                                                 <tr>
                                                     <td>pdo扩展</td>
-                                                    <td>{{if class_exists('pdo')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>{{if extension_loaded('pdo')}}支持{{else}}不支持{{/if}}</td>
                                                     <td>支持</td>
                                                     <td>
-                                                        {{if class_exists('pdo')}}
+                                                        {{if extension_loaded('pdo')}}
                                                         <i class="fa fa-check"></i>
                                                         {{else}}
                                                         <i class="fa fa-times"></i>
@@ -113,7 +113,7 @@
                                                 <tr>
                                                     <td>gd扩展</td>
                                                     <td>
-                                                        {{if function_exists('imagecreate')}}
+                                                        {{if extension_loaded('gd')}}
                                                         支持
                                                         {{else}}
                                                         不支持
@@ -121,7 +121,7 @@
                                                     </td>
                                                     <td>支持</td>
                                                     <td>
-                                                        {{if function_exists('imagecreate')}}
+                                                        {{if extension_loaded('gd')}}
                                                         <i class="fa fa-check"></i>
                                                         {{else}}
                                                         <i class="fa fa-times"></i>
