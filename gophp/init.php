@@ -3,6 +3,15 @@
 // 检测PHP版本
 version_compare( PHP_VERSION, '5.5.0', '>=' ) or die( 'PHP版本需要大于5.5.0,当前版本' . PHP_VERSION);
 
+// 检测是否安装openssl扩展
+extension_loaded('openssl') or die('openssl扩展必须安装');
+
+// 检测runtime目录是否有读写权限
+$runtime_path = ROOT_PATH . '/runtime';
+if(!is_readable($runtime_path) || !is_writable($runtime_path)){
+    die('runtime目录必须有可读可写权限');
+}
+
 // 引入composer自动加载文件
 if(is_file($autoloadFile = ROOT_PATH . '/vendor/autoload.php')){
 
