@@ -116,7 +116,7 @@
   
     ```php
     location / { 
-       try_files $uri $uri/ /index.php?r=$uri&$args
+       try_files $uri $uri/ /index.php?r=$uri&$args;
     }
     ```
     
