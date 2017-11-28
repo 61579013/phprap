@@ -13,18 +13,29 @@ class db {
 
         $sql_content = file_get_contents($sql_path);
 
-        $sql_array  = array_filter(explode(';', $sql_content));
+        $sql_array   = array_filter(explode(';', $sql_content));
 
-        foreach ($sql_array as $sql) {
-            if(strpos($sql, 'CREATE TABLE') != false || strpos($sql, 'create table') != false){
+        $db = \gophp\db::instance();
 
-                $table_name = str_replace('CREATE TABLE', '', explode('(', $sql)[0]);
-                $a[] = str_replace($table_name, 'oooooo', $sql);
+        foreach ($sql_array as $k =>$v) {
+            if(strpos($v, 'CREATE TABLE') != false || strpos($v, 'create table') != false){
+
+                $old_table_name = str_replace(['CREATE TABLE','create table', '`'], '', explode('(', $v)[0]);
+                $old_table_name = trim($old_table_name);
+                $new_table_name = $old_table_name . '_' . $project_id;
+
+                $query_sql = str_replace($old_table_name, $new_table_name, $v);
+
+                $db->query("DROP TABLE IF EXISTS $new_table_name;");
+//                $db->query($query_sql);
+
+                ob_flush();
+                flush();
             }
         }
 
 
-        return $table_name;
+        return $query_sql;
 
     }
 
