@@ -80,8 +80,8 @@ COMMIT;
 -- ----------------------------
 --  Table structure for `doc_dbbak`
 -- ----------------------------
-DROP TABLE IF EXISTS `doc_dbbak`;
-CREATE TABLE `doc_dbbak` (
+DROP TABLE IF EXISTS `doc_db_bak`;
+CREATE TABLE `doc_db_bak` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `file` varchar(250) NOT NULL,
   `size` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '大小，单位KB',
