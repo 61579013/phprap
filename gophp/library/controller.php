@@ -50,7 +50,7 @@ class controller
      * @param $url 跳转url
      * @param int $time 延迟跳转时间，单位秒
      */
-    public function success($msg, $url, $time = 1)
+    public function success($msg, $url = '', $time = 1)
     {
 
         $viewFile = config::get('view', 'error_template');
@@ -76,7 +76,7 @@ class controller
      * @param $url 跳转url
      * @param int $time 延迟跳转时间，单位秒
      */
-    public function error($msg, $url, $time = 3)
+    public function error($msg, $url = '', $time = 3)
     {
 
         $viewFile = config::get('view', 'error_template');
@@ -103,7 +103,7 @@ class controller
      * @param array $data
      * @param $type
      */
-    public function ajaxReturn($data, $type)
+    public function ajaxReturn($data, $type = 'json')
     {
 
         return response::ajax($data, $type);
@@ -115,7 +115,7 @@ class controller
      * @param string $message
      * @param $type
      */
-    public function cliReturn($message, $type)
+    public function cliReturn($message, $type = null)
     {
 
         response::cli($message, $type);
