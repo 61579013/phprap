@@ -103,7 +103,7 @@ class controller
      * @param array $data
      * @param $type
      */
-    public function ajaxReturn($data, $type)
+    public function ajaxReturn($data, $type = 'json')
     {
 
         return response::ajax($data, $type);
@@ -115,7 +115,7 @@ class controller
      * @param string $message
      * @param $type
      */
-    public function cliReturn($message, $type)
+    public function cliReturn($message, $type = null)
     {
 
         response::cli($message, $type);

@@ -10,23 +10,30 @@ use gophp\schema;
 
 class db extends auth {
 
+    public $db;
+    public $tableName;
+
+    public function __construct()
+    {
+        $this->db        = \gophp\db::instance();
+        $this->tableName = 'db_bak';
+    }
+
     public function index()
     {
 
-        $db = \gophp\db::instance();
-
-        $table_suffix = $db->suffix;
-        $table_name   = $table_suffix .'dbbak';
+        $table_suffix = $this->db->suffix;
+        $table_name   = $table_suffix . $this->tableName;
 
         $sql   = "select * from $table_name order by id desc";
 
-        $total = count($db->show(false)->query($sql));
+        $total = count($this->db->show(false)->query($sql));
 
         $pre_rows = 10;
 
         $page  = new page($total, $pre_rows);
 
-        $dbbaks = $db->show(false)->query($sql, $pre_rows);
+        $dbbaks = $this->db->show(false)->query($sql, $pre_rows);
 
         $this->assign('page', $page);
         $this->assign('dbbaks', $dbbaks);
@@ -79,7 +86,7 @@ class db extends auth {
 
         $size = file::getInfo($file,'size')/1024;
 
-        $result = db('dbbak')->add(['file' => $name,'size' => $size]);
+        $result = db($this->tableName)->add(['file' => $name,'size' => $size]);
 
         if($result){
 
@@ -99,9 +106,7 @@ class db extends auth {
 
         $id = request::get('id', 0);
 
-        $db = \gophp\db::instance();
-
-        $dbbak = db('dbbak')->find($id);
+        $dbbak = db($this->tableName)->find($id);
 
         if(!$dbbak){
             return false;
@@ -118,7 +123,7 @@ class db extends auth {
 
             }
 
-            $db->query($v);
+            $this->db->query($v);
 
             ob_flush();
             flush();
@@ -139,7 +144,7 @@ class db extends auth {
 
         $id = request::get('id', 0);
 
-        $dbbak = db('dbbak')->find($id);
+        $dbbak = db($this->tableName)->find($id);
 
         $file = RUNTIME_PATH . '/data/' . $dbbak['file'];
 
@@ -155,9 +160,15 @@ class db extends auth {
 
         $id = request::post('id', 0);
 
-        $dbbak = db('dbbak')->find($id);
+        $dbbak = db($this->tableName)->find($id);
 
-        $result = db('dbbak')->delete($id);
+        if(!$dbbak){
+
+            response::ajax(['code'=> 300, 'msg'=>'要删除的备份文件不存在']);
+
+        }
+
+        $result = db($this->tableName)->delete($id);
 
         if(!$result){
 
