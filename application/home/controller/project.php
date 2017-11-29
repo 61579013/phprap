@@ -383,12 +383,23 @@ class project extends auth {
                 $total = $model->show(false)->count();
                 $page  = new page($total, 10);
                 $model = db('member')->where('project_id', '=', $project_id);
-                $members  = $model->page($page)->orderBy('id desc')->show(false)->orderBy('id desc')->findAll();
+                $members  = $model->page($page)->orderBy('id desc')->findAll();
 
                 $this->assign('members', $members);
                 $this->assign('page', $page);
                 $this->display('project/member');
 
+                break;
+
+            case 'map':
+
+                // 获取项目数据字典，含分页
+                $model = db('db_map')->where('project_id', '=', $project_id);
+                $maps  = $model->orderBy('id desc')->findAll();
+
+                $this->assign('maps', $maps);
+
+                $this->display('map/index');
                 break;
 
             case 'history':
@@ -398,7 +409,7 @@ class project extends auth {
                 $total = $model->show(false)->count();
                 $page  = new page($total, 10);
                 $model = db('project_log')->where('project_id', '=', $project_id);
-                $historys  = $model->page($page)->orderBy('id desc')->show(false)->orderBy('id desc')->findAll();
+                $historys  = $model->page($page)->orderBy('id desc')->findAll();
 
                 $this->assign('historys', $historys);
                 $this->assign('page', $page);

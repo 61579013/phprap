@@ -116,17 +116,16 @@ AND table_name LIKE '{$table}' ";
 
     }
 
-    public function getFieldList($table)
+    public function getFieldList($table = '')
     {
 
         $db_name    = $this->config['name'];
 
-        $table_name = $this->config['prefix'] . $table;
 
         $sql = <<<EOT
 SELECT 
 c.table_name, 
-c.column_name as filed, 
+c.column_name as field, 
 c.ordinal_position as sort, 
 c.column_type as type,
 c.column_default as default_value,
@@ -147,7 +146,7 @@ EOT;
 
         if($table){
 
-            $sql .= " AND c.table_name = '$table_name'";
+            $sql .= " AND c.table_name = '$table'";
 
         }
 

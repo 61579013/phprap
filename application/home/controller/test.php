@@ -30,9 +30,11 @@ class test extends controller {
 
         $install_path = APP_PATH . '/install/data/db.sql';
 
-         $create_data = app\db::map(9999, $install_path);
+         $create_data = app\db::map(1, $install_path);
 
-        dump($create_data);exit;
+         $a = schema::instance()->getFieldList('doc_apply');
+
+         dump($create_data);exit;
 
 
 

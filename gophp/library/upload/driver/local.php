@@ -23,10 +23,9 @@ class local extends contract {
 
         $uploadInfo = $_FILES[$inputName];
 
-
         if($this->exist($inputName)){
 
-            $uploadDir = trim($this->config['local']['save_dir'], '/');
+            $uploadDir = trim($this->config['save_dir'], '/');
 
             $this->info['name']   = $uploadInfo['name'];
             $this->info['size']   = $uploadInfo['size'];
@@ -79,7 +78,7 @@ class local extends contract {
 
             if($this->config['local']['save_name']){
 
-                $saveName = $this->config['local']['save_name'];
+                $saveName = $this->config['save_name'];
 
             }else{
 
@@ -98,8 +97,21 @@ class local extends contract {
 
             return '/'.$filePath;
 
+        }else{
+
+            $this->error = '没有上传文件';
+            return false;
+
         }
 
     }
+
+    // 获取错误信息
+    public function getError()
+    {
+        return $this->error;
+    }
+
+
 
 }
