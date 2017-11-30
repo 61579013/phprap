@@ -58,6 +58,7 @@ class map extends auth {
 
         $maps   = db('db_map')->where('project_id', '=', $project_id)->orderBy('id asc')->findAll();
 
+        $this->assign('project', $project);
         $this->assign('maps', $maps);
 
         $this->display('map/edit');

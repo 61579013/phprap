@@ -297,6 +297,7 @@
 
         // 修改数据字典
         $(document).delegate('.js_editMapBtn', 'click',function(){
+            alert('下个版本即将支持，敬请期待', 2000);return;
             var id = $(this).data('id');
             $('#page-wrapper').load("{{url('map/edit')}}", {'id':id});
         });

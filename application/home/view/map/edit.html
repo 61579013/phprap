@@ -1,4 +1,9 @@
-{{$api_id = $api.id}}
+<style>
+    table a.fa, input[type="checkbox"], input[type="radio"]{
+        margin: 10px 5px 0;
+    }
+
+</style>
 <form role="form" id="js_addApiForm" action="{{url('api/add')}}" method="post">
 
     <input name="api[id]" type="hidden" value="{{$api_id}}">
@@ -7,7 +12,8 @@
             <div class="page-header">
                 <h1>字典编辑</h1>
                 <div class="opt-btn">
-                    <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                    <a class="btn btn-sm btn-info js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                    <a class="btn btn-sm btn-success js_refresh" href="javascript:void(0);"><i class="fa fa-fw fa-refresh"></i>复原</a>
                     <a class="btn btn-sm btn-warning" href="javascript:location.reload();"><i class="fa fa-fw fa-reply"></i>取消</a>
 
                 </div>
@@ -17,11 +23,20 @@
     </div>
 
     {{foreach $maps as $map}}
+    {{$table_name = $map.table_name}}
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{$map.table_name}}{{if $map.table_comment}}({{$map.table_comment}}){{/if}}
+
+
+                    <p class="table-name"><strong>{{$map.table_name}}</strong>
+                        <span class="table-comment {{if !$map.table_comment}}hidden{{/if}}">({{$map.table_comment}})</span>
+                        <a href="javascript:void(0);" class="fa fa-fw fa-pencil js_addTableBtn" data-name="{{$map.table_name}}" data-comment="{{$map.table_comment}}" data-toggle="tooltip" title="编辑表名" data-placement="bottom"></a>
+                        <a href="javascript:void(0);" class="fa fa-fw fa-plus js_addTableBtn" data-toggle="tooltip" title="新增数据表" data-placement="bottom"></a>
+                        <a href="javascript:void(0);" class="fa fa-fw fa-trash-o js_deleteTableBtn" data-toggle="tooltip" title="删除数据表" data-placement="bottom"></a>
+                    </p>
+
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -31,38 +46,44 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr class="success">
-
-                                    <th>字段别名</th>
-                                    <th>字段含义</th>
-                                    <th>字段类型</th>
-                                    <th>是否必填</th>
+                                    <th>字段</th>
+                                    <th>类型</th>
+                                    <th>非空</th>
+                                    <th>主键</th>
                                     <th>默认值</th>
-                                    <th>备注说明</th>
-                                    <th>快捷操作</th>
+                                    <th>备注</th>
+                                    <th>操作</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{foreach $request_fields as $request_field}}
-                                <tr class="{{$request_field.class}}">
-                                    <td>{{$request_field.name}}</td>
-                                    <td>{{$request_field.title}}</td>
-                                    <td>{{\app\field::get_type_list({{$request_field.type}})}}</td>
-                                    <td>{{if $request_field.is_required}}是{{else}}否{{/if}}</td>
-                                    <td>{{$request_field.default_value}}</td>
-                                    <td>{{$request_field.intro}}</td>
+                                {{foreach json_decode($map.field_json, true) as $field}}
+                                <tr>
+                                    <td style="width: 15%;">
+                                        <input class="form-control" type="text" value="{{$field.field}}" datatype="*1-50" placeholder="必填">
+                                    </td>
+                                    <td style="width: 15%;">
+                                        <input class="form-control" type="text" value="{{$field.type}}">
+                                    </td>
+                                    <td style="width: 5%;">
+                                        <input class="js_is_null"  {{if !$field.is_null}}checked value="1"{{else}}value="0"{{/if}} type="checkbox">
+                                    </td>
+                                    <td style="width: 5%;">
+                                        <input class="js_is_pk" type="radio" name="{{$table_name}}[is_pk]" value="{{$field.field}}" {{if $field.is_pk}} checked {{/if}}></td>
+                                    <td style="width: 15%;"><input class="form-control" type="text" value="{{$field.default_value}}"></td>
+                                    <td><input class="form-control" type="text" value="{{$field.comment}}"></td>
                                     <td style="width: 10%">
-                                        <a href="javascript:void(0);" class="fa fa-pencil js_addRequestFieldBtn" data-title="编辑请求参数" data-id="{{$api.id}}-{{$request_field.id}}"></a>
-                                        <a href="javascript:void(0);" class="fa fa-trash-o js_deleteFieldBtn" data-title="删除参数" data-id="{{$request_field.id}}"></a>
+                                        <a href="javascript:void(0);" class="fa fa-plus js_addFieldBtn" data-title="新增字段"></a>
+                                        <a href="javascript:void(0);" class="fa fa-trash-o js_deleteFieldBtn" data-title="删除字段"></a>
                                     </td>
                                 </tr>
                                 {{/foreach}}
+
                                 </tbody>
                             </table>
+
                         </div>
 
-                        <div class="form-group">
-                            <button type="button" class="btn btn-default js_addRequestFieldBtn" data-title="添加请求参数" data-id="{{$api.id}}-0"><i class="fa fa-fw fa-plus"></i>添加字段</button>
-                        </div>
                     </div>
                     <!-- /.table-responsive -->
                 </div>
@@ -75,115 +96,126 @@
     {{/foreach}}
 </form>
 
-<!-- 添加/编辑header字段模态框 -->
-<div class="modal fade" id="js_addHeaderFieldModal" role="dialog">
+<!-- 添加、修改数据表模态框 -->
+<div class="modal fade" id="js_addTableModal" tabindex="2" role="dialog">
     <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">编辑数据表</h4>
+                </div>
+                <form>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">表名:</label>
+                            <input type="text" class="form-control js_table_name" name="table_name" value="" placeholder="必填，表名只能是字母、数字或下划线组合，且首位不能是数字" datatype="*2-50">
+                        </div>
 
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">添加header参数</h4>
-            </div>
-            <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">表备注:</label>
+                            <input type="text" class="form-control js_table_comment" name="title" value="" placeholder="必填" datatype="*2-50">
+                        </div>
+                    </div>
 
-                <iframe id="js_addHeaderFieldIframe" style="min-height: 250px;" src="{{url('field/header')}}"></iframe>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary js_headerSubmitBtn">提交</button>
-            </div>
-
-        </div>
-
-    </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-info js_submit">确认</button>
+                </div>
+                </form>
+            </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
-<!-- 添加/编辑请求字段模态框 -->
-<div class="modal fade" id="js_addRequestFieldModal" role="dialog">
-    <div class="modal-dialog" role="document">
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">添加请求参数</h4>
-            </div>
-            <div class="modal-body">
-
-                <iframe id="js_addRequestFieldIframe" style="min-height: 450px;" src="{{url('field/request')}}"></iframe>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary js_requestSubmitBtn">提交</button>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
 <script>
 
     $(function(){
 
+        // 吐司提示
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // 刷新
+        $(document).delegate('.js_refresh', 'click',function(){
+            var id = "{{$project.id}}";
+            $('#page-wrapper').load("{{url('map/edit')}}", {'id':id});
+        });
+
+        // 是否是主键
+        $(".js_is_pk").on('change', function () {
+            var thisObj = $(this);
+            thisObj.closest('tr').find(".js_is_null").attr('checked', 'checked');
+        });
+
+        // 是否非空
+        $(".js_is_null").on('change', function () {
+            var thisObj = $(this);
+            var pkObj = thisObj.closest('tr').find(".js_is_pk");
+            if(pkObj.attr('checked')){
+//                thisObj.attr('checked', 'checked');
+                alert('主键字段不能为空', 1000);
+            }
+        });
+
+
+
+        // 新增字段
+        $("body").on('click', '.js_addFieldBtn',function () {
+            var trObj = $(this).closest('tr');
+            trObj.before(trObj.clone(true)).find('input').val('');
+        });
+
         //表单合法性验证
         $("#js_addApiForm").validateForm();
-
-        // 添加/编辑header字段
-        $(".js_addHeaderFieldBtn").iframeModal({
-            modalItem: '#js_addHeaderFieldModal', //modal元素
-            iframeItem: '#js_addHeaderFieldIframe', //提交按钮
-            submitBtn: '.js_headerSubmitBtn',
-            clickBtn: '.js_addHeaderFieldBtn',
-        });
-
-        // 添加/编辑请求字段
-        $(".js_addRequestFieldBtn").iframeModal({
-            modalItem: '#js_addRequestFieldModal', //modal元素
-            iframeItem: '#js_addRequestFieldIframe', //提交按钮
-            submitBtn: '.js_requestSubmitBtn',
-            clickBtn: '.js_addRequestFieldBtn',
-        });
-
-        // 添加/编辑响应字段
-        $(".js_addResponseFieldBtn").iframeModal({
-            modalItem: '#js_addResponseFieldModal', //modal元素
-            iframeItem: '#js_addResponseFieldIframe', //提交按钮
-            submitBtn: '.js_responSubmitBtn',
-            clickBtn: '.js_addResponseFieldBtn',
-        });
 
         //删除字段
         $(document).delegate('.js_deleteFieldBtn', 'click',function(event){
             // 阻止事件冒泡
             event.stopPropagation();
+
             var thisObj = $(this);
 
-            var id = $(this).data('id');
+            confirm('确认要删除该字段?', function(){
 
-            var url = "{{url('field/delete')}}";
+                thisObj.closest('tr').remove();
+            });
 
-            confirm('确认删除该参数?', function(){
+        });
 
-                $.post(url, { id:id }, function(json){
+        //添加数据表
+        $('.js_addTableBtn').click(function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
 
-                    if(json.code == 200){
+            var name = $(this).data('name');
+            var comment = $(this).data('comment');
 
-                        alert(json.msg, 500, function () {
-                            //移除tr
-                            thisObj.closest('tr').remove();
-                        });
+            if(name){
+                var title = '编辑数据表';
+            }else{
+                var title = '新增数据表';
+            }
 
-                    }else{
+            $('.js_table_name').val(name);
+            $('.js_table_comment').val(comment);
 
-                        alert(json.msg, 2000);
+            $('#js_addTableModal').modal('show').find('.modal-title').text(title);;
 
-                    }
+        });
 
-                }, 'json');
+        $("#js_addTableModal form").validateForm();
+
+
+        //删除数据表
+        $(document).delegate('.js_deleteTableBtn', 'click',function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+
+            var thisObj = $(this);
+
+            confirm('数据表删除后，该表下的字段会一起删除，您确认要删除吗?', function(){
+
+                thisObj.closest('.row').remove();
             });
 
         });

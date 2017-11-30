@@ -3,7 +3,7 @@
  >版本说明
  - master：在线版本，可能会有致命错误，请不要下载安装 
  - develop：开发版本，功能最新，但不稳定，不建议下载安装 
- - stable：稳定版本，建议下载安装，下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)
+ - stable：稳定版本，建议下载安装，下载[源码](https://gitee.com/gouguoyin/phprap/repository/archive/stable.zip)
  
 ## 相关
  - 官方网站：[www.phprap.com](http://www.phprap.com)

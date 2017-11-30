@@ -56,8 +56,8 @@
                                 <tr class="success">
                                     <th>字段</th>
                                     <th>类型</th>
-                                    <th>是否为空</th>
-                                    <th>是否主键</th>
+                                    <th>非空</th>
+                                    <th>主键</th>
                                     <th>默认值</th>
                                     <th>备注</th>
 
@@ -68,8 +68,8 @@
                                 <tr>
                                     <td>{{$field.field}}</td>
                                     <td>{{$field.type}}</td>
-                                    <td><i class="fa {{if $field.is_null}}fa-check{{else}}fa-times{{/if}}"></i></td>
-                                    <td><i class="fa {{if $field.is_pk}}fa-key{{/if}}"></i></td>
+                                    <td>{{if !$field.is_null}}是{{else}}否{{/if}}</td>
+                                    <td>{{if $field.is_pk}}是{{else}}否{{/if}}</td>
                                     <td>{{$field.default_value}}</td>
                                     <td>{{$field.comment}}</td>
 
