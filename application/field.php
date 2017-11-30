@@ -38,7 +38,7 @@ class field {
      * @param $method  //类型，1：请求字段2：响应字段
      * @return array
      */
-    public static function get_field_list($api_id, $method)
+    public static function get_field_list($api_id, $method = 0)
     {
 
         $field_list = db('field')->where('api_id', '=', $api_id)->where('method', '=', $method)->orderBy('id asc')->findAll();
