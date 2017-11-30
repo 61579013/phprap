@@ -21,6 +21,10 @@ class db {
 
         $sql_array   = array_filter(explode(';', $sql_content));
 
+        if(!$sql_array){
+            return false;
+        }
+
         $db = \gophp\db::instance();
 
         foreach ($sql_array as $k =>$v) {

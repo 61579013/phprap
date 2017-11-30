@@ -44,6 +44,27 @@ class map extends auth {
     }
 
     /**
+     * 编辑接口
+     */
+    public function edit()
+    {
+
+        $project_id = request::post('id', 0);
+        $project    = \app\project::get_project_info($project_id);
+
+        if(!$project){
+            $this->error('抱歉，要编辑的项目不存在');
+        }
+
+        $maps   = db('db_map')->where('project_id', '=', $project_id)->orderBy('id asc')->findAll();
+
+        $this->assign('maps', $maps);
+
+        $this->display('map/edit');
+
+    }
+
+    /**
      * 删除数据字典
      */
     public function delete()

@@ -12,7 +12,7 @@ class member extends auth {
      */
     public function add(){
 
-        if(request::isAjax()){
+        if(request::isPost()){
 
             $member_id  = request::post('id', 0);
             $user_id    = request::post('user_id', 0);
@@ -22,11 +22,13 @@ class member extends auth {
             $module_rule  = request::post('module_rule', []);
             $api_rule     = request::post('api_rule', []);
             $member_rule  = request::post('member_rule', []);
+            $map_rule     = request::post('map_rule', []);
 
             $project_rules = implode(',', $project_rule);
             $module_rules  = implode(',', $module_rule);
             $api_rules     = implode(',', $api_rule);
             $member_rules  = implode(',', $member_rule);
+            $map_rules     = implode(',', $map_rule);
 
             $member = [
                 'id'          => $member_id,
@@ -34,6 +36,7 @@ class member extends auth {
                 'module_rule' => $module_rules,
                 'api_rule'    => $api_rules,
                 'member_rule' => $member_rules,
+                'map_rule'    => $map_rules,
                 'project_id'  => $project_id,
                 'user_id'     => $user_id,
             ];
@@ -66,6 +69,7 @@ class member extends auth {
             $module_rules  = explode(',', $member['module_rule']);
             $api_rules     = explode(',', $member['api_rule']);
             $member_rules  = explode(',', $member['member_rule']);
+            $map_rules     = explode(',', $member['map_rule']);
 
             $this->assign('member', $member);
 
@@ -73,6 +77,7 @@ class member extends auth {
             $this->assign('module_rules', $module_rules);
             $this->assign('api_rules', $api_rules);
             $this->assign('member_rules', $member_rules);
+            $this->assign('map_rules', $map_rules);
 
             $this->display('member/add');
 

@@ -13,7 +13,7 @@ class step2 extends auth {
 
         if(session('step') < 2){
 
-            response::redirect('install/step1');
+            //response::redirect('install/step1');
 
         }
 

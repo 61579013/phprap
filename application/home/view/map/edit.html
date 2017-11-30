@@ -1,0 +1,193 @@
+{{$api_id = $api.id}}
+<form role="form" id="js_addApiForm" action="{{url('api/add')}}" method="post">
+
+    <input name="api[id]" type="hidden" value="{{$api_id}}">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1>字典编辑</h1>
+                <div class="opt-btn">
+                    <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                    <a class="btn btn-sm btn-warning" href="javascript:location.reload();"><i class="fa fa-fw fa-reply"></i>取消</a>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    {{foreach $maps as $map}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{$map.table_name}}{{if $map.table_comment}}({{$map.table_comment}}){{/if}}
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+
+                        <div class="panel-request">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr class="success">
+
+                                    <th>字段别名</th>
+                                    <th>字段含义</th>
+                                    <th>字段类型</th>
+                                    <th>是否必填</th>
+                                    <th>默认值</th>
+                                    <th>备注说明</th>
+                                    <th>快捷操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{foreach $request_fields as $request_field}}
+                                <tr class="{{$request_field.class}}">
+                                    <td>{{$request_field.name}}</td>
+                                    <td>{{$request_field.title}}</td>
+                                    <td>{{\app\field::get_type_list({{$request_field.type}})}}</td>
+                                    <td>{{if $request_field.is_required}}是{{else}}否{{/if}}</td>
+                                    <td>{{$request_field.default_value}}</td>
+                                    <td>{{$request_field.intro}}</td>
+                                    <td style="width: 10%">
+                                        <a href="javascript:void(0);" class="fa fa-pencil js_addRequestFieldBtn" data-title="编辑请求参数" data-id="{{$api.id}}-{{$request_field.id}}"></a>
+                                        <a href="javascript:void(0);" class="fa fa-trash-o js_deleteFieldBtn" data-title="删除参数" data-id="{{$request_field.id}}"></a>
+                                    </td>
+                                </tr>
+                                {{/foreach}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default js_addRequestFieldBtn" data-title="添加请求参数" data-id="{{$api.id}}-0"><i class="fa fa-fw fa-plus"></i>添加字段</button>
+                        </div>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+    {{/foreach}}
+</form>
+
+<!-- 添加/编辑header字段模态框 -->
+<div class="modal fade" id="js_addHeaderFieldModal" role="dialog">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加header参数</h4>
+            </div>
+            <div class="modal-body">
+
+                <iframe id="js_addHeaderFieldIframe" style="min-height: 250px;" src="{{url('field/header')}}"></iframe>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary js_headerSubmitBtn">提交</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- 添加/编辑请求字段模态框 -->
+<div class="modal fade" id="js_addRequestFieldModal" role="dialog">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加请求参数</h4>
+            </div>
+            <div class="modal-body">
+
+                <iframe id="js_addRequestFieldIframe" style="min-height: 450px;" src="{{url('field/request')}}"></iframe>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default js_close" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary js_requestSubmitBtn">提交</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    $(function(){
+
+        //表单合法性验证
+        $("#js_addApiForm").validateForm();
+
+        // 添加/编辑header字段
+        $(".js_addHeaderFieldBtn").iframeModal({
+            modalItem: '#js_addHeaderFieldModal', //modal元素
+            iframeItem: '#js_addHeaderFieldIframe', //提交按钮
+            submitBtn: '.js_headerSubmitBtn',
+            clickBtn: '.js_addHeaderFieldBtn',
+        });
+
+        // 添加/编辑请求字段
+        $(".js_addRequestFieldBtn").iframeModal({
+            modalItem: '#js_addRequestFieldModal', //modal元素
+            iframeItem: '#js_addRequestFieldIframe', //提交按钮
+            submitBtn: '.js_requestSubmitBtn',
+            clickBtn: '.js_addRequestFieldBtn',
+        });
+
+        // 添加/编辑响应字段
+        $(".js_addResponseFieldBtn").iframeModal({
+            modalItem: '#js_addResponseFieldModal', //modal元素
+            iframeItem: '#js_addResponseFieldIframe', //提交按钮
+            submitBtn: '.js_responSubmitBtn',
+            clickBtn: '.js_addResponseFieldBtn',
+        });
+
+        //删除字段
+        $(document).delegate('.js_deleteFieldBtn', 'click',function(event){
+            // 阻止事件冒泡
+            event.stopPropagation();
+            var thisObj = $(this);
+
+            var id = $(this).data('id');
+
+            var url = "{{url('field/delete')}}";
+
+            confirm('确认删除该参数?', function(){
+
+                $.post(url, { id:id }, function(json){
+
+                    if(json.code == 200){
+
+                        alert(json.msg, 500, function () {
+                            //移除tr
+                            thisObj.closest('tr').remove();
+                        });
+
+                    }else{
+
+                        alert(json.msg, 2000);
+
+                    }
+
+                }, 'json');
+            });
+
+        });
+
+    });
+
+</script>
