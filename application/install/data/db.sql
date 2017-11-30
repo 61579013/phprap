@@ -90,6 +90,25 @@ CREATE TABLE `doc_db_bak` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `doc_db_map`
+-- ----------------------------
+DROP TABLE IF EXISTS `doc_db_map`;
+CREATE TABLE `doc_db_map` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `project_id` int(10) NOT NULL DEFAULT '0' COMMENT '项目id',
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
+  `table_name` varchar(20) NOT NULL,
+  `table_comment` varchar(50) NOT NULL DEFAULT '' COMMENT '表备注',
+  `field_json` text NOT NULL COMMENT '字段json字符串',
+  `add_time` datetime DEFAULT NULL COMMENT '添加时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`),
+  KEY `user_id` (`user_id`),
+  KEY `table_name` (`table_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=432 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `doc_field`
 -- ----------------------------
 DROP TABLE IF EXISTS `doc_field`;
