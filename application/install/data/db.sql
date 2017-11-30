@@ -87,7 +87,26 @@ CREATE TABLE `doc_db_bak` (
   `size` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '大小，单位KB',
   `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='数据备份表';
+
+-- ----------------------------
+--  Table structure for `doc_db_map`
+-- ----------------------------
+DROP TABLE IF EXISTS `doc_db_map`;
+CREATE TABLE `doc_db_map` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `project_id` int(10) NOT NULL DEFAULT '0' COMMENT '项目id',
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
+  `table_name` varchar(20) NOT NULL,
+  `table_comment` varchar(50) NOT NULL DEFAULT '' COMMENT '表备注',
+  `field_json` text NOT NULL COMMENT '字段json字符串',
+  `add_time` datetime DEFAULT NULL COMMENT '添加时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`),
+  KEY `user_id` (`user_id`),
+  KEY `table_name` (`table_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=432 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
 
 -- ----------------------------
 --  Table structure for `doc_field`
@@ -148,6 +167,7 @@ CREATE TABLE `doc_member` (
   `module_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '权限',
   `api_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '接口权限',
   `member_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '成员权限',
+  `map_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '数据字典权限',
   `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`) USING BTREE,

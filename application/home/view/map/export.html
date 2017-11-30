@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{{$user_id = $project.user_id}}
 <head>
 
     <meta charset="utf-8">
@@ -9,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{$project.title}}接口离线文档——{{get_config('name')}}</title>
+    <title>{{$project.title}}数据字典——{{get_config('name')}}</title>
 
     <style>
         html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{margin:.67em 0;font-size:2em}mark{color:#000;background:#ff0}small{font-size:80%}sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{height:0;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{margin:0;font:inherit;color:inherit}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}input{line-height:normal}input[type=checkbox],input[type=radio]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver}legend{padding:0;border:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-spacing:0;border-collapse:collapse}td,th{padding:0}/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */@media print{*,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important}a,a:visited{text-decoration:underline}a[href]:after{content:" (" attr(href) ")"}abbr[title]:after{content:" (" attr(title) ")"}a[href^="javascript:"]:after,a[href^="#"]:after{content:""}blockquote,pre{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}img,tr{page-break-inside:avoid}img{max-width:100%!important}h2,h3,p{orphans:3;widows:3}h2,h3{page-break-after:avoid}select{background:#fff!important}.navbar{display:none}.btn>.caret,.dropup>.btn>.caret{border-top-color:#000!important}.label{border:1px solid #000}.table{border-collapse:collapse!important}.table td,.table th{background-color:#fff!important}.table-bordered td,.table-bordered th{border:1px solid #ddd!important}}@font-face{font-family:'Glyphicons Halflings';src:url(../fonts/glyphicons-halflings-regular.eot);src:url(../fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(../fonts/glyphicons-halflings-regular.woff2) format('woff2'),url(../fonts/glyphicons-halflings-regular.woff) format('woff'),url(../fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
@@ -38,7 +37,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header">
-                    <h1>{{$project.title}}接口离线文档 </h1>
+                    <h1>{{$project.title}}数据字典 </h1>
                 </div>
             </div>
             <!-- /.col-lg-12 -->
@@ -47,18 +46,40 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        基本信息
-                    </div>
+
                     <div class="panel-body">
-                        <p class="text-muted"><label>项目名称：</label>{{$project.title}}</p>
-                        <p class="text-muted"><label>项目创建人：</label>{{_uri('user', $user_id, 'name')}}({{_uri('user', $user_id, 'email')}}）</p>
-                        <p class="text-muted"><label>创建时间：</label>{{$project.add_time}}</p>
-                        <p class="text-muted"><label>更新时间：</label>{{$project.update_time}}</p>
+                        {{foreach $maps as $map}}
+                        <div class="table-responsive">
+                            <p class="table-name"><strong>{{$map.table_name}}{{if $map.table_comment}}({{$map.table_comment}}){{/if}}</strong></p>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr class="success">
+                                    <th>字段</th>
+                                    <th>类型</th>
+                                    <th>非空</th>
+                                    <th>主键</th>
+                                    <th>默认值</th>
+                                    <th>备注</th>
 
-                        <p class="text-muted"><label>导出时间：</label>{{date('Y-m-d H:i:s')}}</p>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{foreach json_decode($map.field_json, true) as $field}}
+                                <tr>
+                                    <td>{{$field.field}}</td>
+                                    <td>{{$field.type}}</td>
+                                    <td>{{if !$field.is_null}}是{{else}}否{{/if}}</td>
+                                    <td>{{if $field.is_pk}}是{{else}}否{{/if}}</td>
+                                    <td>{{$field.default_value}}</td>
+                                    <td>{{$field.comment}}</td>
 
-                        <p class="text-muted"><label>项目描述：</label><span style="word-break:break-all">{{$project.intro}}</span></p>
+                                </tr>
+                                {{/foreach}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        {{/foreach}}
 
                     </div>
                     <!-- /.panel-body -->
@@ -67,137 +88,6 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-
-        <!-- /.row -->
-        {{foreach $modules as $k => $module}}
-        {{$module_id = $module.id}}
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 id="overview-doctype">{{$module.title}}</h3>
-                {{$apis = \app\api::get_api_list($module_id)}}
-                {{foreach $apis as $k => $api}}
-                {{$api_id = $api.id}}
-                <h4>{{$k+1}}、{{$api.title}}</h4>
-                <ul>
-                    <li><p class="text-muted"><label>请求地址：</label></p>
-                        <table class="table table-striped table-bordered table-hover">
-
-                            <tbody>
-                            {{foreach $envs as $env}}
-                            <tr>
-                                <td style="width: 12%">{{$env.title}}({{$env.name}})</td>
-                                <td style="width: 80%"><code>{{$env.domain}}/{{$api.uri}}</code></td>
-                            </tr>
-                            {{/foreach}}
-
-                            <tr>
-                                <td style="width: 20%;">模拟环境(mock)</td>
-                                <td style="width: 50%;"><code>{{url("mock/{{id_encode($api.id)}}", '', true)}}</code></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </li>
-                    <li><p class="text-muted"><label>请求类型：</label>{{\app\api::get_method_list($api.method)}}</p></li>
-                    <li><p class="text-muted"><label>接口描述：</label>{{$api.intro}}</p></li>
-
-                    <li>
-                        <p class="text-muted"><label>Header参数：</label></p>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr class="success">
-                                    <th>字段键</th>
-                                    <th>字段值</th>
-                                    <th>备注说明</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{$header_fields = \app\field::get_field_list($api_id, 3)}}
-                                {{foreach $header_fields as $header_field}}
-                                <tr class="{{$request_field.class}}">
-                                    <td>{{$header_field.name}}</td>
-
-                                    <td>{{$header_field.default_value}}</td>
-                                    <td>{{$header_field.intro}}</td>
-                                </tr>
-                                {{/foreach}}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-
-                    <li>
-                        <p class="text-muted"><label>请求参数：</label></p>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr class="success">
-                                    <th>字段别名</th>
-                                    <th>字段含义</th>
-                                    <th>字段类型</th>
-                                    <th>是否必填</th>
-                                    <th>默认值</th>
-                                    <th>备注说明</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{$request_fields = \app\field::get_field_list($api_id, 1)}}
-                                {{foreach $request_fields as $request_field}}
-                                <tr class="{{$request_field.class}}">
-                                    <td>{{$request_field.delimiter}}{{if $request_field.parent_id}}--{{/if}}{{$request_field.name}}</td>
-                                    <td>{{$request_field.title}}</td>
-                                    <td>{{\app\field::get_type_list({{$request_field.type}})}}</td>
-                                    <td>{{if $request_field.is_required}}是{{else}}否{{/if}}</td>
-                                    <td>{{$request_field.default_value}}</td>
-                                    <td>{{$request_field.intro}}</td>
-                                </tr>
-                                {{/foreach}}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-
-                    <li>
-                        <p class="text-muted"><label>响应参数：</label></p>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr class="success">
-                                    <th>字段别名</th>
-                                    <th>字段含义</th>
-                                    <th>字段类型</th>
-                                    <th>备注说明</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{$response_fields = \app\field::get_field_list($api_id, 2)}}
-
-                                {{foreach $response_fields as $response_field}}
-                                <tr class="{{if $response_field.level == 1}}warning{{/if}}">
-                                    <td style="text-align: left;padding-left: 50px;">{{$response_field.delimiter}}{{if $response_field.parent_id}}└{{/if}}{{$response_field.name}}</td>
-                                    <td>{{$response_field.title}}</td>
-                                    <td>{{\app\field::get_type_list({{$response_field.type}})}}</td>
-                                    <td>{{$response_field.intro}}</td>
-                                </tr>
-
-                                {{/foreach}}
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-
-                </ul>
-                {{/foreach}}
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-6 -->
-        </div>
-        {{/foreach}}
-
-
 
     </div>
 

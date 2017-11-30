@@ -58,6 +58,7 @@ class member {
                 'module_rule' => $data['module_rule'],
                 'api_rule'    => $data['api_rule'],
                 'member_rule' => $data['member_rule'],
+                'map_rule'    => $data['map_rule'],
             ];
 
             $result =  db('member')->show(false)->where('id', '=', $member_id)->update($rule);
@@ -219,6 +220,7 @@ class member {
         $title  = '';
 
         foreach ($rule_list as $rule){
+
             if($rule == 'look'){
                 $title .= '查看、';
             }
@@ -237,7 +239,9 @@ class member {
             if($rule == 'export'){
                 $title .= '导出、';
             }
-
+            if($rule == 'import'){
+                $title .= '导入、';
+            }
 
         }
 
@@ -263,13 +267,13 @@ class member {
 
         }
 
-        if(!in_array($type, ['project', 'module', 'api', 'member'])){
+        if(!in_array($type, ['project', 'module', 'api', 'member', 'map'])){
 
             return false;
 
         }
 
-        if(!in_array($option, ['look', 'add', 'update', 'remove', 'delete', 'transfer'])){
+        if(!in_array($option, ['look', 'add', 'update', 'remove', 'delete', 'transfer', 'import', 'export'])){
 
             return false;
 
