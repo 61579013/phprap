@@ -87,7 +87,7 @@ CREATE TABLE `doc_db_bak` (
   `size` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '大小，单位KB',
   `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='数据备份表';
 
 -- ----------------------------
 --  Table structure for `doc_db_map`
@@ -106,7 +106,7 @@ CREATE TABLE `doc_db_map` (
   KEY `project_id` (`project_id`),
   KEY `user_id` (`user_id`),
   KEY `table_name` (`table_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=432 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=432 DEFAULT CHARSET=utf8 COMMENT='数据字典表';
 
 -- ----------------------------
 --  Table structure for `doc_field`
