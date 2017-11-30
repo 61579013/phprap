@@ -167,6 +167,7 @@ CREATE TABLE `doc_member` (
   `module_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '权限',
   `api_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '接口权限',
   `member_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '成员权限',
+  `map_rule` varchar(50) NOT NULL DEFAULT '' COMMENT '数据字典权限',
   `add_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id_index` (`user_id`) USING BTREE,
