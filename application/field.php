@@ -23,7 +23,7 @@ class field {
      * @param $type
      * @return mixed
      */
-    public static function get_type_list($type)
+    public static function get_type_list($type=null)
     {
 
         $field_type_list = config::get_project_config('field_type');
