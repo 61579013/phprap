@@ -135,6 +135,9 @@ class member {
             }
 
             $data['add_time'] = date('Y-m-d H:i:s');
+            
+            unset($data['id']);
+            
             $id =  db('member')->show(false)->add($data);
 
             if(!$id){
