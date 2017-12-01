@@ -155,6 +155,9 @@ class api {
 
             // 新增
             $data['add_time'] = date('Y-m-d H:i:s');
+            
+            unset($data['id']);
+            
             $id =  db('api')->show(false)->add($data);
 
             if(!$id){
