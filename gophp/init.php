@@ -4,12 +4,6 @@
 ini_set("display_errors", "Off");
 error_reporting(E_ALL ^ E_NOTICE);
 
-require __DIR__ . '/bootstrap/const.php';
-
-require __DIR__ . '/function/function.php';
-
-require  COMMON_PATH . '/function/function.php';
-
 // 检测PHP版本
 version_compare( PHP_VERSION, '5.4.0', '>=' ) or die( 'PHP版本需要大于5.4.0,当前版本' . PHP_VERSION);
 
@@ -20,6 +14,12 @@ extension_loaded('openssl') or die('openssl扩展必须安装');
 if(!is_readable(RUNTIME_PATH) || !is_writable(RUNTIME_PATH)){
     die('runtime目录必须有可读可写权限');
 }
+
+require __DIR__ . '/bootstrap/const.php';
+
+require __DIR__ . '/function/function.php';
+
+require  COMMON_PATH . '/function/function.php';
 
 // 引入composer自动加载文件
 if(is_file($autoloadFile = ROOT_PATH . '/vendor/autoload.php')){
