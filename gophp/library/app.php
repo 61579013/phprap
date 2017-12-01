@@ -120,14 +120,6 @@ class app
 
             $viewFile = config::get('view', 'debug_template') . '.' . $suffix;
 
-            // 将session赋值到debug模块
-            $session = $_SESSION;
-            $view->assign('session', $session);
-
-            // 将cookie赋值到debug模块
-            $cookie = $_COOKIE;
-            $view->assign('cookie', $cookie);
-
         }else{
 
             $viewFile = config::get('view', '404_template') . '.' . $suffix;
