@@ -196,6 +196,8 @@ class project {
             $data['user_id']  = user::get_user_id();
             $data['add_time'] = date('Y-m-d H:i:s');
 
+            unset($data['id']);
+
             $id  = db('project')->show(false)->add($data);
 
             //记录日志
