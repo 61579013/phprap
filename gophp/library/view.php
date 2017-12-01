@@ -17,11 +17,13 @@ class view extends contract
     private function __construct()
     {
 
-        $this->config = config::get('view');
+        $config       = config::get('view');
 
-        $this->driver = $this->config['driver'];
+        $this->driver = $config['driver'];
 
-        $this->suffix = $this->config[$this->driver]['template_suffix'];
+        $this->config = $config[$this->driver];
+
+        $this->suffix = $this->config['template_suffix'];
 
     }
 

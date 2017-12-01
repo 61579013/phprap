@@ -14,7 +14,7 @@ class smarty extends contract
     public function __construct($config)
     {
 
-        $this->config = $config['smarty'];
+        $this->config = $config;
 
         $this->view = new \Smarty();
 
