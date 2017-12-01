@@ -10,12 +10,12 @@ version_compare( PHP_VERSION, '5.4.0', '>=' ) or die( 'PHP版本需要大于5.4.
 // 检测是否安装openssl扩展
 extension_loaded('openssl') or die('openssl扩展必须安装');
 
+require __DIR__ . '/bootstrap/const.php';
+
 // 检测runtime目录是否有读写权限
 if(!is_readable(RUNTIME_PATH) || !is_writable(RUNTIME_PATH)){
     die('runtime目录必须有可读可写权限');
 }
-
-require __DIR__ . '/bootstrap/const.php';
 
 require __DIR__ . '/function/function.php';
 
