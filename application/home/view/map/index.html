@@ -87,7 +87,7 @@
                         {{/if}}
 
                         {{if \app\member::has_rule({{$project.id}}, 'map', 'delete')}}
-                        <a {{if !$maps}}disabled{{/if}} href="javascript:void(0);" class="btn btn-sm btn-danger js_deleteMapBtn" data-toggle="tooltip" title="删除数据字典" data-placement="bottom"  data-id="{{$project.id}}"><i class="fa fa-fw fa-times"></i>删除</a>
+                        <a {{if !$maps}}disabled{{/if}} href="javascript:void(0);" class="btn hidden-xs btn-sm btn-danger js_deleteMapBtn" data-toggle="tooltip" title="删除数据字典" data-placement="bottom"  data-id="{{$project.id}}"><i class="fa fa-fw fa-times"></i>删除</a>
                         {{/if}}
 
                         {{if \app\member::has_rule({{$project.id}}, 'map', 'export')}}
