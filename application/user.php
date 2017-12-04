@@ -273,7 +273,7 @@ class user {
      * @param $type
      * @return mixed
      */
-    public static function get_device_list($type, $device)
+    public static function get_device_list($type, $device = null)
     {
 
         if($type == 'title'){

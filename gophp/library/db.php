@@ -235,7 +235,7 @@ class db extends contract
 
     }
 
-    public function delete($id)
+    public function delete($id = null)
     {
 
         $method = __FUNCTION__;
