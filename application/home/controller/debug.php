@@ -118,8 +118,7 @@ class debug extends controller {
             'url' => url("mock/$encode_id", '', true),
         ];
 
-        sort($envs);
-        array_push($envs, $mock);
+        array_unshift($envs, $mock);
 
         // 获取请求参数列表
         $request_fields = \app\field::get_field_list($id, 1);
