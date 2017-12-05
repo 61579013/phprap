@@ -40,12 +40,12 @@
 
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git -b 'stable'
+    git clone https://github.com/gouguoyin/phprap.git -b "stable"
     ```
     
   [**GITEE**]
     ```php
-    git clone https://gitee.com/gouguoyin/phprap.git -b 'stable'
+    git clone https://gitee.com/gouguoyin/phprap.git -b "stable"
     ```
     
   [**源码**]
