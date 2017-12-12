@@ -44,6 +44,7 @@ class step1 extends auth {
                 'php_version' => PHP_VERSION,
             ];
 
+            $chmod['upload']  = get_dir_chmod(WEB_PATH.'/upload/');
             $chmod['runtime'] = get_dir_chmod(ROOT_PATH.'/runtime/');
             $chmod['compile'] = get_dir_chmod(RUNTIME_PATH.'/compile');
             $chmod['config']  = get_dir_chmod(RUNTIME_PATH.'/config/');
