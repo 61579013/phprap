@@ -12,7 +12,11 @@ class register extends controller {
 
     public function index(){
 
+        // 是否开启注册口令
         $register_token = config::get_config_value('register_token');
+
+        // 是否开启注册验证码
+        $register_captcha = config::get_config_value('register_captcha');
 
         if(request::isPost()){
 
@@ -38,7 +42,7 @@ class register extends controller {
 
             $captcha = captcha::instance()->check('register', $code);
 
-            if($captcha['code'] != 200){
+            if($register_captcha && $captcha['code'] != 200){
 
                 return response::ajax(['code' => 402, 'msg' => '验证码错误或已失效!']);
 
@@ -82,6 +86,7 @@ class register extends controller {
         }else{
 
             $this->assign('register_token', $register_token);
+            $this->assign('register_captcha', $register_captcha);
 
             $this->display('register');
 

@@ -3,7 +3,7 @@
 namespace gophp;
 
 use gophp\helper\str;
-use gophp\traits\call;
+use gophp\traits\driver;
 use PDO;
 
 class schema
@@ -11,17 +11,69 @@ class schema
 
     private $db     = null;
     private $stmt   = null;
-    private $config = [];
 
-    use call;
+    use driver;
 
     private function __construct()
     {
 
-        $db = db::instance();
-        $this->db = $db->connect();
+        $config = config::get(RUNTIME_PATH.'/config/db.php');
 
-        $this->config = $db->config;
+        $this->driver = $config['driver'];
+
+        $this->config = $config[$this->driver];
+
+    }
+
+    // 检测连接状态
+    public function ping($dbName = null)
+    {
+
+        try{
+
+            $dsn = "mysql:host={$this->config['host']};port={$this->config['port']};";
+
+            if($dbName){
+
+                $dsn .= "dbname={$dbName}";
+
+            }
+
+            $this->db = new PDO($dsn, $this->config['user'], $this->config['password']);
+
+            return true;
+
+        }catch (\PDOException $e){
+
+            return false;
+        }
+
+    }
+
+    // 连接数据库
+    public function connect($dbName)
+    {
+
+        try{
+
+            $this->ping($dbName);
+
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true); //使用缓冲查询，仅mysql有效
+            $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, true); //启用预处理语句的模拟
+            $this->db->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL); //强制列名小写
+            $this->db->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_NATURAL); //指定数据库返回的NULL值在php中对应的数值
+            $this->db->setAttribute(PDO::ATTR_AUTOCOMMIT, 1); //开启自动提交
+
+            //设置字符集
+            $this->db->exec('SET NAMES ' . $this->config['charset']);
+
+            return $this->db;
+
+        }catch (\PDOException $e){
+
+            throw new exception("mysql connect Error:" . $e->getMessage());
+        }
 
     }
 
@@ -54,14 +106,18 @@ AND table_name LIKE '{$table}' ";
 
     }
 
-    // 创建表
-    protected function createTable($table, $data)
+    // 创建库
+    public function createDB($dbName)
     {
-        //todo
+
+        $sql = "create database `{$dbName}`";
+
+        return $this->connect()->query($sql);
+
     }
 
     // 删除表
-    protected function dropTable($table)
+    public function dropTable($table)
     {
 
         $sql = "DROP TABLE IF EXISTS `$table`";
@@ -79,7 +135,7 @@ AND table_name LIKE '{$table}' ";
     }
 
     // 获取主键字段
-    protected function getPK($table)
+    public function getPK($table)
     {
 
         $pk  = 'id';
@@ -105,7 +161,7 @@ AND table_name LIKE '{$table}' ";
     }
 
     // 获取所有字段
-    protected function getFields($table)
+    public function getFields($table)
     {
 
         $sql = 'SHOW COLUMNS FROM ' . $table;
@@ -120,7 +176,6 @@ AND table_name LIKE '{$table}' ";
     {
 
         $db_name    = $this->config['name'];
-
 
         $sql = <<<EOT
 SELECT 
@@ -261,6 +316,8 @@ EOT;
 
         try {
 
+            $this->db = $this->connect($this->config['name']);
+
             $this->stmt = $this->db->query($sql);
 
         } catch(\PDOException $e) {
@@ -276,7 +333,7 @@ EOT;
     public function version()
     {
 
-        $stmt = $this->query('select VERSION()');
+        $stmt = $this->connect()->query('select VERSION()');
 
         $versions =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
