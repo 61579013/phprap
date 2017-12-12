@@ -3,17 +3,20 @@
 namespace app\home\controller;
 
 use app\user;
+use gophp\captcha;
+use app\config;
 use gophp\controller;
-use gophp\page;
 use gophp\request;
 use gophp\response;
-
 
 class login extends controller {
 
     public function index(){
 
         $user_id = user::get_user_id();
+
+        // 是否开启登录验证码
+        $login_captcha = config::get_config_value('login_captcha');
 
         if($user_id){
 
@@ -23,6 +26,16 @@ class login extends controller {
 
             $email    = request::post('email', '');
             $password = request::post('password', '');
+            $code     = request::post('code', '');
+
+
+            $captcha = captcha::instance()->check('login', $code);
+
+            if($login_captcha && $captcha['code'] != 200){
+
+                return response::ajax(['code' => 402, 'msg' => '验证码错误或已失效!']);
+
+            }
 
             $password = md5(encrypt($password));
 
@@ -59,9 +72,18 @@ class login extends controller {
 
         }else{
 
+            $this->assign('login_captcha', $login_captcha);
             $this->display('login');
 
         }
+
+    }
+
+    public function code(){
+
+        $code = captcha::instance()->show('login');
+
+        echo $code;
 
     }
 
