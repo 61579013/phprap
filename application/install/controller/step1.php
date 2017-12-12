@@ -1,10 +1,12 @@
 <?php
-
 namespace app\install\controller;
 
 use gophp\request;
 use gophp\response;
+use gophp\schema;
 
+ini_set("display_errors", "On");
+error_reporting(E_ALL ^ E_NOTICE);
 class step1 extends auth {
 
     public function index(){

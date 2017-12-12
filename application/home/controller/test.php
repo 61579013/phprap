@@ -22,6 +22,8 @@ use gophp\schema;
 use app;
 
 
+ini_set("display_errors", "On");
+error_reporting(E_ALL ^ E_NOTICE);
 class test extends controller {
 
     public function index()
@@ -29,8 +31,11 @@ class test extends controller {
 
         $project_id = 1;
 
+
         // 先清空项目的数据字典表
-        $a = db('db_map')->show(true)->where('project_id', '=', $project_id)->delete();
+        $a = file::create(RUNTIME_PATH.'/install.lock','phprap v' . GOPHP_VERSION . ' install at ' . date('Y-m-d H:i:s'));
+
+
 
          dump($a);exit;
 

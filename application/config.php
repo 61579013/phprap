@@ -10,6 +10,12 @@ class config {
 
         $config = json_decode($config, true);
 
+        if($config_name == 'copyright'){
+
+            return $config[$config_name] . '  由<a target="_blank" href="http://www.phprap.com">PHPRAP</a>强力驱动';
+
+        }
+
         return $config_name ? $config[$config_name] : $config;
 
     }

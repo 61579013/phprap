@@ -61,7 +61,7 @@ class step4 extends auth {
         if($admin_id){
 
             // 创建安装锁文件
-            if(!file::create(RUNTIME_PATH.'/install.lock')){
+            if(!file::create(RUNTIME_PATH.'/install.lock','phprap v' . GOPHP_VERSION . 'install at  ' . date('Y-m-d H:i:s'))){
 
                 $this->error('安装失败，请确认 ' . RUNTIME_PATH . ' 目录有读写权限');
                 exit;

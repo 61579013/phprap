@@ -15,6 +15,7 @@ class mysql extends contract
 
     protected $config;
     protected $db;
+    protected $schema;
     protected $stmt;
     protected $tableName;
     protected $tablePrefix;
@@ -34,30 +35,9 @@ class mysql extends contract
 
         $this->config = $config;
 
-        $this->ping() and $this->db = $this->connect();
+        $this->db = $this->connect();
 
-    }
-
-    /**
-     * 判断连接状态
-     * @return bool
-     */
-    public function ping()
-    {
-
-        try{
-
-            $this->db = new PDO($this->dsn(), $this->config['user'], $this->config['password']);
-
-            return true;
-
-        }catch (\PDOException $e){
-
-            return false;
-        }
-
-
-
+        $this->schema = schema::instance();
 
     }
 
@@ -210,7 +190,7 @@ class mysql extends contract
     public function find($field = '*')
     {
 
-        $this->pk  = schema::getPK($this->tableName);
+        $this->pk  = $this->schema->getPK($this->tableName);
 
         $field     = isset($field) ? $field : '*';
 
@@ -507,7 +487,7 @@ class mysql extends contract
     public function delete($id)
     {
 
-        $pk = schema::getPK($this->tableName);
+        $pk  = $this->schema->getPK($this->tableName);
 
         if(is_array($id) && $id){
 
