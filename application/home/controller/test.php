@@ -22,8 +22,8 @@ use gophp\schema;
 use app;
 
 
-ini_set("display_errors", "On");
-error_reporting(E_ALL ^ E_NOTICE);
+//ini_set("display_errors", "On");
+//error_reporting(E_ALL ^ E_NOTICE);
 class test extends controller {
 
     public function index()
@@ -33,7 +33,7 @@ class test extends controller {
 
 
         // 先清空项目的数据字典表
-        $a = file::create(RUNTIME_PATH.'/install.lock','phprap v' . GOPHP_VERSION . ' install at ' . date('Y-m-d H:i:s'));
+        $a = demo();
 
 
 

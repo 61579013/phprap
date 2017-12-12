@@ -118,11 +118,11 @@ class app
 
         if(APP_DEBUG){
 
-            $viewFile = config::get('view', 'debug_template') . '.' . $suffix;
+            $viewFile = $view->config['debug_template'] . '.' . $suffix;
 
         }else{
 
-            $viewFile = config::get('view', '404_template') . '.' . $suffix;
+            $viewFile = $view->config['404_template'] . '.' . $suffix;
 
         }
 
@@ -138,6 +138,7 @@ class app
             response::cli($message, 'error');
 
         }else{
+
             // 展示错误信息
             $view->assign('error', self::$error);
 

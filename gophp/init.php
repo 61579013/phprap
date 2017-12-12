@@ -1,7 +1,7 @@
 <?php
 
 // 默认关闭错误报告
-ini_set("display_errors", "On");
+ini_set("display_errors", "Off");
 error_reporting(E_ALL ^ E_NOTICE);
 
 // 检测PHP版本
