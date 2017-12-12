@@ -150,6 +150,26 @@
                                                     </td>
                                                 </tr>
 
+                                                <tr>
+                                                    <td>curl扩展</td>
+                                                    <td>
+                                                        {{if extension_loaded('curl')}}
+                                                        支持
+                                                        {{else}}
+                                                        不支持
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('curl')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" name="step1['curl']" value="必须安装CURL扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
