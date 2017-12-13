@@ -51,7 +51,7 @@ class schema
     }
 
     // 连接数据库
-    public function connect($dbName)
+    public function connect($dbName = null)
     {
 
         try{
