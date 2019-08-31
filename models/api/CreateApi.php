@@ -15,13 +15,10 @@ class CreateApi extends Api
     public function rules()
     {
         return [
-            [['module_id', 'title', 'uri', 'sort'], 'required'],
-
-            [['header_field', 'request_field', 'response_field'], 'string'],
+            [['module_id', 'title', 'sort'], 'required'],
             [['title', 'uri', 'remark'], 'string', 'max' => 250],
             [['request_method', 'response_format'], 'string', 'max' => 20],
             [['project_id', 'module_id','sort'], 'integer'],
-
             ['id', 'validateAuth'],
         ];
     }
