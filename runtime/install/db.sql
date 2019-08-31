@@ -119,8 +119,8 @@ CREATE TABLE `doc_field` (
   `header_fields` text COMMENT 'header字段',
   `request_fields` text COMMENT '请求字段',
   `response_fields` text COMMENT '响应字段',
-  `creater_id` int(10) NOT NULL COMMENT '创建者id',
-  `updater_id` int(10) NOT NULL COMMENT '更新者id',
+  `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
+  `updater_id` int(10) NOT NULL DEFAULT '0' COMMENT '更新者id',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='接口字段表';
@@ -172,8 +172,8 @@ CREATE TABLE `doc_member` (
   `api_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '接口权限',
   `member_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '成员权限',
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
-  `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updater_id` int(10) DEFAULT '0' COMMENT '更新者id',
+  `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目成员表';
 
@@ -239,11 +239,11 @@ INSERT INTO `doc_project` (`id`, `encode_id`, `title`, `remark`, `sort`, `status
 
 CREATE TABLE `doc_project_log` (
   `id` int(1) NOT NULL,
-  `project_id` int(10) NOT NULL COMMENT '项目id',
+  `project_id` int(10) NOT NULL DEFAULT '0' COMMENT '项目id',
   `object_name` varchar(10) NOT NULL COMMENT '操作对象',
-  `object_id` int(10) NOT NULL COMMENT '操作对象id',
-  `user_id` int(10) NOT NULL COMMENT '操作人id',
-  `type` varchar(10) NOT NULL COMMENT '操作类型',
+  `object_id` int(10) NOT NULL DEFAULT '0'  COMMENT '操作对象id',
+  `user_id` int(10) NOT NULL DEFAULT '0'  COMMENT '操作人id',
+  `type` varchar(10) NOT NULL DEFAULT '0' COMMENT '操作类型',
   `content` text NOT NULL COMMENT '操作内容',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
@@ -281,8 +281,8 @@ CREATE TABLE `doc_template` (
   `header_fields` text COMMENT 'header参数，json格式',
   `request_fields` text COMMENT '请求参数，json格式',
   `response_field` text NOT NULL COMMENT '响应参数，json格式',
-  `status` tinyint(3) NOT NULL COMMENT '模板状态',
-  `type` tinyint(3) NOT NULL COMMENT '模板类型',
+  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '模板状态',
+  `type` tinyint(3) NOT NULL DEFAULT '0' COMMENT '模板类型',
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `updater_id` int(10) NOT NULL DEFAULT '0' COMMENT '更新者id',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
