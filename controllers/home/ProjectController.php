@@ -1,10 +1,10 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Config;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
+use app\models\Config;
 use app\models\Project;
 use app\models\Template;
 use app\models\Member;
@@ -130,8 +130,12 @@ class ProjectController extends PublicController
     {
         $project = Project::findModel(['encode_id' => $id]);
 
-        if(!Yii::$app->user->identity->isAdmin && $project->status !== $project::ACTIVE_STATUS){
+        if(!$project->id){
             return $this->error('抱歉，项目不存在或者已被删除');
+        }
+
+        if(!Yii::$app->user->identity->isAdmin && $project->status !== $project::ACTIVE_STATUS){
+            return $this->error('抱歉，项目已被禁用或已被删除');
         }
 
         if($project->isPrivate()) {
