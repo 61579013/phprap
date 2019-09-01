@@ -148,11 +148,10 @@ class ProjectController extends PublicController
             }
         }
 
-        $params = Yii::$app->request->queryParams;
-
-        $params['project_id'] = $project->id;
-
         $assign['project'] = $project;
+
+        $params = Yii::$app->request->queryParams;
+        $params['project_id'] = $project->id;
 
         switch ($tab) {
             case 'home':
@@ -160,7 +159,6 @@ class ProjectController extends PublicController
                 $view  = '/home/project/home';
 
                 break;
-
             case 'template':
 
                 if(!$project->hasAuth(['template' => 'look'])) {
@@ -172,7 +170,6 @@ class ProjectController extends PublicController
                 $view  = '/home/template/home';
 
                 break;
-
             case 'env':
 
                 if(!$project->hasAuth(['env' => 'look'])) {
@@ -182,7 +179,6 @@ class ProjectController extends PublicController
                 $view = '/home/env/index';
 
                 break;
-
             case 'member':
 
                 if(!$project->hasAuth(['member' => 'look'])) {
@@ -194,7 +190,6 @@ class ProjectController extends PublicController
                 $view  = '/home/member/index';
 
                 break;
-
             case 'history':
 
                 if(!$project->hasAuth(['project' => 'history'])) {
