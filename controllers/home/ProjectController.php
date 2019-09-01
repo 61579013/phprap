@@ -1,10 +1,10 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Config;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
+use app\models\Config;
 use app\models\Project;
 use app\models\Template;
 use app\models\Member;
