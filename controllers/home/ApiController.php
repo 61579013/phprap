@@ -167,6 +167,11 @@ class ApiController extends PublicController
                 $view  = '/home/field/home';
                 break;
             case 'history':
+
+                if(!$api->project->hasAuth(['api' => 'history'])) {
+                    return $this->error('抱歉，您无权查看');
+                }
+
                 $params['object_name'] = 'api';
                 $params['object_id']   = $api->id;
                 $assign['history'] = ProjectLog::findModel()->search($params);
