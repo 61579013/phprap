@@ -13,7 +13,7 @@ class CreateField extends Field
     public function rules()
     {
         return [
-            [['api_id'], 'integer'],
+            [['api_id'], 'required'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
             ['api_id', 'validateAuth'],
         ];
