@@ -32,6 +32,7 @@
 
                         {{if $project->hasAuth(['api' => 'update'])}}
                         <a href="{{url('home/field/update', ['id' => $field->encode_id, 'method' => 'form'])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="{{url('home/field/update', ['id' => $field->encode_id, 'method' => 'json'])}}" class="btn btn-sm hidden-xs btn-warning"><i class="fa fa-fw fa-edit"></i>导入</a>
                         {{/if}}
 
                     </div>
