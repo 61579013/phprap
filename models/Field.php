@@ -151,7 +151,7 @@ class Field extends Model
         $content = '';
         foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
-            $label = '<strong>' .  $this->getAttributeLabel($name) . '</strong>';
+            $label = '<code>' .  $this->getAttributeLabel($name) . '</code>';
 
             if(isset($this->oldAttributes[$name])){
                 $content .= '更新了  ' . $label . ',';
