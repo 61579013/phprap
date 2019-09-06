@@ -49,6 +49,12 @@ class UpdateField extends Field
         $field->request_fields  = $this->request_fields;
         $field->response_fields = $this->response_fields;
 
+        if(array_sum([strlen($this->header_fields), strlen($this->request_fields), strlen($this->response_fields)]) == 0){
+            $this->addError($field->getErrorLabel(), '至少填写一个字段');
+            $transaction->rollBack();
+            return false;
+        }
+
         // 如果有更改，保存操作日志
         if(array_filter($field->dirtyAttributes)) {
             $log = new CreateLog();
