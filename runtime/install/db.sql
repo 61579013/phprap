@@ -282,7 +282,6 @@ CREATE TABLE `doc_template` (
   `request_fields` text COMMENT '请求参数，json格式',
   `response_field` text NOT NULL COMMENT '响应参数，json格式',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '模板状态',
-  `type` tinyint(3) NOT NULL DEFAULT '0' COMMENT '模板类型',
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `updater_id` int(10) NOT NULL DEFAULT '0' COMMENT '更新者id',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
@@ -437,8 +436,7 @@ ALTER TABLE `doc_template`
   ADD UNIQUE KEY `encode_id` (`encode_id`),
   ADD KEY `creater_id` (`creater_id`),
   ADD KEY `project_id` (`project_id`) USING BTREE,
-  ADD KEY `status` (`status`),
-  ADD KEY `type` (`type`);
+  ADD KEY `status` (`status`);
 
 --
 -- Indexes for table `doc_user`
