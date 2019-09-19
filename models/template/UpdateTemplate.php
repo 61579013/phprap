@@ -6,7 +6,6 @@ use app\models\Template;
 
 class UpdateTemplate extends Template
 {
-
     /**
      * 保存模板
      * @return bool
@@ -20,11 +19,16 @@ class UpdateTemplate extends Template
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
-        $this->creater_id = Yii::$app->user->identity->id;
-        $this->created_at = date('Y-m-d H:i:s');
+        $template = &$this;
 
-        if(!$this->save()){
-            $this->addError($this->getErrorLabel(), $this->getErrorMessage());
+        $template->header_fields   = $this->header_fields;
+        $template->request_fields  = $this->request_fields;
+        $template->response_fields = $this->response_fields;
+        $template->status     = $template::ACTIVE_STATUS;
+        $template->updater_id = Yii::$app->user->identity->id;
+
+        if(!$template->save()){
+            $this->addError($template->getErrorLabel(), $template->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

@@ -1,4 +1,4 @@
-{{include_file name='home/public/header' title='编辑字段'}}
+{{include_file name='home/public/header' title='更新模板'}}
 <style>
     .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
         padding: 8px 8px 8px 0;
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-header">
-                        <h1>编辑字段</h1>
+                        <h1>更新模板</h1>
                         <div class="opt-btn">
                             <a class="btn btn-sm btn-warning js_cancel" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
                             <a class="btn btn-sm btn-success ml-1" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
@@ -132,11 +132,12 @@
 
                     <div class="panel panel-default">
 
-                        {{include_file name='home/api/tab' tab='field'}}
+                        {{include_file name='home/project/tab' tab='template'}}
 
                         <div class="panel-body">
 
                             <div class="row">
+
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -161,7 +162,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    {{foreach $field->headerAttributes as $header}}
+                                                    {{foreach $template->headerAttributes as $header}}
                                                     <tr>
                                                         <td class="hidden"><input name="header[id][]" class="form-control js_id" value="{{$header->id}}"></td>
                                                         <td class="hidden"><input name="header[parent_id][]" class="form-control js_parent_id" value="{{$header->parent_id}}"></td>
@@ -235,7 +236,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    {{foreach $field->requestAttributes as $request}}
+                                                    {{foreach $template->requestAttributes as $request}}
                                                     <tr>
 
                                                         <td class="hidden"><input name="request[id][]" class="form-control js_id" value="{{$request->id}}"></td>
@@ -306,7 +307,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    {{foreach $field->responseAttributes as $k=>$response}}
+                                                    {{foreach $template->responseAttributes as $k=>$response}}
                                                     <tr>
                                                         <td class="hidden"><input name="response[id][]" class="form-control js_id" value="{{$response->id}}"></td>
                                                         <td class="hidden"><input name="response[parent_id][]" class="form-control js_parent_id" value="{{$response->parent_id}}"></td>
