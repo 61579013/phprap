@@ -7,6 +7,17 @@ use app\models\Template;
 class UpdateTemplate extends Template
 {
     /**
+     * 验证规则
+     */
+    public function rules()
+    {
+        return [
+            [['id'], 'required'],
+            [['header_fields', 'request_fields', 'response_fields'], 'string'],
+        ];
+    }
+
+    /**
      * 保存模板
      * @return bool
      */
