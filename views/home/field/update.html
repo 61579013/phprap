@@ -374,7 +374,7 @@
     // 取消保存
     function cancelSave() {
         confirm('您编辑的内容还没有保存，确定要退出吗？', function () {
-            window.location.href = "{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'field'])}}";
+            window.history.go(-1);
         });
     }
 
