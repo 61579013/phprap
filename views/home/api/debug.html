@@ -297,6 +297,7 @@
                                             <span class="response-tip text-success pull-right hidden">
                                                 <a href="javascript:void(0);">status:<span class="http-code text-success"></span></a>
                                                 <a href="javascript:void(0);">time:<span class="total-time text-success"></span>ms</a>
+                                                <a href="javascript:void(0);">size:<span class="total-size text-success"></span>B</a>
                                             </span>
 
                                         </div>
@@ -368,6 +369,7 @@
 
                 $(".http-code").text(json.info.http_code);
                 $(".total-time").text(Math.round(json.info.total_time*1000));
+                $(".total-size").text(Math.round(json.info.header_size + json.info.request_size));
             },
             'error':function (json) {
                 $(".js_envUrl").focus();
