@@ -29,7 +29,7 @@
                     <h1>项目模板 </h1>
                     <div class="opt-btn">
                         {{if $project->template->id}}
-                        <a href="{{url('home/template/update', ['id' => $template->encode_id])}}" class="btn hidden-xs btn-sm btn-warning"><i class="fa fa-fw fa-plus"></i>编辑</a>
+                        <a href="{{url('home/template/update', ['id' => $template->encode_id])}}" class="btn hidden-xs btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         {{else}}
                         <a href="{{url('home/template/create', ['project_id' => $project->encode_id])}}" class="btn hidden-xs btn-sm btn-success"><i class="fa fa-fw fa-plus"></i>添加</a>
                         {{/if}}
