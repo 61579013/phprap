@@ -52,7 +52,7 @@ class ApiController extends PublicController
             $header_params  = $this->getHeaderParams($request->post('header'));
             $request_params = $this->getRequestParams($request->post('request'));
 
-            dump($request_params);
+//            dump($request_params);
 
             $curl = new Curl();
 
