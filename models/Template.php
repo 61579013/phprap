@@ -38,7 +38,7 @@ class Template extends Model
     {
         return [
             [['encode_id', 'project_id', 'status'], 'required'],
-            [['project_id', 'status', 'creater_id', 'updater_id'], 'integer'],
+            [['project_id', 'post_method','status', 'creater_id', 'updater_id'], 'integer'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['encode_id'], 'string', 'max' => 50],
@@ -55,6 +55,7 @@ class Template extends Model
             'id' => 'ID',
             'encode_id' => '加密id',
             'project_id' => '项目id',
+            'post_method' => 'POST请求方式',
             'header_fields' => 'header参数，json格式',
             'request_fields' => '请求参数，json格式',
             'response_fields' => '响应参数，json格式',
@@ -91,6 +92,16 @@ class Template extends Model
     public function getResponseAttributes()
     {
         return json_decode($this->response_fields);
+    }
+
+    /**
+     * 获取POST请求方式标签
+     * @return mixed
+     */
+    public function getPostMethodLabel()
+    {
+        $field = new Field();
+        return $field->postMethodLabels[$this->post_method];
     }
 
     /**

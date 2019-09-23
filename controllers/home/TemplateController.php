@@ -28,7 +28,8 @@ class TemplateController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            $model->project_id = $project->id;
+            $model->project_id      = $project->id;
+            $model->post_method     = $request->post('post_method');
             $model->header_fields   = $this->form2json($request->post('header'));
             $model->request_fields  = $this->form2json($request->post('request'));
             $model->response_fields = $this->form2json($request->post('response'));
@@ -61,6 +62,7 @@ class TemplateController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
+            $model->post_method     = $request->post('post_method');
             $model->header_fields   = $this->form2json($request->post('header'));
             $model->request_fields  = $this->form2json($request->post('request'));
             $model->response_fields = $this->form2json($request->post('response'));

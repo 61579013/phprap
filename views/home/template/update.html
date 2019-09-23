@@ -220,15 +220,11 @@
                                             <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
 
                                             <div class="post-type">
+                                                {{foreach $field->postMethodLabels as $k => $v}}
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="request[post_type]" value="option1" checked>form-data
+                                                    <input type="radio" name="post_method" value="{{$k}}" {{if $k == $template->post_method}}checked{{/if}}>{{$v}}
                                                 </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="request[post_type]" value="option2">x-www-form-urlencoded
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="request[post_type]" value="option3">raw
-                                                </label>
+                                                {{/foreach}}
                                             </div>
 
                                         </div>

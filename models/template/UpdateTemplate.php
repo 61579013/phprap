@@ -12,7 +12,7 @@ class UpdateTemplate extends Template
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['id', 'post_method'], 'required'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
         ];
     }
@@ -32,6 +32,7 @@ class UpdateTemplate extends Template
 
         $template = &$this;
 
+        $template->post_method     = $this->post_method;
         $template->header_fields   = $this->header_fields;
         $template->request_fields  = $this->request_fields;
         $template->response_fields = $this->response_fields;

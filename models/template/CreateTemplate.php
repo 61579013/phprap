@@ -58,6 +58,7 @@ class CreateTemplate extends Template
 
         $template->encode_id  = $this->createEncodeId();
         $template->project_id = $this->project_id;
+        $template->post_method     = $this->post_method;
         $template->header_fields   = $this->header_fields;
         $template->request_fields  = $this->request_fields;
         $template->response_fields = $this->response_fields;

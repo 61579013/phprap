@@ -44,6 +44,16 @@ class Field extends Model
     ];
 
     /**
+     * post请求方式标签
+     * @var array
+     */
+    public $postMethodLabels = [
+        '10' => 'form-data',
+        '20' => 'x-www-form-urlencoded',
+        '30' => 'raw',
+    ];
+
+    /**
      * 默认header参数
      * @var array
      */
@@ -70,8 +80,8 @@ class Field extends Model
     public function rules()
     {
         return [
-            [['api_id', 'creater_id', 'updater_id'], 'integer'],
-            [['creater_id', 'created_at'], 'required'],
+            [['api_id', 'post_method', 'creater_id', 'updater_id'], 'integer'],
+            [['api_id', 'creater_id'], 'required'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
             [['encode_id'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
@@ -87,6 +97,7 @@ class Field extends Model
         return [
             'id' => 'ID',
             'api_id' => '接口ID',
+            'post_method' => 'post请求方式',
             'header_fields' => 'header字段',
             'request_fields' => '请求字段',
             'response_fields' => '响应字段',
@@ -141,6 +152,15 @@ class Field extends Model
     public function getResponseAttributes()
     {
         return json_decode($this->response_fields);
+    }
+
+    /**
+     * 获取POST请求方式标签
+     * @return mixed
+     */
+    public function getPostMethodLabel()
+    {
+        return $this->postMethodLabels[$this->post_method];
     }
 
     /**

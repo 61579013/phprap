@@ -218,6 +218,13 @@
                                         <div class="panel-heading">
                                             请求参数
                                             <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
+                                            <div class="post-type">
+                                                {{foreach $field->postMethodLabels as $k => $v}}
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="post_method" value="{{$k}}" {{if $k == 10}}checked{{/if}}>{{$v}}
+                                                </label>
+                                                {{/foreach}}
+                                            </div>
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
