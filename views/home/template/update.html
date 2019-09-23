@@ -218,6 +218,19 @@
                                         <div class="panel-heading">
                                             请求参数
                                             <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
+
+                                            <div class="post-type">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="request[post_type]" value="option1" checked>form-data
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="request[post_type]" value="option2">x-www-form-urlencoded
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="request[post_type]" value="option3">raw
+                                                </label>
+                                            </div>
+
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">

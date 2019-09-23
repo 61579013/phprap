@@ -11,6 +11,7 @@ use app\widgets\LinkPager;
  * @property int $id
  * @property string $encode_id 加密id
  * @property int $project_id 项目id
+ * @property int $post_method post请求方式
  * @property string $header_fields header参数，json格式
  * @property string $request_fields 请求参数，json格式
  * @property string $response_fields 响应参数，json格式

@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $encode_id 加密id
  * @property int $api_id 接口ID
+ * @property int $post_method post请求方式
  * @property string $header_fields header字段
  * @property string $request_fields 请求字段
  * @property string $response_fields 响应字段
