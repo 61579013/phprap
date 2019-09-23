@@ -215,6 +215,13 @@
                                         <div class="panel-heading">
                                             请求参数
                                             <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
+                                            <div class="post-type">
+                                                {{foreach $api->field->postMethodLabels as $k => $v}}
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="post_method" value="{{$k}}" {{if $k == $api->field->post_method}}checked{{/if}}>{{$v}}
+                                                </label>
+                                                {{/foreach}}
+                                            </div>
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
@@ -289,7 +296,7 @@
 
                                             <span class="response-tip text-success pull-right hidden">
                                                 <a href="javascript:void(0);">status:<span class="http-code text-success"></span></a>
-                                                <a href="javascript:void(0);">time:<span class="total-time text-success"></span>s</a>
+                                                <a href="javascript:void(0);">time:<span class="total-time text-success"></span>ms</a>
                                             </span>
 
                                         </div>
@@ -360,7 +367,7 @@
                 $('.response-body').jsonViewer(JSON.parse(json.body));
 
                 $(".http-code").text(json.info.http_code);
-                $(".total-time").text(json.info.total_time);
+                $(".total-time").text(Math.round(json.info.total_time*1000));
             },
             'error':function (json) {
                 $(".js_envUrl").focus();

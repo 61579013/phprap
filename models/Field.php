@@ -81,7 +81,7 @@ class Field extends Model
     {
         return [
             [['api_id', 'post_method', 'creater_id', 'updater_id'], 'integer'],
-            [['api_id', 'creater_id'], 'required'],
+            [['api_id', 'creater_id', 'post_method'], 'required'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
             [['encode_id'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],

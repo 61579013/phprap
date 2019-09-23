@@ -45,12 +45,13 @@ class UpdateField extends Field
 
         $field = &$this;
 
+        $field->post_method     = $this->post_method;
         $field->header_fields   = $this->header_fields;
         $field->request_fields  = $this->request_fields;
         $field->response_fields = $this->response_fields;
 
-        if(array_sum([strlen($this->header_fields), strlen($this->request_fields), strlen($this->response_fields)]) == 0){
-            $this->addError($field->getErrorLabel(), '至少填写一个字段');
+        if(strlen($this->response_fields) == 0){
+            $this->addError($field->getErrorLabel(), '响应参数不能为空');
             $transaction->rollBack();
             return false;
         }

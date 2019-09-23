@@ -43,16 +43,18 @@ class ApiController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            $api = $request->post('api');
+            $data = $request->post('api');
 
-            $request_url = $api['request_url'];
-            $request_method = $api['request_method'];
+            $request_url    = $data['request_url'];
+            $request_method = $data['request_method'];
             $header_params  = $this->getHeaderParams($request->post('header'));
             $request_params = $this->getRequestParams($request->post('request'));
 
             $curl = new Curl();
 
             $header_params && $curl->setHeaders($header_params);
+
+            $post_method = $api->field->post_method;
 
             switch ($request_method) {
                 case 'get':

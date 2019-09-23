@@ -50,8 +50,8 @@ class CreateTemplate extends Template
         // 保存接口
         $template = new Template();
 
-        if(array_sum([strlen($this->header_fields), strlen($this->request_fields), strlen($this->response_fields)]) == 0){
-            $this->addError($template->getErrorLabel(), '至少填写一个字段');
+        if(strlen($this->response_fields) == 0){
+            $this->addError($template->getErrorLabel(), '响应参数不能为空');
             $transaction->rollBack();
             return false;
         }

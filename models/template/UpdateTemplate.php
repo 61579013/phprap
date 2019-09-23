@@ -32,6 +32,12 @@ class UpdateTemplate extends Template
 
         $template = &$this;
 
+        if(strlen($this->response_fields) == 0){
+            $this->addError($template->getErrorLabel(), '响应参数不能为空');
+            $transaction->rollBack();
+            return false;
+        }
+
         $template->post_method     = $this->post_method;
         $template->header_fields   = $this->header_fields;
         $template->request_fields  = $this->request_fields;
