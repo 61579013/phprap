@@ -168,7 +168,7 @@
                                                     <th width="200px">参数名</th>
                                                     <th width="200px">参数标题</th>
                                                     <th width="120px">参数类型</th>
-                                                    <th width="200px">MOCK规则</th>
+                                                    <th width="200px">示例值</th>
                                                     <th>备注说明</th>
                                                 </tr>
                                                 </thead>
@@ -184,8 +184,8 @@
                                                     </td>
                                                     <td>{{$response->title}}</td>
                                                     <td>{{$field->fieldTypeLabels[$response->type]}}</td>
-                                                    <td>{{$response->mock}}</td>
-                                                    <td>{{$response->description}}</td>
+                                                    <td>{{$response->example_value}}</td>
+                                                    <td>{{$response->remark}}</td>
                                                 </tr>
                                                 {{/foreach}}
                                                 </tbody>
