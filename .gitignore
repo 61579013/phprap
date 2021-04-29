@@ -3,3 +3,5 @@
 /static/js/field.js
 
 runtime/smarty/*
+runtime/cache
+runtime/install
