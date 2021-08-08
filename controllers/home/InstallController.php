@@ -72,9 +72,9 @@ class InstallController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             $step2 = $request->post('Step2');
-
+            $dsn = empty($step2['sock']) ? "mysql:host={$step2['host']};port={$step2['port']}}" : "mysql:unix_socket={$step2['sock']}";
             $db = [
-                'dsn'      => "mysql:host={$step2['host']};port={$step2['port']}}",
+                'dsn'      => $dsn,
                 'username' => $step2['username'],
                 'password' => $step2['password'],
                 'charset'  => 'utf8',
@@ -100,7 +100,7 @@ class InstallController extends PublicController
                 return ['status' => 'error', 'message' => "数据库 {$step2['dbname']} 创建失败，没有创建数据库权限，请手动创建数据库"];
             }
 
-            $db['dsn']         = "mysql:host={$step2['host']};port={$step2['port']};dbname={$step2['dbname']}";
+            $db['dsn']         = "$dsn;dbname={$step2['dbname']}";
             $db['tablePrefix'] = $step2['prefix'];
             $db = ['class' => 'yii\db\Connection'] + $db;
 
